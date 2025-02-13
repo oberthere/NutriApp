@@ -11,9 +11,9 @@
 	</parent>
 
 	<groupId>edu.rit.swen262</groupId>
-	<artifactId>TEAM-XX-DESIGN-PROJECT</artifactId>
+	<artifactId>NUTRiAPP-2-DESIGN-PROJECT</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>REPLACE-ME-WITH-PROJECT-NAME</name>
+	<name>NUTRiAPP-2</name>
 	<description>
     YOUR PROJECT DESCRIPTION HERE
   </description>
