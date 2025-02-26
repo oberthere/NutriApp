@@ -2,7 +2,9 @@ package edu.rit.swen262.user;
 
 import java.util.Date;
 
+import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.GoalService;
+import edu.rit.swen262.user.service.ShoppingListService;
 
 public class User {
     private String name;
@@ -10,8 +12,8 @@ public class User {
     private double weight;
     private Date birthdate;
     private GoalService goalService;
-    // private ShoppingListService shoppingListService;
-    // private DailyHistory dailyHistory;
+    private ShoppingListService shoppingListService;
+    private DailyHistoryService dailyHistory;
 
     public User(String name, double height, double weight, Date birthdate) {
         this.name = name;
