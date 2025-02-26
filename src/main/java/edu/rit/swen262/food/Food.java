@@ -1,6 +1,6 @@
 package edu.rit.swen262.food;
 
-public interface FoodInterface {
+public interface Food {
     
     String getName();
 

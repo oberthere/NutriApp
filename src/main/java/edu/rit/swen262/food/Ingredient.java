@@ -1,6 +1,6 @@
 package edu.rit.swen262.food;
 
-public class Ingredient implements FoodInterface {
+public class Ingredient implements Food {
 
     String name;
     int calories;
