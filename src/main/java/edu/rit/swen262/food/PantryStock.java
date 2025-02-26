@@ -1,13 +1,21 @@
 package edu.rit.swen262.food;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class PantryStock {
-    private Map<Ingredient, Integer> ingredients;
+public final class PantryStock {
+    private static final Map<Ingredient, Integer> ingredientRecord = new HashMap<>();
+    
+    public static Map<Ingredient, Integer> getAllIngredients() {return PantryStock.ingredientRecord;}
 
-    public PantryStock(Map<Ingredient, Integer> ingredients) {
-        this.ingredients = ingredients;
+    public static void updateIngredients(Ingredient ingredient, int amount) {
+        PantryStock.ingredientRecord.put(ingredient, amount);
     }
-
-    public void updateIngredients(Ingredient ingredient, int amount) {this.ingredients.put(ingredient, amount);}
+    
+    public static void updateIngredientRecord(Map<Ingredient, Integer> ingredientRecord) {
+        PantryStock.ingredientRecord.clear();
+        for (Ingredient ingredient : ingredientRecord.keySet()) {
+            PantryStock.ingredientRecord.put(ingredient, ingredientRecord.get(ingredient));
+        }
+    }
 }
