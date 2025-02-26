@@ -10,7 +10,15 @@ public class Ingredient implements FoodInterface {
     double fiber;
     double stock;
 
-    public Ingredient(String name, double stock, int calories, double fat, double protein, double carbs, double fiber){
+    public Ingredient(
+        String name, 
+        double stock, 
+        int calories, 
+        double fat, 
+        double protein, 
+        double carbs, 
+        double fiber) 
+    {
         this.name = name;
         this.stock = stock;
         this.calories = calories;

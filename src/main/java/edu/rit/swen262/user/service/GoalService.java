@@ -1,4 +1,4 @@
-package edu.rit.swen262.service;
+package edu.rit.swen262.user.service;
 
 import edu.rit.swen262.goal.GainWeight;
 import edu.rit.swen262.goal.Goal;

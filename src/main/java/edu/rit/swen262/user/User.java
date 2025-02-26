@@ -2,7 +2,7 @@ package edu.rit.swen262.user;
 
 import java.util.Date;
 
-import edu.rit.swen262.service.GoalService;
+import edu.rit.swen262.user.service.GoalService;
 
 public class User {
     private String name;
