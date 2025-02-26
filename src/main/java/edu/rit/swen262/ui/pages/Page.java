@@ -14,7 +14,7 @@ public abstract class Page {
     protected List<Page> childrenPage;
     protected List<UserCommand> userCommands;
 
-    public void printContent(PageData pageData) {
+    public void printContent() {
         String pageLink = name;
         Page page = parentPage;
         while (page.getParentPage() != null)

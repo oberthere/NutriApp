@@ -46,7 +46,7 @@ public class PageRunner {
 
     public void runPage() {
         this.pageCommands = this.currentPage.getCommands();
-        this.currentPage.printContent(this.pageData);
+        this.currentPage.printContent();
         this.currentPage.printCommand();
         this.executeCommand(this.pageCommands);
     }

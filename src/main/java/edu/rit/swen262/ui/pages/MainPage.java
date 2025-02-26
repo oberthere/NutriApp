@@ -6,6 +6,7 @@ import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.UserCommand;
 
 public class MainPage extends Page {
+    private PageData pageData;
 
     public MainPage(PageData pageData, String name) {
         this.pageData = pageData;
@@ -13,8 +14,8 @@ public class MainPage extends Page {
     }
 
     @Override
-    public void printContent(PageData pageData) {
-        super.printContent(pageData);
+    public void printContent() {
+        super.printContent();
     }
 
     
