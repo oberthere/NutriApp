@@ -16,9 +16,10 @@ public class ShopCriteriaLowRecipeStrategy implements ShopCriteriaStrategy {
         Recipe recipe = (Recipe) food;
         for (Food recipeFood : recipe.getIngredients()) {
             Ingredient recipeIngredient = (Ingredient) recipeFood;
-            if (PantryStock.getAllIngredients().get(recipeIngredient) <= ShopCriteriaStrategy.lowStockQuantityValue)
+            if (PantryStock.getAllIngredients().get(recipeIngredient) <= ShopCriteriaStrategy.lowStockQuantityValue) {
+                shoppingList.addToShoppingList(recipeIngredient);
+            }
         }
-
         return shoppingList;
     }
     

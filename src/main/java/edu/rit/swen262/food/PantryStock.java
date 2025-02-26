@@ -11,11 +11,15 @@ public final class PantryStock {
     public static void updateIngredients(Ingredient ingredient, int amount) {
         PantryStock.ingredientRecord.put(ingredient, amount);
     }
-    
+
     public static void updateIngredientRecord(Map<Ingredient, Integer> ingredientRecord) {
         PantryStock.ingredientRecord.clear();
         for (Ingredient ingredient : ingredientRecord.keySet()) {
             PantryStock.ingredientRecord.put(ingredient, ingredientRecord.get(ingredient));
         }
+    }
+
+    public static int searchIngredient(Ingredient ingredient) {
+        return PantryStock.ingredientRecord.get(ingredient);
     }
 }
