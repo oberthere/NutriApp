@@ -14,6 +14,7 @@ public class ShopCriteriaLowRecipeStrategy implements ShopCriteriaStrategy {
         ShoppingList shoppingList = new ShoppingList();
         Recipe recipe = (Recipe) food;
         for (Food ingredient : recipe.getIngredients()) {
+            
         }
 
         return shoppingList;

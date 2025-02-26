@@ -60,5 +60,23 @@ public class Ingredient implements Food {
         return fiber;
     }
 
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Ingredient) {
+            Ingredient other = (Ingredient) obj;
+            return this.name.equals(other.getName());
+        }
+        return false;
+    }
+
+    
+
+    
+
     
 }
