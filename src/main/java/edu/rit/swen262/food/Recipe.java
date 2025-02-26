@@ -14,6 +14,7 @@ public class Recipe implements Food {
     }
 
     public String getInstructions() {return this.instructions;}
+    public List<Food> getIngredients() {return this.ingredients;}
     @Override public String getName() {return this.name;}
 
     @Override
