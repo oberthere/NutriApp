@@ -1,8 +1,8 @@
 package edu.rit.swen262.user.service;
 
 import edu.rit.swen262.food.Food;
-import edu.shoppingList.ShoppingList;
-import edu.shoppingList.strag.strategy.ShopCriteriaStrategy;
+import edu.rit.swen262.shoppingList.ShoppingList;
+import edu.rit.swen262.shoppingList.strag.strategy.ShopCriteriaStrategy;
 
 public class ShoppingListService {
     private ShopCriteriaStrategy shopCriteria;
