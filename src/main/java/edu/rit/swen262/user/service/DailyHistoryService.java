@@ -56,7 +56,6 @@ public class DailyHistoryService {
     * do to burn the excessive calories
     */
     public void addMeal(Meal meal){
-        // TODO: implement adding meal to meals list
         List<Ingredient> lowStockIngredients = new ArrayList<>();
         for (Recipe recipe : meal.getRecipes()) {
             for (Ingredient ingre: recipe.getIngredients()) {
@@ -72,14 +71,15 @@ public class DailyHistoryService {
             throw new ArithmeticException("Not enough stock for " + lowStockIngredients + " to be prepared");
         }
 
-        netCalories += meal.getCalories();
-        if(netCalories > targetCalories){
-            // suggestWorkout returns Workout but this method is void in UML... 
-            suggestWorkout();
-        }
+        this.netCalories += meal.getCalories();
     }
 
+    /**
+     * This gets would be called on by the UI after meal is added if the netCal are exceeded
+     * @return
+     */
     public Workout suggestWorkout() {
+        //TODO: Do this
         return null;
     }
 
