@@ -16,12 +16,12 @@ class RecipeTest {
     @BeforeEach
     void setUp() {
         // Create mock ingredients
-        Food ingredient1 = new Ingredient("Bread", 2.0, 70, 0.2, 1.0, 14.0, 1.5);
-        Food ingredient2 = new Ingredient("American Cheese", 1.0, 80, 6.0, 5.0, 1.0, 0.0);
-        Food ingredient3 = new Ingredient("Mayonnaise", 1.0, 90, 10.0, 0.0, 0.0, 0.0);
+        Ingredient ingredient1 = new Ingredient("Bread", 70, 0.2, 1.0, 14.0, 1.5);
+        Ingredient ingredient2 = new Ingredient("American Cheese", 80, 6.0, 5.0, 1.0, 0.0);
+        Ingredient ingredient3 = new Ingredient("Mayonnaise", 90, 10.0, 0.0, 0.0, 0.0);
 
         // Create a list of ingredients
-        List<Food> ingredients = Arrays.asList(ingredient1, ingredient2, ingredient3);
+        List<Ingredient> ingredients = Arrays.asList(ingredient1, ingredient2, ingredient3);
 
         // Initialize the Recipe object
         recipe = new Recipe("Grilled Cheese Sandwich", ingredients, "1. Spread the mayo on the bread on one side and place the bread mayo-side down on a hot skillet.\r\n" + //
@@ -80,7 +80,7 @@ class RecipeTest {
 
     @Test
     void testSingleIngredientRecipe() {
-        Food singleIngredient = new Ingredient("Apple", 1.0, 95, 0.3, 0.5, 25.0, 4.4);
+        Ingredient singleIngredient = new Ingredient("Apple", 95, 0.3, 0.0, 25.0, 4.4);
         Recipe singleIngredientRecipe = new Recipe("Apple Snack", List.of(singleIngredient), "Just eat it.");
         
         assertEquals(95, singleIngredientRecipe.getCalories());
@@ -92,7 +92,7 @@ class RecipeTest {
 
     @Test
     void testGetIngredients() {
-        Food ingredient = new Ingredient("Apple", 1.0, 20, 0.2, 1.0, 4.0, 1.5);
+        Food ingredient = new Ingredient("Apple", 20, 0.2, 0.0, 4.0, 1.5);
         Recipe recipe = new Recipe("Apple Slices", List.of(ingredient), "Slice and serve.");
         
         List<Food> ingredients = recipe.getIngredients();

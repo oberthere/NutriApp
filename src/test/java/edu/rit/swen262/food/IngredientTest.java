@@ -11,7 +11,7 @@ public class IngredientTest {
 
     @BeforeEach
     public void setUp() {
-        ingredient = new Ingredient("Tomato", 10.0, 20, 0.2, 1.0, 4.0, 1.5);
+        ingredient = new Ingredient("Tomato", 20, 0.2, 1.0, 4.0, 1.5);
     }
 
     @Test

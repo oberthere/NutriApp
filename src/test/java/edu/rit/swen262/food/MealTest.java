@@ -15,9 +15,9 @@ class MealTest {
     void setUp() {
         // Create recipes
         List<Food> pancakeIngredients = Arrays.asList(
-            new Ingredient("Flour", 100, 200, 1.0, 3.0, 20.0, 1.0),
-            new Ingredient("Milk", 50, 120, 2.0, 3.5, 5.0, 0.0),
-            new Ingredient("Egg", 70, 70, 5.0, 6.0, 1.0, 0.0)
+            new Ingredient("Flour", 100, 5, 1.0, 3.0, 20.0),
+            new Ingredient("Milk", 50, 3, 2.0, 3.5, 5.0),
+            new Ingredient("Egg", 70, 3, 5.0, 6.0, 1.0)
         );
 
         Food pancake = new Recipe("Pancakes", pancakeIngredients, "Combine the flour, eggs, milk and salt in a large bowl and whisk to combine. Whisk it until it's smooth and there are no lumps.\r\n" + //
@@ -26,7 +26,7 @@ class MealTest {
 
 
         List<Food> omeletteIngredients = Arrays.asList(
-            new Ingredient("Egg", 70, 70, 5.0, 6.0, 1.0, 0.0),
+            new Ingredient("Egg", 70, 70, 5.0, 6.0, 1.0),
             new Ingredient("Cheese", 80, 135, 6.0, 5.0, 1.0, 0.0)
         );
 
