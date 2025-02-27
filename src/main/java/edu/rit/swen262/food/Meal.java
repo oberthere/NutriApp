@@ -5,18 +5,19 @@ import java.util.List;
 
 public class Meal implements Food{
     // private String mealType; //TODO Convert this into an enum
-    private List<Food> recipes;
+    private List<Recipe> recipes;
     private String name;
 
-    public Meal(String name, List<Food> recipes) {
+    public Meal(String name, List<Recipe> recipes) {
         this.name = name;
         this.recipes = recipes;
     }
 
     @Override public String getName() {return this.name;}
 
-     public List<Food> getRecipes() {
-        return this.recipes;
+    
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
     
     @Override

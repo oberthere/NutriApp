@@ -5,16 +5,16 @@ import java.util.List;
 public class Recipe implements Food {
     private String name;
     private String instructions;
-    private List<Food> ingredients;
+    private List<Ingredient> ingredients;
 
-    public Recipe(String name, List<Food> ingredients, String instructions) {
+    public Recipe(String name, List<Ingredient> ingredients, String instructions) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
     }
 
     public String getInstructions() {return this.instructions;}
-    public List<Food> getIngredients() {return this.ingredients;}
+    public List<Ingredient> getIngredients() {return ingredients;}
     @Override public String getName() {return this.name;}
 
     @Override
