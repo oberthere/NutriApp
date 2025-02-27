@@ -18,6 +18,7 @@ public class PersonalHistory {
         history = new ArrayList<>();
     }
 
+    public List<DailyHistoryService> getHistory() { return history; }
     /*
      * The DailyHistory added to the history 
      * and stored only at the end of the day.
