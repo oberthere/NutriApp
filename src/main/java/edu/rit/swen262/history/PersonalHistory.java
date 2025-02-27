@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.util.Map;
-
-import edu.rit.swen262.user.service.DailyHistoryService;
-
 import java.util.HashMap;
 
+import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.food.Meal;
 
 public class PersonalHistory {
@@ -44,14 +42,13 @@ public class PersonalHistory {
         return calorieTrend;
     }
 
-    // uncomment when Workout is implemented itself and in DailyHistoryService
-    // public Map<Date, Integer> getWorkoutTrend() {
-    //     Map<Date, Integer> workoutTrend = new HashMap<>();
-    //     for (DailyHistoryService dh : history) {
-    //         workoutTrend.put(dh.getDate(), dh.getWorkouts().size());
-    //     }
-    //     return workoutTrend;
-    // }
+    public Map<Date, Integer> getWorkoutTrend() {
+        Map<Date, Integer> workoutTrend = new HashMap<>();
+        for (DailyHistoryService dh : history) {
+            workoutTrend.put(dh.getDate(), dh.getWorkouts().size());
+        }
+        return workoutTrend;
+    }
 
     public Map<Date, List<Meal>> getMealTrend() {
         Map<Date, List<Meal>> mealTrend = new HashMap<>();
