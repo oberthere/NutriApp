@@ -39,7 +39,7 @@ public class PersonalHistory {
     public Map<Date, Integer> getCalorieTrend() {
         Map<Date, Integer> calorieTrend = new HashMap<>();
         for (DailyHistoryService dh : history) {
-            calorieTrend.put(dh.getDate(), dh.calculateNetCalories());
+            calorieTrend.put(dh.getDate(), dh.getNetCalories());
         }
         return calorieTrend;
     }
