@@ -1,18 +1,16 @@
 package edu.rit.swen262.shoppingList;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.rit.swen262.food.Ingredient;
-
 public class ShoppingList {
-    private List<Ingredient> shoppingList;
+    private ArrayList<Ingredient> shoppingList;
 
     public ShoppingList() {
         this.shoppingList = new ArrayList<Ingredient>();
     }
     public ShoppingList(List<Ingredient> shoppingList) {
-        this.shoppingList = shoppingList;
+        this.shoppingList = new ArrayList<>(shoppingList);
     }
 
     public List<Ingredient> getShoppingList() {return this.shoppingList;}
