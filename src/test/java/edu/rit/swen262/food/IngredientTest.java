@@ -11,7 +11,6 @@ public class IngredientTest {
 
     @BeforeEach
     public void setUp() {
-        // Initialize the Ingredient object before each test
         ingredient = new Ingredient("Tomato", 10.0, 20, 0.2, 1.0, 4.0, 1.5);
     }
 
