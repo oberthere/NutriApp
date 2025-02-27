@@ -10,14 +10,18 @@ public class DailyHistoryService {
     private Date date;
     private double weight;
     private int targetCalories;
-    private int netCalories;
     private List<Meal> meals;
     // private List<Workout> workouts;
+    private int netCalories;
 
-    public DailyHistoryService(Date date, double weight, int targetCalories) {
+    // add workout to constructor when implemented
+    public DailyHistoryService(Date date, double weight, int targetCalories, List<Meal> meals) {
         this.date = date;
         this.weight = weight;
         this.targetCalories = targetCalories;
+        this.meals = meals;
+        //this.workouts = workouts;
+        this.netCalories = 0;
     }
 
     public Date getDate() {return date;}
@@ -47,6 +51,7 @@ public class DailyHistoryService {
     // }
 
     public int calculateNetCalories() {
+        // TODO: implement calculation of netCalories
         return 0;
     }
 
