@@ -13,7 +13,7 @@ class MealTest {
 
     @BeforeEach
     void setUp() {
-        // Create mock recipes
+        // Create recipes
         List<Food> pancakeIngredients = Arrays.asList(
             new Ingredient("Flour", 100, 200, 1.0, 3.0, 20.0, 1.0),
             new Ingredient("Milk", 50, 120, 2.0, 3.5, 5.0, 0.0),
