@@ -8,11 +8,9 @@ public class Ingredient implements Food {
     double protein;
     double carbs;
     double fiber;
-    double stock;
 
     public Ingredient(
         String name, 
-        double stock, 
         int calories, 
         double fat, 
         double protein, 
@@ -20,13 +18,11 @@ public class Ingredient implements Food {
         double fiber) 
     {
         this.name = name;
-        this.stock = stock;
         this.calories = calories;
         this.fat = fat;
         this.protein = protein;
         this.carbs = carbs;
         this.fiber = fiber;
-        this.stock = stock;
 
     }
 
@@ -73,8 +69,6 @@ public class Ingredient implements Food {
         }
         return false;
     }
-
-    
 
     
 
