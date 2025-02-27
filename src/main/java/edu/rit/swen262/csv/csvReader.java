@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import edu.rit.swen262.food.Ingredient;
+import edu.rit.swen262.food.PantryStock;
 
 public class csvReader {
     public void ingredientReader() {
@@ -33,6 +34,8 @@ public class csvReader {
             for (Ingredient ingredient : ingredients) {
                 pantryStock.put(ingredient, 0);
             }
+
+            PantryStock.updateIngredientRecord(pantryStock);
 
             s.close();
         }
