@@ -9,7 +9,7 @@ import java.util.Scanner;
 import edu.rit.swen262.food.Ingredient;
 
 public class csvReader {
-    public void ingredientReader(String line) {
+    public void ingredientReader() {
         try {
             List<Ingredient> ingredients = new ArrayList<Ingredient>();
             File file = new File("./resources/data/ingredients.csv"); //file path might be wrong
