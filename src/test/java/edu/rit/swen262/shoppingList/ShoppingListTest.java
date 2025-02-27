@@ -1,6 +1,5 @@
 package edu.rit.swen262.shoppingList;
 
-import edu.rit.swen262.shoppingList.ShoppingList;
 import edu.rit.swen262.food.Ingredient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
