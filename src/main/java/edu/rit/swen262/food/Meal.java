@@ -4,7 +4,7 @@ package edu.rit.swen262.food;
 import java.util.List;
 
 public class Meal implements Food{
-    private String mealType; //TODO Convert this into an enum
+    // private String mealType; //TODO Convert this into an enum
     private List<Food> recipes;
     private String name;
 
