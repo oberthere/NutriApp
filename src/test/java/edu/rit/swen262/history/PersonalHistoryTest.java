@@ -76,7 +76,6 @@ public class PersonalHistoryTest {
 
     @Test
     void testAddDailyHistory() {
-        assertEquals(1, personalHistory.getHistory().size());
         assertEquals(2, personalHistory.getHistory().size());
     }
 

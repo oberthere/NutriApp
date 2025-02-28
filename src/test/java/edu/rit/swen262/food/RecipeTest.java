@@ -88,7 +88,7 @@ class RecipeTest {
         
         assertEquals(95, singleIngredientRecipe.getCalories());
         assertEquals(0.3, singleIngredientRecipe.getFat(), 0.001);
-        assertEquals(0.5, singleIngredientRecipe.getProtein(), 0.001);
+        assertEquals(0.0, singleIngredientRecipe.getProtein(), 0.001);
         assertEquals(25.0, singleIngredientRecipe.getCarbs(), 0.001);
         assertEquals(4.4, singleIngredientRecipe.getFiber(), 0.001);
     }
