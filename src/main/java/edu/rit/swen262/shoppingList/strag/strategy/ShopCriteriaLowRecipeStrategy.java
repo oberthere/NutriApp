@@ -1,6 +1,5 @@
 package edu.rit.swen262.shoppingList.strag.strategy;
 
-import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.food.Food;

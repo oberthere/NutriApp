@@ -2,6 +2,7 @@ package edu.rit.swen262.user;
 
 import java.util.Date;
 
+import edu.rit.swen262.history.PersonalHistory;
 import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.GoalService;
 import edu.rit.swen262.user.service.ShoppingListService;
@@ -47,4 +48,23 @@ public class User {
     public double getWeight() {return this.weight;}
     public Date getBirthdate() {return this.birthdate;}
     public GoalService getGoalService() {return this.goalService;}
+    public ShoppingListService getShoppingListService() {return this.shoppingListService;}
+    public DailyHistoryService getDailyHistoryService() {return this.dailyHistoryService;}
+    public Date getLastUpdated() {return this.dailyHistoryService.getDate();}
+
+    private void saveData() {
+        //TODO: Save the user data into personal history
+    }
+
+    public void startNewDay(double height, double weight) {
+        //Calls on saveData and Saves the user data into personal history
+
+        //Create a new personal history and set that as the user's current dailyhistoryservice
+    }
+
+    public void continueDay() {
+
+    }
+
+
 }
