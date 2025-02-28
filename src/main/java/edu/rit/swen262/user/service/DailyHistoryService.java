@@ -9,8 +9,9 @@ import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
+import edu.rit.swen262.other.exception.LowStockException;
+import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.workout.Workout;
-
 
 public class DailyHistoryService {
     private Date date;
@@ -32,6 +33,7 @@ public class DailyHistoryService {
     }
 
     //Constructor for testing purposes
+    //TODO Remove once personal history tests is fixed
     public DailyHistoryService(
         Date date, double weight, int targetCalories, 
         List<Meal> preparedMeals, List<Meal> eatenMeals, List<Workout> workouts)
@@ -54,13 +56,16 @@ public class DailyHistoryService {
 
     public void addWorkout(Workout workout) {this.workouts.add(workout);}
 
-    /** 
-    * Prepares the given meal. If the there isn't enough ingredients available to prepare the meal, 
-    * an ArithmeticException gets thrown 
-    */
-    public void prepareMeal(Meal meal){
+    /**
+     * Puts together a meal with the recipes passed in the parameter.
+     * @param mealName
+     * @param recipes
+     * @return
+     * @throws LowStockException if there isn't enough ingredients available 
+     */
+    public Meal prepareMeal(String mealName, List<Recipe> recipes) throws LowStockException{
         List<Ingredient> lowStockIngredients = new ArrayList<>();
-        for (Recipe recipe : meal.getRecipes()) {
+        for (Recipe recipe : recipes) {
             for (Ingredient ingre: recipe.getIngredients()) {
                 Map<Ingredient, Integer> record = PantryStock.getAllIngredients();
                 int stock = record.get(ingre);
@@ -71,14 +76,55 @@ public class DailyHistoryService {
         }
 
         if (lowStockIngredients.size() > 0) {
-            throw new ArithmeticException("Not enough stock for " + lowStockIngredients + " to be prepared");
+            throw new LowStockException("Not enough stock for " + lowStockIngredients + " to be prepared");
         }
+        return new Meal(mealName, recipes);
+    }
+    
+    /**
+     * An overload for the prepareMeal method that ignores the LowStockException if ignoreException is true. 
+     * Meant to be used in testing or ONLY after prepareMeal has raised a LowStockException.
+     * @param mealName
+     * @param recipes
+     * @param ignoreException
+     * @return
+     */
+    public Meal prepareMeal(String mealName, List<Recipe> recipes, boolean ignoreException){
+        try {
+            return prepareMeal(mealName, recipes);
+        } catch (LowStockException e) {
+            if (ignoreException) {return new Meal(mealName, recipes);}
+            return null;
+        }
+    }
+    
 
+    /**
+     * Eats the given meal and adds the calories into the daily netCalories count.
+     * @param meal
+     * @throws NetCaloriesOverflowException if eating the meal will exceed targetCalories
+     */
+    public void eatMeal(Meal meal) throws NetCaloriesOverflowException {
+        
+        if (this.netCalories + meal.getCalories() > this.targetCalories)
+        {
+            throw new NetCaloriesOverflowException("Consuming " + meal.getName() + " will exceed targetCalories");
+        }
         this.netCalories += meal.getCalories();
     }
 
-    public void eatMeal(Meal meal) {
-
+    /**
+     * An overload for the eatMeal method that ignores the NetCaloriesOverflowException if ignoreException is true. 
+     * Meant to be used in testing or ONLY after eatMeal has raised a NetCaloriesOverflowException.
+     * @param meal
+     * @param ignoreException
+     */
+    public void eatMeal(Meal meal, boolean ignoreException) {
+        try {
+            eatMeal(meal);
+        } catch (NetCaloriesOverflowException e) {
+            if (ignoreException) {this.netCalories += meal.getCalories();}
+        }
     }
 
     /**
