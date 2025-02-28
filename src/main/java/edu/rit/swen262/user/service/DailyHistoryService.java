@@ -16,24 +16,31 @@ public class DailyHistoryService {
     private Date date;
     private double weight;
     private int targetCalories;
-    private List<Meal> meals;
+    private List<Meal> preparedMeals;
+    private List<Meal> eatenMeals;
     private List<Workout> workouts;
     private int netCalories;
 
-    // add workout to constructor when implemented
-    public DailyHistoryService(Date date, double weight, int targetCalories, List<Meal> meals) {
+    // Constructor for 
+    public DailyHistoryService(Date date, double weight, int targetCalories) {
         this.date = date;
         this.weight = weight;
         this.targetCalories = targetCalories;
-        this.meals = meals;
+        this.eatenMeals = new ArrayList<>();
+        this.workouts = new ArrayList<>();
         this.netCalories = 0;
     }
 
-    public DailyHistoryService(Date date, double weight, int targetCalories, List<Meal> meals, List<Workout> workouts) {
+    //Constructor for testing purposes
+    public DailyHistoryService(
+        Date date, double weight, int targetCalories, 
+        List<Meal> preparedMeals, List<Meal> eatenMeals, List<Workout> workouts)
+    {
         this.date = date;
         this.weight = weight;
         this.targetCalories = targetCalories;
-        this.meals = meals;
+        this.preparedMeals = preparedMeals;
+        this.eatenMeals = eatenMeals;
         this.workouts = workouts;
         this.netCalories = 0;
     }
@@ -42,20 +49,16 @@ public class DailyHistoryService {
     public double getWeight() {return weight;}
     public int getTargetCalories() {return targetCalories;}
     public int getNetCalories() {return netCalories;}
-    public List<Meal> getMeals() {return meals;}
+    public List<Meal> getMeals() {return eatenMeals;}
     public List<Workout> getWorkouts() { return workouts;}
 
     public void addWorkout(Workout workout) {this.workouts.add(workout);}
 
-    /* 
-    * Whenever the addMeal is called, a check will 
-    * be done and if the netCalories is above the 
-    * targetCalories, the suggestWorkout will be 
-    * called and a suggested workout will pop up 
-    * on the screen to recommend the user what to 
-    * do to burn the excessive calories
+    /** 
+    * Prepares the given meal. If the there isn't enough ingredients available to prepare the meal, 
+    * an ArithmeticException gets thrown 
     */
-    public void addMeal(Meal meal){
+    public void prepareMeal(Meal meal){
         List<Ingredient> lowStockIngredients = new ArrayList<>();
         for (Recipe recipe : meal.getRecipes()) {
             for (Ingredient ingre: recipe.getIngredients()) {
@@ -74,13 +77,17 @@ public class DailyHistoryService {
         this.netCalories += meal.getCalories();
     }
 
+    public void eatMeal(Meal meal) {
+
+    }
+
     /**
      * This gets would be called on by the UI after meal is added if the netCal are exceeded
      * @return
      */
     public Workout suggestWorkout() {
-        //TODO: Do this
-        return null;
+        //TODO Suggest a workout based on personal history and current calories
+        throw new UnsupportedOperationException("Method not implemented");
     }
 
 }

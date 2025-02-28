@@ -61,9 +61,9 @@ public class PersonalHistoryTest {
         Workout w2 = new Workout(60, lowIntensity);
 
         // DailyHistoryService objects for testing
-        dh1 = new DailyHistoryService(new Date(), 180.5, 2000, Arrays.asList(meal), Arrays.asList(w1));
-        dh2 = new DailyHistoryService(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000), 175.0, 1800, Arrays.asList(meal), Arrays.asList(w2));
-    
+        dh1 = new DailyHistoryService(new Date(), 180.5, 2000, Arrays.asList(meal), null, Arrays.asList(w1));
+        dh2 = new DailyHistoryService(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000), 175.0, 1800, Arrays.asList(meal), null, Arrays.asList(w2));
+
         personalHistory.addDailyHistory(dh1);
         personalHistory.addDailyHistory(dh2);
     }
