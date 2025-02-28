@@ -16,9 +16,9 @@ class PantryStockTest {
     @BeforeEach
     void setUp() {
         // Create test ingredients
-        flour = new Ingredient("Flour", 100, 0, 1.0, 3.0, 20.0, 1.0);
-        milk = new Ingredient("Milk", 50, 0, 2.0, 3.5, 5.0, 0.0);
-        eggs = new Ingredient("Eggs", 70, 0, 5.0, 6.0, 1.0, 0.0);
+        flour = new Ingredient("Flour", 100, 1.0, 3.0, 20.0, 1.0);
+        milk = new Ingredient("Milk", 50, 2.0, 3.5, 5.0, 0.0);
+        eggs = new Ingredient("Eggs", 70, 5.0, 6.0, 1.0, 0.0);
 
         // Reset PantryStock for each test
         PantryStock.updateIngredientRecord(new HashMap<>());
