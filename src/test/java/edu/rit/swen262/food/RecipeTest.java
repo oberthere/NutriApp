@@ -24,10 +24,11 @@ class RecipeTest {
         List<Ingredient> ingredients = Arrays.asList(ingredient1, ingredient2, ingredient3);
 
         // Initialize the Recipe object
-        recipe = new Recipe("Grilled Cheese Sandwich", ingredients, "1. Spread the mayo on the bread on one side and place the bread mayo-side down on a hot skillet.\r\n" + //
-                        "2. Top with cheese, then place another slice of bread on top (mayo-side up).\r\n" + //
-                        "3. Cook until the bottom slice is lightly browned, then flip.\r\n" + //
-                        "4. Continue cooking until the cheese is melted.");
+        recipe = new Recipe("Grilled Cheese Sandwich", ingredients, 
+            "1. Spread the mayo on the bread on one side and place the bread mayo-side down on a hot skillet.\r\n" + //
+            "2. Top with cheese, then place another slice of bread on top (mayo-side up).\r\n" + //
+            "3. Cook until the bottom slice is lightly browned, then flip.\r\n" + //
+            "4. Continue cooking until the cheese is melted.");
     }
 
     @Test
@@ -37,10 +38,12 @@ class RecipeTest {
 
     @Test
     void testGetInstructions() {
-        assertEquals("1. Spread the mayo on the bread on one side and place the bread mayo-side down on a hot skillet.\r\n" + //
-                        "2. Top with cheese, then place another slice of bread on top (mayo-side up).\r\n" + //
-                        "3. Cook until the bottom slice is lightly browned, then flip.\r\n" + //
-                        "4. Continue cooking until the cheese is melted.", recipe.getInstructions());
+        assertEquals(
+            "1. Spread the mayo on the bread on one side and place the bread mayo-side down on a hot skillet.\r\n" + //
+            "2. Top with cheese, then place another slice of bread on top (mayo-side up).\r\n" + //
+            "3. Cook until the bottom slice is lightly browned, then flip.\r\n" + //
+            "4. Continue cooking until the cheese is melted.", 
+        recipe.getInstructions());
     }
 
     @Test
@@ -92,17 +95,17 @@ class RecipeTest {
 
     @Test
     void testGetIngredients() {
-        Food ingredient = new Ingredient("Apple", 20, 0.2, 0.0, 4.0, 1.5);
+        Ingredient ingredient = new Ingredient("Apple", 20, 0.2, 0.0, 4.0, 1.5);
         Recipe recipe = new Recipe("Apple Slices", List.of(ingredient), "Slice and serve.");
         
-        List<Food> ingredients = recipe.getIngredients();
+        List<Ingredient> ingredients = recipe.getIngredients();
         assertEquals(1, ingredients.size());
         assertEquals("Apple", ingredients.get(0).getName());
     }
 
     @Test
     void testLargeValues() {
-        Food largeIngredient = new Ingredient("Muckbang", 1.0, Integer.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+        Ingredient largeIngredient = new Ingredient("Muckbang", Integer.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
         Recipe largeRecipe = new Recipe("The Whole Ocean", List.of(largeIngredient), "For the brave and fearless.");
         
         assertEquals(Integer.MAX_VALUE, largeRecipe.getCalories());
