@@ -25,5 +25,7 @@ public class Workout{
         return durationMin;
     }
 
-    
+    public IntensityStrategy getIntensity(){
+        return intensity;
+    }
 }
