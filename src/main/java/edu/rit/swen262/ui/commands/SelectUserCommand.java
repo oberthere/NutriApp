@@ -16,7 +16,7 @@ public class SelectUserCommand extends UserCommand {
 
     /**
      * Method to select and goes to an user page
-     * @param commandArgs [SelectUser, Username]
+     * @param commandArgs SelectUser [Username]
      */
     @Override
     public void performAction(String[] commandArgs) {

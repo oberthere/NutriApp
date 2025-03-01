@@ -20,7 +20,7 @@ public class CreateUserCommand extends UserCommand {
     
     /**
      * Method to create a new user
-     * @param commandArgs [CreateUser, Username, height, weight, MM/dd/yyyy Birthday]
+     * @param commandArgs CreateUser [Username, height, weight, MM/dd/yyyy Birthday]
      */
     @Override
     public void performAction(String[] commandArgs) {
