@@ -42,8 +42,11 @@ public class User {
     public String getName() {return this.name;}
     public double getHeight() {return this.height;}
     public double getWeight() {return this.weight;}
+
+    public void setWeight(double weight) {this.weight = weight;}
     public Date getBirthdate() {return this.birthdate;}
     public GoalService getGoalService() {return this.goalService;}
+    public void setGoalService(GoalService goalService) {this.goalService = goalService; }
     public ShoppingListService getShoppingListService() {return this.shoppingListService;}
     public DailyHistoryService getDailyHistoryService() {return this.dailyHistoryService;}
     public Date getLastUpdated() {return this.dailyHistoryService.getDate();}

@@ -5,8 +5,6 @@ import java.util.List;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
-import edu.rit.swen262.ui.pages.UserDashboardPage;
-import edu.rit.swen262.ui.pages.UserSetupPage;
 import edu.rit.swen262.user.User;
 
 public class SelectUserCommand extends UserCommand {
