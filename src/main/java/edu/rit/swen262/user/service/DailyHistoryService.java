@@ -14,6 +14,7 @@ import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.workout.Workout;
 
 public class DailyHistoryService {
+    private String userID;
     private Date date;
     private double weight;
     private int targetCalories;
@@ -23,7 +24,8 @@ public class DailyHistoryService {
     private int netCalories;
 
     // Constructor for 
-    public DailyHistoryService(Date date, double weight, int targetCalories) {
+    public DailyHistoryService(String userID, Date date, double weight, int targetCalories) {
+        this.userID = userID;
         this.date = date;
         this.weight = weight;
         this.targetCalories = targetCalories;
@@ -53,6 +55,7 @@ public class DailyHistoryService {
     public int getNetCalories() {return netCalories;}
     public List<Meal> getMeals() {return eatenMeals;}
     public List<Workout> getWorkouts() { return workouts;}
+    public String getUserID() {return userID;}
 
     public void addWorkout(Workout workout) {this.workouts.add(workout);}
 
