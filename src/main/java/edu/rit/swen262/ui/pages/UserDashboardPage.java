@@ -43,14 +43,16 @@ public class UserDashboardPage extends Page {
         System.out.println();
         System.out.println("Activity Info For Today:");
         System.out.println("Net Calories Consumed: " + dh.getNetCalories());
+        System.out.println("Meals Prepared:");
+        printMeal(dh.getPreparedMeals());
         System.out.println("Meals Consumed:");
-        printMealConsumed(dh.getEatenMeals());
+        printMeal(dh.getEatenMeals());
         System.out.println("Workouts Recorded:");
         printWorkouts(dh.getWorkouts());
         
     }   
 
-    private void printMealConsumed(List<Meal> meals) {
+    private void printMeal(List<Meal> meals) {
         for (Meal meal : meals) {
             System.out.println("\t- " + meal.getName());
         }
