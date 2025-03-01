@@ -7,11 +7,13 @@ import java.util.Map;
 
 import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.Meal;
+import edu.rit.swen262.food.MealType;
 import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 import edu.rit.swen262.other.exception.LowStockException;
 import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.workout.Workout;
+import edu.rit.swen262.workout.IntensityStrategy;
 
 public class DailyHistoryService {
     private String userID;
@@ -23,127 +25,75 @@ public class DailyHistoryService {
     private List<Workout> workouts;
     private int netCalories;
 
-    // Constructor for 
     public DailyHistoryService(String userID, Date date, double weight, int targetCalories) {
         this.userID = userID;
         this.date = date;
         this.weight = weight;
         this.targetCalories = targetCalories;
+        this.preparedMeals = new ArrayList<>();
         this.eatenMeals = new ArrayList<>();
         this.workouts = new ArrayList<>();
         this.netCalories = 0;
     }
 
-    //Constructor for testing purposes
-    //TODO Remove once personal history tests is fixed
-    public DailyHistoryService(
-        Date date, double weight, int targetCalories, 
-        List<Meal> preparedMeals, List<Meal> eatenMeals, List<Workout> workouts)
-    {
-        this.date = date;
-        this.weight = weight;
-        this.targetCalories = targetCalories;
-        this.preparedMeals = preparedMeals;
-        this.eatenMeals = eatenMeals;
-        this.workouts = workouts;
-        this.netCalories = 0;
-    }
-
-    public Date getDate() {return date;}
-    public double getWeight() {return weight;}
-    public int getTargetCalories() {return targetCalories;}
-    public int getNetCalories() {return netCalories;}
-    public List<Meal> getPreparedMeals() {return preparedMeals;}
-    public List<Meal> getEatenMeals() {return eatenMeals;}
-    public List<Workout> getWorkouts() { return workouts;}
-    public String getUserID() {return userID;}
-
-    public void addWorkout(Workout workout) {this.workouts.add(workout);}
-
-    /**
-     * Puts together a meal with the recipes passed in the parameter.
-     * @param mealName
-     * @param recipes
-     * @return
-     * @throws LowStockException if there isn't enough ingredients available 
-     */
-    public void prepareMeal(String mealName, List<Recipe> recipes) throws LowStockException{
+    public void prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
         List<Ingredient> lowStockIngredients = new ArrayList<>();
+        Map<Ingredient, Integer> record = PantryStock.getAllIngredients();
+
         for (Recipe recipe : recipes) {
-            for (Ingredient ingre: recipe.getIngredients()) {
-                Map<Ingredient, Integer> record = PantryStock.getAllIngredients();
-                int stock = record.get(ingre);
+            for (Ingredient ingre : recipe.getIngredients()) {
+                int stock = record.getOrDefault(ingre, 0);
                 if (stock <= 0) {
                     lowStockIngredients.add(ingre);
-                } 
+                } else {
+                    record.put(ingre, stock - 1); // Deduct ingredient from pantry stock
+                }
             }
         }
 
-        if (lowStockIngredients.size() > 0) {
+        if (!lowStockIngredients.isEmpty()) {
             throw new LowStockException("Not enough stock for " + lowStockIngredients + " to be prepared");
         }
 
-        this.preparedMeals.add(new Meal(mealName, recipes));
+        Meal newMeal = new Meal(mealName, recipes, mealType);
+        this.preparedMeals.add(newMeal);
     }
-    
-    /**
-     * An overload for the prepareMeal method that ignores the LowStockException if ignoreException is true. 
-     * Meant to be used in testing or ONLY after prepareMeal has raised a LowStockException.
-     * @param mealName
-     * @param recipes
-     * @param ignoreException
-     * @return
-     */
-    public void prepareMeal(String mealName, List<Recipe> recipes, boolean ignoreException){
-        try {
-            prepareMeal(mealName, recipes);
-        } catch (LowStockException e) {
-            if (ignoreException) {this.preparedMeals.add(new Meal(mealName, recipes));}
-        }
-    }
-    
 
-    /**
-     * Eats the given meal and adds the calories into the daily netCalories count.
-     * @param meal
-     * @throws NetCaloriesOverflowException if eating the meal will exceed targetCalories
-     */
     public void eatMeal(Meal meal) throws NetCaloriesOverflowException {
-        
-        if (this.netCalories + meal.getCalories() > this.targetCalories)
-        {
-            throw new NetCaloriesOverflowException("Consuming " + meal.getName() + " will exceed targetCalories");
+        if (!this.preparedMeals.contains(meal)) {
+            System.out.println("Error: Meal must be prepared before eating.");
+            return;
         }
+
+        if (this.netCalories + meal.getCalories() > this.targetCalories) {
+            throw new NetCaloriesOverflowException("Consuming " + meal.getName() + " will exceed target calories.");
+        }
+
         this.preparedMeals.remove(meal);
         this.eatenMeals.add(meal);
         this.netCalories += meal.getCalories();
     }
 
-    /**
-     * An overload for the eatMeal method that ignores the NetCaloriesOverflowException if ignoreException is true. 
-     * Meant to be used in testing or ONLY after eatMeal has raised a NetCaloriesOverflowException.
-     * @param meal
-     * @param ignoreException
-     */
-    public void eatMeal(Meal meal, boolean ignoreException) {
-        try {
-            eatMeal(meal);
-        } catch (NetCaloriesOverflowException e) {
-            if (ignoreException) {
-                this.netCalories += meal.getCalories();
-                this.preparedMeals.remove(meal);
-                this.eatenMeals.add(meal);
+    public Workout suggestWorkout() {
+        int excessCalories = this.netCalories - this.targetCalories;
+        if (excessCalories <= 0) {
+            return null; // No workout needed
+        }
+
+        // Example: Find an appropriate workout to burn excess calories
+        for (Workout workout : workouts) {
+            double burnedCalories = workout.getIntensity().calorieBurnAlgorithm(workout);
+            if (burnedCalories >= excessCalories) {
+                return workout;
             }
         }
-    }
 
-    /**
-     * This gets would be called on by the UI after meal is added if the netCal are exceeded
-     * @return
-     */
-    public Workout suggestWorkout() {
-        //TODO Suggest a workout based on personal history and current calories
-        throw new UnsupportedOperationException("Method not implemented");
+        // If no existing workout burns enough, suggest a generic one
+        return new Workout("Jogging", excessCalories / 10, new IntensityStrategy() {
+            @Override
+            public double calorieBurnAlgorithm(Workout workout) {
+                return workout.getDurationMin() * 10; // Example: Burn 10 calories per minute
+            }
+        });
     }
-
 }

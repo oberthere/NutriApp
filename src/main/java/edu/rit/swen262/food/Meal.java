@@ -4,18 +4,20 @@ package edu.rit.swen262.food;
 import java.util.List;
 
 public class Meal implements Food{
-    // private String mealType; //TODO Convert this into an enum
+    private MealType mealType;
     private List<Recipe> recipes;
     private String name;
 
-    public Meal(String name, List<Recipe> recipes) {
+    public Meal(String name, List<Recipe> recipes, MealType mealType) {
         this.name = name;
         this.recipes = recipes;
+        this.mealType = mealType;
     }
 
     @Override public String getName() {return this.name;}
 
-    
+    public MealType getMealType() { return mealType; }
+
     public List<Recipe> getRecipes() {
         return recipes;
     }

@@ -24,9 +24,9 @@ public class ContinueUserEntryCommand extends UserCommand {
 
         // iterate through the children pages in order to find corresponding page
         for (Page childPage : childrenPages) {
-            if ((choice.equals("meal") && childPage.getPageName().equalsIgnoreCase("Meal Page")) ||
-                (choice.equals("workout") && childPage.getPageName().equalsIgnoreCase("Workout Page")) ||
-                (choice.equals("history") && childPage.getPageName().equalsIgnoreCase("History Page"))) {
+            if ((choice.equals("meal") && childPage.getPageName().equalsIgnoreCase("Meal")) ||
+                (choice.equals("workout") && childPage.getPageName().equalsIgnoreCase("Workout")) ||
+                (choice.equals("history") && childPage.getPageName().equalsIgnoreCase("History"))) {
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 return;

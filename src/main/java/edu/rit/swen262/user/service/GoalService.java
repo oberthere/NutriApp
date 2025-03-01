@@ -48,4 +48,14 @@ public class GoalService {
     public double getTargetWeight() {
         return this.targetWeight;
     }
+
+    public void setTargetWeight(double targetWeight, double currentWeight) {
+        this.targetWeight = targetWeight;
+        calculateGoal(targetWeight, currentWeight);
+    }
+    
+    public void setTargetCalories(int targetCalories) {
+        this.targetCalories = targetCalories;
+    }
+    
 }

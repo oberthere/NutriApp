@@ -3,8 +3,6 @@ package edu.rit.swen262.ui.commands;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.DailyHistoryService;
-import edu.rit.swen262.user.service.GoalService;
 
 public class NewUserEntryCommand extends UserCommand {
     private PageData pageData;
@@ -28,27 +26,24 @@ public class NewUserEntryCommand extends UserCommand {
             return;
         }
 
-        int currentWeight;
-        int targetWeight;
-        int targetCalories;
-        boolean physicalFitness;
-        
-
         try {
-            currentWeight = Integer.parseInt(commandArgs[1]);
-            targetWeight = Integer.parseInt(commandArgs[2]);
-            targetCalories = Integer.parseInt(commandArgs[3]);
-            physicalFitness = Boolean.parseBoolean(commandArgs[4]);
+            double currentWeight = Double.parseDouble(commandArgs[1]);
+            double targetWeight = Double.parseDouble(commandArgs[2]);
+            int targetCalories = Integer.parseInt(commandArgs[3]);
+            boolean physicalFitness = commandArgs[4].equalsIgnoreCase("true") || commandArgs[4].equalsIgnoreCase("yes");
+
+            // Adjust calories if user prioritizes fitness
+            if (physicalFitness) {
+                targetCalories += 500; // Example adjustment
+            }
+
+            System.out.println("New goal set: Target weight = " + targetWeight + 
+                               ", Current weight = " + currentWeight + 
+                               ", Target Calories = " + targetCalories + 
+                               ", Physical fitness priority = " + physicalFitness);
+            
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid argument types. Expected: [int] [int] [int] [boolean]");
-            return;
+            System.out.println("Error: Invalid argument types. Expected: [double] [double] [int] [boolean]");
         }
-
-        // TODO: Find out what the physical physical fitness is for and changing the type for targetWeight in goal
-        // user.startNewDay();
-
-        System.out.println("New goal service created with target weight: " + targetWeight +
-                           " and current weight: " + currentWeight +
-                           ". Physical fitness priority: " + physicalFitness + ".");
     }
 }
