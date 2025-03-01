@@ -15,5 +15,7 @@ public class UserDashboardPage extends Page {
     public void printContent() {
         super.printContent();
 
+        User user = pageData.getCurrentUser();
+        
     }
 }
