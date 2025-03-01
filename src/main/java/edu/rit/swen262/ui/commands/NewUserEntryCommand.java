@@ -3,6 +3,7 @@ package edu.rit.swen262.ui.commands;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.user.User;
+import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.GoalService;
 
 public class NewUserEntryCommand extends UserCommand {
@@ -10,14 +11,14 @@ public class NewUserEntryCommand extends UserCommand {
 
     public NewUserEntryCommand(PageData pageData, PageRunner pageRunner) {
         super.nameString = "NewUserEntry";
-        super.helpString = "NewUserEntry [currentWeight] [targetWeight] [physicalFitness] - Set weight and create a new goal service for the day";
+        super.helpString = "NewUserEntry [currentWeight] [targetWeight] [targetCalories] [physicalFitness]";
         this.pageData = pageData;
     }
 
     @Override
     public void performAction(String[] commandArgs) {
-        if (commandArgs.length < 4) {
-            System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight] [targetWeight] [physicalFitness]");
+        if (commandArgs.length < 5) {
+            System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight] [targetWeight] [targetCalories] [physicalFitness]");
             return;
         }
 
@@ -29,20 +30,22 @@ public class NewUserEntryCommand extends UserCommand {
 
         int currentWeight;
         int targetWeight;
+        int targetCalories;
         boolean physicalFitness;
+        
 
         try {
             currentWeight = Integer.parseInt(commandArgs[1]);
             targetWeight = Integer.parseInt(commandArgs[2]);
-            physicalFitness = Boolean.parseBoolean(commandArgs[3]);
+            targetCalories = Integer.parseInt(commandArgs[3]);
+            physicalFitness = Boolean.parseBoolean(commandArgs[4]);
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid argument types. Expected: [int] [int] [boolean]");
+            System.out.println("Error: Invalid argument types. Expected: [int] [int] [int] [boolean]");
             return;
         }
 
-        // Create a new GoalService based on user input and store it in the user
-        GoalService goalService = new GoalService(physicalFitness, targetWeight, currentWeight);
-        user.setGoalService(goalService);
+        // TODO: Find out what the physical physical fitness is for and changing the type for targetWeight in goal
+        // user.startNewDay();
 
         System.out.println("New goal service created with target weight: " + targetWeight +
                            " and current weight: " + currentWeight +

@@ -1,6 +1,7 @@
 package edu.rit.swen262.ui;
 
 import java.lang.reflect.Array;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import edu.rit.swen262.user.User;
 
 public class PageData {
     private Map<String, User> users;
+    private static Date currentDate;
     private User currentUser;
 
     public PageData() {
@@ -28,4 +30,6 @@ public class PageData {
         List<User> ls = (List<User>) this.users.values();
         return (User[]) ls.toArray();
     }
+
+    public static Date getCurrentDate() {return PageData.currentDate;}
 }
