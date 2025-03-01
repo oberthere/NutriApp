@@ -26,18 +26,18 @@ public final class PersonalHistory {
      * The DailyHistory added to the history 
      * and stored only at the end of the day.
      */
-    public void addDailyHistory(DailyHistoryService dh) {
+    public static void addDailyHistory(DailyHistoryService dh) {
         String userName = dh.getUserID();
         List<DailyHistoryService> userHistoryRecord = PersonalHistory.history.get(userName);
         userHistoryRecord.add(dh);
         PersonalHistory.history.put(userName, userHistoryRecord);
     }
 
-    public List<DailyHistoryService> getUserHistory(String userID) {
+    public static List<DailyHistoryService> getUserHistory(String userID) {
         return PersonalHistory.history.get(userID);
     }
 
-    public IntensityStrategy getWorkoutIntensityTrend(String userID) {
+    public static IntensityStrategy getWorkoutIntensityTrend(String userID) {
         Map<IntensityStrategy, Integer> workoutIntensityCollections = new HashMap<>();
         for (DailyHistoryService dh: history.get(userID)) {
             for (Workout workout : dh.getWorkouts()) {
@@ -62,7 +62,7 @@ public final class PersonalHistory {
        return returnIntensity;
     }
 
-    public void serializeHistoryToSave() {
+    public static void serializeHistoryToSave() {
         FileOutputStream file;
         try {
             file = new FileOutputStream("./resources/" + savedPersonalHistoryFileName);
@@ -78,7 +78,7 @@ public final class PersonalHistory {
     }
 
     @SuppressWarnings("unchecked")
-    public void deserializeAndLoadSavedHistory() {
+    public static void deserializeAndLoadSavedHistory() {
         FileInputStream file;
         try {
             file = new FileInputStream("./resources/" + savedPersonalHistoryFileName);
