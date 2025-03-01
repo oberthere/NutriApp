@@ -67,7 +67,6 @@ public final class PersonalHistory {
             }
        }
        return returnIntensity;
-
     }
 
     public void serializeHistoryToSave() {
@@ -78,14 +77,11 @@ public final class PersonalHistory {
             out.writeObject(history);
             out.close();
             file.close();
-
             System.out.println("Personal History has been successfully saved to file");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             System.out.println("Unsuccessful attempt in saving Personal History");
             e.printStackTrace();
         }
-        
     }
 
     public void deserializeAndLoadSavedHistory() {
@@ -102,6 +98,5 @@ public final class PersonalHistory {
             System.out.println("Unsuccessful attemp in loading Personal History");
             e.printStackTrace();
         }
-        
     }
 }
