@@ -1,21 +1,16 @@
 package edu.rit.swen262.history;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.Date;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import edu.rit.swen262.user.service.DailyHistoryService;
-import edu.rit.swen262.food.Meal;
-import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
@@ -83,7 +78,7 @@ public final class PersonalHistory {
             e.printStackTrace();
         }
     }
-
+    @SuppressWarnings("unchecked")
     public void deserializeAndLoadSavedHistory() {
         FileInputStream file;
         try {
