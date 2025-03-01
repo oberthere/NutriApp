@@ -9,15 +9,15 @@ public class GoalService {
     private Goal currentGoal;
     private boolean physicalFitness;
     private int targetCalories;
-    private int targetWeight;
+    private double targetWeight;
 
-    public GoalService(boolean physicalFitness, int targetWeight, int currentWeight) {
+    public GoalService(boolean physicalFitness, double targetWeight, double currentWeight) {
         this.physicalFitness = physicalFitness;
         this.targetWeight = targetWeight;
         calculateGoal(targetWeight, currentWeight);
     }
 
-    private void calculateGoal(int targetWeight, int currentWeight) {
+    private void calculateGoal(double targetWeight, double currentWeight) {
         if (targetWeight == currentWeight) {
             currentGoal = new MaintainWeight();
         }
@@ -45,7 +45,7 @@ public class GoalService {
         return this.targetCalories;
     }
 
-    public int getTargetWeight() {
+    public double getTargetWeight() {
         return this.targetWeight;
     }
 }
