@@ -18,7 +18,6 @@ public final class PersonalHistory {
     private static Map<String, List<DailyHistoryService>> history = new HashMap<>();
     public static final String savedPersonalHistoryFileName = "PersonalHistorySave";
 
-
     public static Map<String, List<DailyHistoryService>> getHistory() { return Collections.unmodifiableMap(PersonalHistory.history);}
     
     public static void setHistory(Map<String, List<DailyHistoryService>> historyMap) {PersonalHistory.history = historyMap;}
@@ -78,6 +77,7 @@ public final class PersonalHistory {
             e.printStackTrace();
         }
     }
+    
     @SuppressWarnings("unchecked")
     public void deserializeAndLoadSavedHistory() {
         FileInputStream file;
