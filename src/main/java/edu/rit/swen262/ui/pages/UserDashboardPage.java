@@ -11,5 +11,9 @@ public class UserDashboardPage extends Page {
         this.pageData = pageData;
     }
 
-    
+    @Override
+    public void printContent() {
+        super.printContent();
+
+    }
 }

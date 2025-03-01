@@ -23,7 +23,7 @@ public class PageData {
     public void addUser(String name, User user) {this.users.put(name, user);}
     public void removeUser(String name) {this.users.remove(name);}
     public void setCurrentUser(User user) {this.currentUser = user;}
-    public User getCurrentUser(User user) {return this.currentUser;}
+    public User getCurrentUser() {return this.currentUser;}
     public User[] getAllUsers() {
         List<User> ls = (List<User>) this.users.values();
         return (User[]) ls.toArray();
