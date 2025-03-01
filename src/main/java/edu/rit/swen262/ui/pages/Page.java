@@ -27,6 +27,7 @@ public abstract class Page {
     }
     
     public void printCommand() {
+        System.out.println("Input the following commands to start:");
         for (UserCommand userCommand: userCommands) {
             System.out.println("    - " + userCommand);
         }

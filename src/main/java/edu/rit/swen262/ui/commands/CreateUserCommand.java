@@ -14,6 +14,7 @@ public class CreateUserCommand extends UserCommand {
 
     public CreateUserCommand(PageData pageData) {
         super.nameString = "CreateUser";
+        super.helpString = "CreateUser [Username] [height] [weight] [Birthday in MM/dd/yyyy]";
         this.pageData = pageData;
     }
     
@@ -49,4 +50,6 @@ public class CreateUserCommand extends UserCommand {
         pageData.addUser(nameString, user);
         
     }
+
+    @Override public String toString() {return super.toString();}
 }

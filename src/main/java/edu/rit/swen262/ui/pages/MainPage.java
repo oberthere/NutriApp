@@ -22,7 +22,6 @@ public class MainPage extends Page {
         for (User user : pageData.getAllUsers()) {
             System.out.println("\t- " + user.getName());
         }
-    }
-
-    
+        System.out.println();
+    }    
 }
