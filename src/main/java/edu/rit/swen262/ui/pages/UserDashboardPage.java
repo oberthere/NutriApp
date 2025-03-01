@@ -44,7 +44,7 @@ public class UserDashboardPage extends Page {
         System.out.println("Activity Info For Today:");
         System.out.println("Net Calories Consumed: " + dh.getNetCalories());
         System.out.println("Meals Consumed:");
-        printMealConsumed(dh.getMeals());
+        printMealConsumed(dh.getEatenMeals());
         System.out.println("Workouts Recorded:");
         printWorkouts(dh.getWorkouts());
         

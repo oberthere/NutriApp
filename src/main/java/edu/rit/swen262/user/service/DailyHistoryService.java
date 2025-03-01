@@ -53,7 +53,8 @@ public class DailyHistoryService {
     public double getWeight() {return weight;}
     public int getTargetCalories() {return targetCalories;}
     public int getNetCalories() {return netCalories;}
-    public List<Meal> getMeals() {return eatenMeals;}
+    public List<Meal> getPreparedMeals() {return preparedMeals;}
+    public List<Meal> getEatenMeals() {return eatenMeals;}
     public List<Workout> getWorkouts() { return workouts;}
     public String getUserID() {return userID;}
 
@@ -66,7 +67,7 @@ public class DailyHistoryService {
      * @return
      * @throws LowStockException if there isn't enough ingredients available 
      */
-    public Meal prepareMeal(String mealName, List<Recipe> recipes) throws LowStockException{
+    public void prepareMeal(String mealName, List<Recipe> recipes) throws LowStockException{
         List<Ingredient> lowStockIngredients = new ArrayList<>();
         for (Recipe recipe : recipes) {
             for (Ingredient ingre: recipe.getIngredients()) {
@@ -81,7 +82,8 @@ public class DailyHistoryService {
         if (lowStockIngredients.size() > 0) {
             throw new LowStockException("Not enough stock for " + lowStockIngredients + " to be prepared");
         }
-        return new Meal(mealName, recipes);
+
+        this.preparedMeals.add(new Meal(mealName, recipes));
     }
     
     /**
@@ -92,12 +94,11 @@ public class DailyHistoryService {
      * @param ignoreException
      * @return
      */
-    public Meal prepareMeal(String mealName, List<Recipe> recipes, boolean ignoreException){
+    public void prepareMeal(String mealName, List<Recipe> recipes, boolean ignoreException){
         try {
-            return prepareMeal(mealName, recipes);
+            prepareMeal(mealName, recipes);
         } catch (LowStockException e) {
-            if (ignoreException) {return new Meal(mealName, recipes);}
-            return null;
+            if (ignoreException) {this.preparedMeals.add(new Meal(mealName, recipes));}
         }
     }
     
@@ -113,6 +114,8 @@ public class DailyHistoryService {
         {
             throw new NetCaloriesOverflowException("Consuming " + meal.getName() + " will exceed targetCalories");
         }
+        this.preparedMeals.remove(meal);
+        this.eatenMeals.add(meal);
         this.netCalories += meal.getCalories();
     }
 
@@ -126,7 +129,11 @@ public class DailyHistoryService {
         try {
             eatMeal(meal);
         } catch (NetCaloriesOverflowException e) {
-            if (ignoreException) {this.netCalories += meal.getCalories();}
+            if (ignoreException) {
+                this.netCalories += meal.getCalories();
+                this.preparedMeals.remove(meal);
+                this.eatenMeals.add(meal);
+            }
         }
     }
 

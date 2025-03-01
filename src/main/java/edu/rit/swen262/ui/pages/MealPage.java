@@ -19,7 +19,7 @@ public class MealPage extends Page {
     public void printContent() {
         super.printContent();
         System.out.println("Meals Consumed:");
-        for (Meal meal : pageData.getCurrentUser().getDailyHistoryService().getMeals()) {
+        for (Meal meal : pageData.getCurrentUser().getDailyHistoryService().getEatenMeals()) {
             System.out.println("\t- " + meal.getName());
         }
     }
