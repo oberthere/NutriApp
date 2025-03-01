@@ -3,8 +3,7 @@ package edu.rit.swen262.ui.commands;
 import edu.rit.swen262.user.User;
 
 public abstract class UserCommand {
-    protected String name;
+    protected String nameString;
 
-    public String getName() {return this.name;}
-    public void performAction(User user) {throw new UnsupportedOperationException("Method not implemented");}
-}
+    public String getName() {return this.nameString;}
+    public void performAction(String[] commandArgs) {throw new UnsupportedOperationException("Method not implemented");}}

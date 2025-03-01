@@ -38,10 +38,12 @@ public class PageRunner {
         for (UserCommand command : commands) {
             if (command.getName().equals(commandString[0])) {
                 System.out.println("Running cmd of " + command.getName());
+                command.performAction(commandString);
                 break;
             }
         }
         scanner.close();
+        runPage();
     }
 
     public void runPage() {

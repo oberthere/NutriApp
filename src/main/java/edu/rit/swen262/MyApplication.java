@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import edu.rit.swen262.ui.pages.MainPage;
+
 @SpringBootApplication
 public class MyApplication {
 

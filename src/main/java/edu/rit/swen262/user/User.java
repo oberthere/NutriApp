@@ -28,18 +28,14 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.birthdate = birthdate;
-        goalService = new GoalService(false, 0, 0);
     }
 
-    public User(String name, double height, double weight, Date birthdate, 
-        GoalService goalService, ShoppingListService shoppingListService, DailyHistoryService dailyHistoryService)
+    public User(String name, double height, double weight, Date birthdate, DailyHistoryService dailyHistoryService)
         {
             this.name = name;
             this.height = height;
             this.weight = weight;
             this.birthdate = birthdate;
-            this.goalService = goalService;
-            this.shoppingListService = shoppingListService;
             this.dailyHistoryService = dailyHistoryService;
         }
 

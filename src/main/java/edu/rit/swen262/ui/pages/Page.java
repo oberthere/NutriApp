@@ -10,18 +10,20 @@ import edu.rit.swen262.ui.commands.UserCommand;
 public abstract class Page {
     protected PageData pageData;
     protected Page parentPage;
-    protected String name;
+    protected String pageName;
     protected List<Page> childrenPage;
     protected List<UserCommand> userCommands;
 
     public void printContent() {
-        String pageLink = name;
+        String pageLink = pageName;
         Page page = parentPage;
         while (page.getParentPage() != null)
         {
             pageLink = page.getParentPage().getPageName() + ">" + pageLink;
             page = page.parentPage;
         }
+        System.out.println(pageLink);
+        System.out.println();
     }
     
     public void printCommand() {
@@ -37,5 +39,5 @@ public abstract class Page {
     public void setChildrenPage(List<Page> childrenPages) {}
     public List<Page> getChildrenPage() {return this.childrenPage;}
 
-    public String getPageName() {return this.name;}
+    public String getPageName() {return this.pageName;}
 }
