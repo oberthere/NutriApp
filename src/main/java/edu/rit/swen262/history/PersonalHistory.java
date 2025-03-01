@@ -35,7 +35,6 @@ public final class PersonalHistory {
 
     public List<DailyHistoryService> getUserHistory(String userID) {
         return PersonalHistory.history.get(userID);
-        
     }
 
     public IntensityStrategy getWorkoutIntensityTrend(String userID) {
@@ -77,7 +76,7 @@ public final class PersonalHistory {
             e.printStackTrace();
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     public void deserializeAndLoadSavedHistory() {
         FileInputStream file;
