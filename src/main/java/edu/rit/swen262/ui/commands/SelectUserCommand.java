@@ -15,6 +15,7 @@ public class SelectUserCommand extends UserCommand {
 
     public SelectUserCommand(PageData pageData, PageRunner pageRunner) {
         super.nameString = "SelectUser";
+        super.helpString = "SelectUser [Username]";
         this.pageData = pageData;
         this.pageRunner = pageRunner;
     }
@@ -35,19 +36,16 @@ public class SelectUserCommand extends UserCommand {
         // Goes through each children Page to find the UserDashboard
         for (Page childPage : childrenPages) {
             // If user has a daily entry, then navigate to the User Dashboard
-            if (user.getDailyHistoryService() != null && childPage.getPageName().equals("UserDashboard")) {
+            if (user.getDailyHistoryService() != null && childPage.getPageName().equals("User Dashboard")) {
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 break;
             // Else navigate to the user setup
-            } else if (user.getDailyHistoryService() == null && childPage.getPageName().equals("UserSetup")) {
+            } else if (user.getDailyHistoryService() == null && childPage.getPageName().equals("User Setup")) {
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 break;
             }
         }
-
-        pageRunner.runPage();
-
     }
 }
