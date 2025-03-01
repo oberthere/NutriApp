@@ -6,9 +6,10 @@ public class Workout{
     private int durationMin;
     private IntensityStrategy intensity;
     private Date recordedDate;
+    private String workoutName;
     
-    public Workout(int durationMin, IntensityStrategy intensity){
-        
+    public Workout(String workoutName, int durationMin, IntensityStrategy intensity){
+        this.workoutName = workoutName;
         this.durationMin = durationMin;
         this.intensity = intensity;
     }
@@ -28,4 +29,6 @@ public class Workout{
     public IntensityStrategy getIntensity(){
         return intensity;
     }
+
+    public String getName() {return this.workoutName;}
 }
