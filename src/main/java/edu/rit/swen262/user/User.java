@@ -58,6 +58,8 @@ public class User {
     public void startNewDay(double height, double weight) {
         //Calls on saveData and Saves the user data into personal history
 
+        //Set new change for the goalservice
+
         //Create a new personal history and set that as the user's current dailyhistoryservice
     }
 

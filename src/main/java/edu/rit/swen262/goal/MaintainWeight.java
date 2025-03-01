@@ -5,7 +5,7 @@ import edu.rit.swen262.user.User;
 public class MaintainWeight implements Goal{
     public int calculateTargetCalories(User user) {
         int calories = 0;
-        calories = user.getGoalService().getTargetWeight() * 15;
+        calories = (int) user.getGoalService().getTargetWeight() * 15;
         if (user.getGoalService().isPhysicalFitness()) {
             calories += 400;
         }
