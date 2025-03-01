@@ -14,6 +14,7 @@ public class UserDashboardPage extends Page {
     private PageData pageData;
 
     public UserDashboardPage(PageData pageData) {
+        super.pageName = "User Dashboard";
         this.pageData = pageData;
     }
 
