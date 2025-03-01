@@ -30,6 +30,14 @@ public class PageRunner {
         this.currentPage = page;
     }
 
+    /**
+     * Returns the current page.
+     * @return current page object
+     */
+    public Page getCurrentPage() {
+        return this.currentPage;
+    }
+
     private void executeCommand(List<UserCommand> commands) {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();

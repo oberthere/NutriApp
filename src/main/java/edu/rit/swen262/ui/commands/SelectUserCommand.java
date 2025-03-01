@@ -2,6 +2,7 @@ package edu.rit.swen262.ui.commands;
 
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
+import edu.rit.swen262.ui.pages.Page;
 import edu.rit.swen262.user.User;
 
 public class SelectUserCommand extends UserCommand {
@@ -26,7 +27,9 @@ public class SelectUserCommand extends UserCommand {
         //Send users who started their current day history to userDashboard Page
         if (user.getDailyHistoryService() != null)
         {
+            Page userDashboard = pageData.getPage("UserDashboardPage");
             
+
         }
         //Send users who didn't start on their current day history to userSetup Page
     }
