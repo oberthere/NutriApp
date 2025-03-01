@@ -1,5 +1,7 @@
 package edu.rit.swen262.ui.commands;
 
+import java.util.List;
+
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
@@ -27,18 +29,22 @@ public class SelectUserCommand extends UserCommand {
         User user = pageData.getUser(username);
 
         pageData.setCurrentUser(user);
+        Page currentPage = pageRunner.getCurrentPage();
+        List<Page> childrenPages = currentPage.getChildrenPage();
 
-        //Send users who started their current day history to userDashboard Page
-        if (user.getDailyHistoryService() != null)
-        {
-            Page dashboardPage = new UserDashboardPage(pageData);
-            pageRunner.setPage(dashboardPage);
-
-        }
-        //Send users who didn't start on their current day history to userSetup Page
-        else {
-            Page setupPage = new UserSetupPage(pageData);
-            pageRunner.setPage(setupPage);
+        // Goes through each children Page to find the UserDashboard
+        for (Page childPage : childrenPages) {
+            // If user has a daily entry, then navigate to the User Dashboard
+            if (user.getDailyHistoryService() != null && childPage.getPageName().equals("UserDashboard")) {
+                System.out.println("Navigating to " + childPage.getPageName());
+                pageRunner.setPage(childPage);
+                break;
+            // Else navigate to the user setup
+            } else if (user.getDailyHistoryService() == null && childPage.getPageName().equals("UserSetup")) {
+                System.out.println("Navigating to " + childPage.getPageName());
+                pageRunner.setPage(childPage);
+                break;
+            }
         }
 
         pageRunner.runPage();
