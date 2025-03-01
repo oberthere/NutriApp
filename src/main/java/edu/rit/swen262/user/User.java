@@ -51,16 +51,19 @@ public class User {
     public DailyHistoryService getDailyHistoryService() {return this.dailyHistoryService;}
     public Date getLastUpdated() {return this.dailyHistoryService.getDate();}
 
-    private void saveData() {
-        //TODO: Save the user data into personal history
-    }
-
-    public void startNewDay(double height, double weight) {
+    public void startNewDay(double weight, double targetWeight, int targetCalories, boolean isPhysicalFitnessGoal) {
+        
         //Calls on saveData and Saves the user data into personal history
+        if (this.dailyHistoryService != null) {
+            PersonalHistory.addDailyHistory(dailyHistoryService);
+            PersonalHistory.serializeHistoryToSave();
+        }
 
         //Set new change for the goalservice
+        this.goalService = new GoalService(isPhysicalFitnessGoal, targetWeight, weight);
 
         //Create a new personal history and set that as the user's current dailyhistoryservice
+        this.dailyHistoryService = new DailyHistoryService(name, birthdate, targetWeight, targetCalories);
     }
 
     public void continueDay() {

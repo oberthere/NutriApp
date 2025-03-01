@@ -9,14 +9,14 @@ public class NewUserEntryCommand extends UserCommand {
 
     public NewUserEntryCommand(PageData pageData, PageRunner pageRunner) {
         super.nameString = "NewUserEntry";
-        super.helpString = "NewUserEntry [currentWeight] [targetWeight] [targetCalories] [physicalFitness]";
+        super.helpString = "NewUserEntry [currentWeight] [targetWeight] [targetCalories] [isPhysicalFitnessGoal]";
         this.pageData = pageData;
     }
 
     @Override
     public void performAction(String[] commandArgs) {
         if (commandArgs.length < 5) {
-            System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight] [targetWeight] [targetCalories] [physicalFitness]");
+            System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight] [targetWeight] [targetCalories] [isPhysicalFitnessGoal]");
             return;
         }
 
@@ -26,24 +26,26 @@ public class NewUserEntryCommand extends UserCommand {
             return;
         }
 
+        double currentWeight;
+        double targetWeight;
+        int targetCalories;
+        boolean isPhysicalFitness;
+        
+
         try {
-            double currentWeight = Double.parseDouble(commandArgs[1]);
-            double targetWeight = Double.parseDouble(commandArgs[2]);
-            int targetCalories = Integer.parseInt(commandArgs[3]);
-            boolean physicalFitness = commandArgs[4].equalsIgnoreCase("true") || commandArgs[4].equalsIgnoreCase("yes");
-
-            // Adjust calories if user prioritizes fitness
-            if (physicalFitness) {
-                targetCalories += 500; // Example adjustment
-            }
-
-            System.out.println("New goal set: Target weight = " + targetWeight + 
-                               ", Current weight = " + currentWeight + 
-                               ", Target Calories = " + targetCalories + 
-                               ", Physical fitness priority = " + physicalFitness);
-            
+            currentWeight = Integer.parseInt(commandArgs[1]);
+            targetWeight = Integer.parseInt(commandArgs[2]);
+            targetCalories = Integer.parseInt(commandArgs[3]);
+            isPhysicalFitness = Boolean.parseBoolean(commandArgs[4]);
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid argument types. Expected: [double] [double] [int] [boolean]");
+            return;
         }
+
+        user.startNewDay(currentWeight, targetWeight, targetCalories, isPhysicalFitness);
+
+        System.out.println("New goal service created with target weight: " + targetWeight +
+                           " and current weight: " + currentWeight +
+                           ". Physical fitness priority: " + isPhysicalFitness + ".");
     }
 }
