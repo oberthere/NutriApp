@@ -1,99 +1,104 @@
 package edu.rit.swen262.ui;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
 import java.util.Scanner;
 import edu.rit.swen262.ui.commands.UserCommand;
 import edu.rit.swen262.ui.pages.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@Component  // This makes PageRunner a Spring-managed Bean
 public class PageRunner {
     private PageData pageData;
     private Page mainPage;
-    private Page mealPage;
-    private Page historyPage;
-    private Page userDashboardPage;
-    private Page userSetupPage;
-    private Page workoutPage;
     private Page currentPage;
+    private List<UserCommand> pageCommands;
 
-    public PageRunner() {
+    public PageRunner(Page mainPage) {
         this.pageData = new PageData();
+        this.mainPage = mainPage;
+        this.currentPage = mainPage;
+    }
+
+    public PageRunner(PageData pageData, Page mainPage) {
+        this.pageData = pageData;
+        this.mainPage = mainPage;
+        this.currentPage = mainPage;
     }
 
     public void startUp() {
-        mainPage = new MainPage(pageData);
-        mealPage = new MealPage(pageData);
-        historyPage = new HistoryPage(pageData);
-        userDashboardPage = new UserDashboardPage(pageData);
-        userSetupPage = new UserSetupPage(pageData);
-        workoutPage = new WorkoutPage(pageData);
+        // Instantiate all pages
+        Page userSetupPage = new UserSetupPage(pageData);
+        Page userDashboardPage = new UserDashboardPage(pageData);
+        Page mealPage = new MealPage(pageData);
+        Page historyPage = new HistoryPage(pageData);
+        Page workoutPage = new WorkoutPage(pageData);
 
-        List<Page> childPages = List.of(mealPage, historyPage, userDashboardPage, userSetupPage, workoutPage);
-        mainPage.setChildrenPage(childPages);
+        // Set up proper parent-child relationships
+        mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage));
+        userSetupPage.setParentPage(mainPage);
+        userDashboardPage.setParentPage(mainPage);
 
-        for (Page page : childPages) {
-            page.setParentPage(mainPage);
-        }
+        userDashboardPage.setChildrenPage(List.of(mealPage, historyPage, workoutPage));
+        mealPage.setParentPage(userDashboardPage);
+        historyPage.setParentPage(userDashboardPage);
+        workoutPage.setParentPage(userDashboardPage);
 
         currentPage = mainPage;
-    }
-
-    public Page getCurrentPage() {
-        return this.currentPage;
     }
 
     public void setPage(Page page) {
         this.currentPage = page;
     }
 
-    public void runPage() {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            currentPage.printContent();
-            currentPage.printCommand();
-            System.out.print("Enter command: ");
-            String input = scanner.nextLine().trim();
-
-            if (input.equalsIgnoreCase("exit")) {
-                System.out.println("Exiting application...");
-                break;
-            }
-
-            boolean pageChanged = false;
-            for (Page child : currentPage.getChildrenPage()) {
-                if (child.getPageName().equalsIgnoreCase(input)) {
-                    setPage(child);
-                    pageChanged = true;
-                    break;
-                }
-            }
-
-            if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
-                setPage(currentPage.getParentPage());
-                pageChanged = true;
-            }
-
-            if (!pageChanged) {
-                executeCommand(currentPage.getCommands(), input);
-            }
-        }
-
-        scanner.close();
+    /**
+     * Returns the current page.
+     * @return current page object
+     */
+    public Page getCurrentPage() {
+        return this.currentPage;
     }
 
-    private void executeCommand(List<UserCommand> commands, String input) {
+    private void executeCommand(List<UserCommand> commands) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
         String[] commandString = input.split(" ");
-
+        System.out.println(commandString);
+        
         for (UserCommand command : commands) {
-            if (command.getName().equalsIgnoreCase(commandString[0])) {
+            if (command.getName().equals(commandString[0])) {
+                System.out.println("Running cmd of " + command.getName());
                 command.performAction(commandString);
+                scanner.close();
+                runPage();
                 return;
             }
         }
 
+        // If the input matches a child page name, navigate to that page
+        for (Page child : currentPage.getChildrenPage()) {
+            if (child.getPageName().equalsIgnoreCase(input)) {
+                setPage(child);
+                scanner.close();
+                runPage();
+                return;
+            }
+        }
+
+        // If "back" is typed and a parent page exists, navigate back
+        if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
+            setPage(currentPage.getParentPage());
+            scanner.close();
+            runPage();
+            return;
+        }
+
         System.out.println("Invalid command. Try again.");
+        scanner.close();
+        runPage();
+    }
+
+    public void runPage() {
+        this.pageCommands = this.currentPage.getCommands();
+        this.currentPage.printContent();
+        this.currentPage.printCommand();
+        this.executeCommand(this.pageCommands);
     }
 }
