@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import edu.rit.swen262.ui.PageData;
+import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.MainPage;
 
 @SpringBootApplication
@@ -14,6 +16,7 @@ public class MyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyApplication.class, args);
+		
 	}
 
 }

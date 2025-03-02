@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import edu.rit.swen262.ui.commands.UserCommand;
+import edu.rit.swen262.ui.pages.MainPage;
 import edu.rit.swen262.ui.pages.Page;
 import edu.rit.swen262.user.User;
 
@@ -14,6 +15,10 @@ public class PageRunner {
     private Page mainPage;
     private Page currentPage;
     private List<UserCommand> pageCommands;
+
+    public PageRunner() {
+        this.startUp();
+    }
 
     public PageRunner(Page mainPage) {
         this.pageData = new PageData();
@@ -59,5 +64,10 @@ public class PageRunner {
         this.currentPage.printContent();
         this.currentPage.printCommand();
         this.executeCommand(this.pageCommands);
+    }
+
+    public void startUp()
+    {
+        this.pageData = new PageData();
     }
 }
