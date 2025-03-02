@@ -74,6 +74,30 @@ public class DailyHistoryService {
         this.netCalories += meal.getCalories();
     }
 
+    /**
+     * Returns the list of prepared meals.
+     */
+    public List<Meal> getPreparedMeals() {
+        return preparedMeals;
+    }
+
+    /**
+     * Returns the list of eaten meals.
+     */
+    public List<Meal> getEatenMeals() {
+        return eatenMeals;
+    }
+
+    /**
+     * Returns the list of recorded workouts.
+     */
+    public List<Workout> getWorkouts() {
+        return workouts;
+    }
+
+    /**
+     * Suggests a workout based on excess calories.
+     */
     public Workout suggestWorkout() {
         int excessCalories = this.netCalories - this.targetCalories;
         if (excessCalories <= 0) {
