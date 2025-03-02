@@ -1,6 +1,7 @@
 package edu.rit.swen262.ui;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,8 +28,8 @@ public class PageData {
     public void setCurrentUser(User user) {this.currentUser = user;}
     public User getCurrentUser() {return this.currentUser;}
     public User[] getAllUsers() {
-        List<User> ls = (List<User>) this.users.values();
-        return (User[]) ls.toArray();
+    List<User> userList = new ArrayList<>(this.users.values()); // Convert collection to list
+    return userList.toArray(new User[0]); // Convert list to array
     }
 
     public static Date getCurrentDate() {return PageData.currentDate;}

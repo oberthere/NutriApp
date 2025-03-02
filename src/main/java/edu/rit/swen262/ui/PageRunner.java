@@ -1,43 +1,48 @@
 package edu.rit.swen262.ui;
 
+import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Scanner;
 import edu.rit.swen262.ui.commands.UserCommand;
 import edu.rit.swen262.ui.pages.*;
 
+@Component
 public class PageRunner {
     private PageData pageData;
     private Page mainPage;
     private Page currentPage;
     private List<UserCommand> pageCommands;
+    private final Scanner scanner;
 
+    // Default Constructor (Used by Spring Boot)
     public PageRunner() {
         this.pageData = new PageData();
         this.mainPage = new MainPage(pageData);
         this.currentPage = this.mainPage;
+        this.scanner = new Scanner(System.in);
     }
 
     public PageRunner(Page mainPage) {
         this.pageData = new PageData();
         this.mainPage = mainPage;
         this.currentPage = mainPage;
+        this.scanner = new Scanner(System.in);
     }
 
     public PageRunner(PageData pageData, Page mainPage) {
         this.pageData = pageData;
         this.mainPage = mainPage;
         this.currentPage = mainPage;
+        this.scanner = new Scanner(System.in);
     }
 
     public void startUp() {
-        // Instantiate all pages
         Page userSetupPage = new UserSetupPage(pageData);
         Page userDashboardPage = new UserDashboardPage(pageData);
         Page mealPage = new MealPage(pageData);
         Page historyPage = new HistoryPage(pageData);
         Page workoutPage = new WorkoutPage(pageData);
 
-        // Set up proper parent-child relationships
         mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage));
         userSetupPage.setParentPage(mainPage);
         userDashboardPage.setParentPage(mainPage);
@@ -54,57 +59,53 @@ public class PageRunner {
         this.currentPage = page;
     }
 
-    /**
-     * Returns the current page.
-     * @return current page object
-     */
     public Page getCurrentPage() {
         return this.currentPage;
     }
 
-    private void executeCommand(List<UserCommand> commands) {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+    private void executeCommand(List<UserCommand> commands, String input) {
         String[] commandString = input.split(" ");
-        System.out.println(commandString);
-        
         for (UserCommand command : commands) {
-            if (command.getName().equals(commandString[0])) {
-                System.out.println("Running cmd of " + command.getName());
+            if (command.getName().equalsIgnoreCase(commandString[0])) {
                 command.performAction(commandString);
-                scanner.close();
-                runPage();
                 return;
             }
         }
-
-        // If the input matches a child page name, navigate to that page
-        for (Page child : currentPage.getChildrenPage()) {
-            if (child.getPageName().equalsIgnoreCase(input)) {
-                setPage(child);
-                scanner.close();
-                runPage();
-                return;
-            }
-        }
-
-        // If "back" is typed and a parent page exists, navigate back
-        if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
-            setPage(currentPage.getParentPage());
-            scanner.close();
-            runPage();
-            return;
-        }
-
         System.out.println("Invalid command. Try again.");
-        scanner.close();
-        runPage();
     }
 
     public void runPage() {
-        this.pageCommands = this.currentPage.getCommands();
-        this.currentPage.printContent();
-        this.currentPage.printCommand();
-        this.executeCommand(this.pageCommands);
+        while (true) {
+            this.pageCommands = this.currentPage.getCommands();
+            this.currentPage.printContent();
+            this.currentPage.printCommand();
+
+            System.out.print("Enter command: ");
+            String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting application...");
+                break;
+            }
+
+            boolean navigated = false;
+            for (Page child : currentPage.getChildrenPage()) {
+                if (child.getPageName().equalsIgnoreCase(input)) {
+                    currentPage = child;
+                    navigated = true;
+                    break;
+                }
+            }
+
+            if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
+                currentPage = currentPage.getParentPage();
+                navigated = true;
+            }
+
+            if (!navigated) {
+                executeCommand(this.pageCommands, input);
+            }
+        }
+        scanner.close();
     }
 }
