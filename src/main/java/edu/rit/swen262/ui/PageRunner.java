@@ -11,6 +11,12 @@ public class PageRunner {
     private Page currentPage;
     private List<UserCommand> pageCommands;
 
+    public PageRunner() {
+        this.pageData = new PageData();
+        this.mainPage = new MainPage(pageData);
+        this.currentPage = this.mainPage;
+    }
+
     public PageRunner(Page mainPage) {
         this.pageData = new PageData();
         this.mainPage = mainPage;
