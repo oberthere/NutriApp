@@ -1,18 +1,13 @@
 package edu.rit.swen262.ui.pages;
 
-import java.util.List;
-
+import java.util.ArrayList;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.ui.commands.UserCommand;
 import edu.rit.swen262.user.User;
 
 public class MainPage extends Page {
-    private PageData pageData;
-
-    public MainPage(PageData pageData, List<UserCommand> commands) {
-        this.pageData = pageData;
-        super.pageName = "Main Page";
-        super.userCommands = commands;
+    public MainPage(PageData pageData) {
+        super(pageData);
+        this.pageName = "Main Page";
     }
 
     @Override
@@ -23,5 +18,5 @@ public class MainPage extends Page {
             System.out.println("\t- " + user.getName());
         }
         System.out.println();
-    }    
+    }
 }
