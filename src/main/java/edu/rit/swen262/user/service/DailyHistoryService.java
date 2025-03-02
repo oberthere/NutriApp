@@ -14,6 +14,7 @@ import edu.rit.swen262.other.exception.LowStockException;
 import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.workout.Workout;
 import edu.rit.swen262.workout.IntensityStrategy;
+import edu.rit.swen262.history.PersonalHistory;
 
 public class DailyHistoryService {
     private String userID;
@@ -25,17 +26,6 @@ public class DailyHistoryService {
     private List<Workout> workouts;
     private int netCalories;
 
-    
-
-    public String getUserID() {return userID;}
-    public Date getDate() {return date;}
-    public double getWeight() {return weight;}
-    public int getTargetCalories() {return targetCalories;}
-    public List<Meal> getPreparedMeals() {return preparedMeals;}
-    public List<Meal> getEatenMeals() {return eatenMeals;}
-    public List<Workout> getWorkouts() {return workouts;}
-    public int getNetCalories() {return netCalories;}
-
     public DailyHistoryService(String userID, Date date, double weight, int targetCalories) {
         this.userID = userID;
         this.date = date;
@@ -46,6 +36,15 @@ public class DailyHistoryService {
         this.workouts = new ArrayList<>();
         this.netCalories = 0;
     }
+
+    public String getUserID() {return userID;}
+    public Date getDate() {return date;}
+    public double getWeight() {return weight;}
+    public int getTargetCalories() {return targetCalories;}
+    public List<Meal> getPreparedMeals() {return preparedMeals;}
+    public List<Meal> getEatenMeals() {return eatenMeals;}
+    public List<Workout> getWorkouts() {return workouts;}
+    public int getNetCalories() {return netCalories;}
 
     public void prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
         List<Ingredient> lowStockIngredients = new ArrayList<>();
@@ -94,20 +93,18 @@ public class DailyHistoryService {
             return null; // No workout needed
         }
 
-        // Example: Find an appropriate workout to burn excess calories
+        IntensityStrategy avgIntensity = PersonalHistory.getWorkoutIntensityTrend(this.userID);
+
+        // Example: Find an appropriate workout to burn excess calories using the average intensity
         for (Workout workout : workouts) {
             double burnedCalories = workout.getIntensity().calorieBurnAlgorithm(workout);
-            if (burnedCalories >= excessCalories) {
+            if (burnedCalories >= excessCalories && workout.getIntensity().equals(avgIntensity)) {
                 return workout;
             }
         }
 
-        // If no existing workout burns enough, suggest a generic one
-        return new Workout("Jogging", excessCalories / 10, new IntensityStrategy() {
-            @Override
-            public double calorieBurnAlgorithm(Workout workout) {
-                return workout.getDurationMin() * 10; // Example: Burn 10 calories per minute
-            }
-        });
+        // If no existing workout with the average intensity burns enough, suggest a generic one
+        Workout genericWorkout = new Workout("Jogging", excessCalories / 10, avgIntensity);
+        return genericWorkout;
     }
 }
