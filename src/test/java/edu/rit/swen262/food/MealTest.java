@@ -38,7 +38,7 @@ class MealTest {
 
         // Create a meal
         List<Recipe> recipes = Arrays.asList(pancake, omelette);
-        meal = new Meal("Breakfast Combo", recipes);
+        meal = new Meal("Breakfast Combo", recipes, MealType.BREAKFAST);
     }
 
     @Test
@@ -73,7 +73,7 @@ class MealTest {
 
     @Test
     void testEmptyMeal() {
-        Meal emptyMeal = new Meal("Empty Meal", Collections.emptyList());
+        Meal emptyMeal = new Meal("Empty Meal", Collections.emptyList(), MealType.BREAKFAST);
         assertEquals(0, emptyMeal.getCalories());
         assertEquals(0.0, emptyMeal.getFat(), 0.001);
         assertEquals(0.0, emptyMeal.getProtein(), 0.001);

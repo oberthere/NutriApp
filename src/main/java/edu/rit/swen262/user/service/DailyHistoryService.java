@@ -25,6 +25,17 @@ public class DailyHistoryService {
     private List<Workout> workouts;
     private int netCalories;
 
+    
+
+    public String getUserID() {return userID;}
+    public Date getDate() {return date;}
+    public double getWeight() {return weight;}
+    public int getTargetCalories() {return targetCalories;}
+    public List<Meal> getPreparedMeals() {return preparedMeals;}
+    public List<Meal> getEatenMeals() {return eatenMeals;}
+    public List<Workout> getWorkouts() {return workouts;}
+    public int getNetCalories() {return netCalories;}
+
     public DailyHistoryService(String userID, Date date, double weight, int targetCalories) {
         this.userID = userID;
         this.date = date;

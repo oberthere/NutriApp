@@ -1,18 +1,19 @@
 package edu.rit.swen262;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import edu.rit.swen262.ui.PageRunner;
 
+
 @SpringBootApplication
 public class MyApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MyApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+		
+	}
 
     @Bean
     CommandLineRunner runPageRunner(PageRunner pageRunner) {

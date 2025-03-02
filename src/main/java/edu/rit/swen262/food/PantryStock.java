@@ -1,11 +1,14 @@
 package edu.rit.swen262.food;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class PantryStock {
     private static final Map<Ingredient, Integer> ingredientRecord = new HashMap<>();
+    public static List<Recipe> RecipeRecord = new ArrayList<>();
     
     public static void updateIngredients(Ingredient ingredient, int amount) {
         PantryStock.ingredientRecord.put(ingredient, amount);
