@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.history.PersonalHistory;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.UserCommand;
@@ -12,7 +14,7 @@ import edu.rit.swen262.user.service.DailyHistoryService;
 
 public class HistoryPage extends Page {
     public HistoryPage(PageData pageData) {
-        this.pageData = pageData;
+        super(pageData);
         this.pageName = "History";
         this.userCommands = new ArrayList<>(); // Generate commands here
     }
