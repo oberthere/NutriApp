@@ -34,14 +34,16 @@ public final class PersonalHistory {
         // Ensure the user history list exists
         List<DailyHistoryService> userHistoryRecord = PersonalHistory.history.get(userName);
         if (userHistoryRecord == null) {
-            userHistoryRecord = new ArrayList<>();  // Create new list if null
+            userHistoryRecord = new ArrayList<>();  
+            PersonalHistory.history.put(userName, userHistoryRecord);
         }
-
+    
         userHistoryRecord.add(dh);
-        PersonalHistory.history.put(userName, userHistoryRecord);
+    
+        // Save data immediately after adding a new history entry
+        serializeHistoryToSave();
     }
-
-
+    
     public static List<DailyHistoryService> getUserHistory(String userID) {
         return PersonalHistory.history.get(userID);
     }
