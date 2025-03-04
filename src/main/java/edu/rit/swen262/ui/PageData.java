@@ -18,6 +18,7 @@ public class PageData {
 
     public PageData() {
         this.users = new HashMap<String, User>();
+        loadUsersFromHistory(); // load the saved data first
     }
     
     public PageData(Map<String, User> users) {
@@ -34,19 +35,26 @@ public class PageData {
     }
         
 
+    /**
+     * Loads saved users from PersonalHistory on startup**
+     */
     private void loadUsersFromHistory() {
+        System.out.println("Loading saved users from history...");
+        PersonalHistory.deserializeAndLoadSavedHistory(); // Load the saved history first
         Map<String, List<DailyHistoryService>> history = PersonalHistory.getHistory();
+
         for (String username : history.keySet()) {
             if (!users.containsKey(username)) {
-                // Create a new user object from history (assumes history contains at least one entry per user)
                 List<DailyHistoryService> userHistory = history.get(username);
                 if (!userHistory.isEmpty()) {
-                    DailyHistoryService dh = userHistory.get(0); // Take first entry for user data
+                    DailyHistoryService dh = userHistory.get(0);  // Get first history entry
                     User user = new User(username, dh.getHeight(), dh.getWeight(), dh.getBirthdate());
                     users.put(username, user);
                 }
             }
         }
+
+        System.out.println("Users loaded from history: " + users.keySet());
     }
 
     public static Date getCurrentDate() {return PageData.currentDate;}
