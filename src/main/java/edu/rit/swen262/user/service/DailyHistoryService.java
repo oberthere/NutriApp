@@ -19,6 +19,8 @@ import edu.rit.swen262.history.PersonalHistory;
 public class DailyHistoryService {
     private String userID;
     private Date date;
+    private Date birthdate;
+    private double height;
     private double weight;
     private int targetCalories;
     private List<Meal> preparedMeals;
@@ -26,10 +28,12 @@ public class DailyHistoryService {
     private List<Workout> workouts;
     private int netCalories;
 
-    public DailyHistoryService(String userID, Date date, double weight, int targetCalories) {
+    public DailyHistoryService(String userID, Date date, double height, double weight, Date birthdate, int targetCalories) {
         this.userID = userID;
         this.date = date;
+        this.height = height;
         this.weight = weight;
+        this.birthdate = birthdate;
         this.targetCalories = targetCalories;
         this.preparedMeals = new ArrayList<>();
         this.eatenMeals = new ArrayList<>();
@@ -37,15 +41,17 @@ public class DailyHistoryService {
         this.netCalories = 0;
     }
 
-    public String getUserID() {return userID;}
-    public Date getDate() {return date;}
-    public double getWeight() {return weight;}
-    public int getTargetCalories() {return targetCalories;}
-    public List<Meal> getPreparedMeals() {return preparedMeals;}
-    public List<Meal> getEatenMeals() {return eatenMeals;}
-    public List<Workout> getWorkouts() {return workouts;}
-    public int getNetCalories() {return netCalories;}
-
+    public String getUserID() { return userID; }
+    public Date getDate() { return date; }
+    public double getHeight() { return height; } 
+    public double getWeight() { return weight; }
+    public Date getBirthdate() { return birthdate; } 
+    public int getTargetCalories() { return targetCalories; }
+    public List<Meal> getPreparedMeals() { return preparedMeals; }
+    public List<Meal> getEatenMeals() { return eatenMeals; }
+    public List<Workout> getWorkouts() { return workouts; }
+    public int getNetCalories() { return netCalories; }
+}
     public void prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
         List<Ingredient> lowStockIngredients = new ArrayList<>();
         Map<Ingredient, Integer> record = PantryStock.getAllIngredients();
