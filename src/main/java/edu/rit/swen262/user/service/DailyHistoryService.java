@@ -1,5 +1,6 @@
 package edu.rit.swen262.user.service;
 
+import java.io.Serializable;  // Import Serializable
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,9 @@ import edu.rit.swen262.workout.Workout;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.history.PersonalHistory;
 
-public class DailyHistoryService {
+public class DailyHistoryService implements Serializable { // Now serializable
+    private static final long serialVersionUID = 1L;  // Recommended for Serializable classes
+
     private String userID;
     private Date date;
     private Date birthdate;
@@ -43,15 +46,15 @@ public class DailyHistoryService {
 
     public String getUserID() { return userID; }
     public Date getDate() { return date; }
-    public double getHeight() { return height; } 
+    public double getHeight() { return height; }
     public double getWeight() { return weight; }
-    public Date getBirthdate() { return birthdate; } 
+    public Date getBirthdate() { return birthdate; }
     public int getTargetCalories() { return targetCalories; }
     public List<Meal> getPreparedMeals() { return preparedMeals; }
     public List<Meal> getEatenMeals() { return eatenMeals; }
     public List<Workout> getWorkouts() { return workouts; }
     public int getNetCalories() { return netCalories; }
-}
+
     public void prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
         List<Ingredient> lowStockIngredients = new ArrayList<>();
         Map<Ingredient, Integer> record = PantryStock.getAllIngredients();
