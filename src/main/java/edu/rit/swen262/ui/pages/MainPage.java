@@ -10,7 +10,7 @@ import edu.rit.swen262.user.User;
 public class MainPage extends Page {
     public MainPage(PageData pageData, PageRunner pageRunner) {
         super(pageData);
-        this.pageName = "Main Page";
+        this.pageName = "\nMain Page";
         
         // MainPage Commands
         this.userCommands.add(new CreateUserCommand(pageData));
@@ -21,7 +21,7 @@ public class MainPage extends Page {
     public void printContent() {
         super.printContent();
         System.out.println("Recorded Users:");
-        for (User user : pageData.getAllUsers()) {
+        for (User user : pageData.getAllUsers().values()) { 
             System.out.println("\t- " + user.getName());
         }
         System.out.println();
