@@ -18,6 +18,12 @@ public class ContinueUserEntryCommand extends UserCommand {
     @Override
     public void performAction(String[] commandArgs) {
 
+        // ensure length is valid
+        if (commandArgs.length < 2) {
+            System.out.println("Error: Missing argument. Usage: ContinueUserEntry [meal/workout/history]");
+            return;
+        }
+
         String choice = commandArgs[1].toLowerCase();
         Page currentPage = pageRunner.getCurrentPage();
         List<Page> childrenPages = currentPage.getChildrenPage();

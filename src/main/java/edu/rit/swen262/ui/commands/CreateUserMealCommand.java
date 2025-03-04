@@ -26,7 +26,7 @@ public class CreateUserMealCommand extends UserCommand {
      * @param pageData PageData object containing the current user session
      * @param pageRunner PageRunner manages page commands
      */
-    public CreateUserMealCommand(PageData pageData, PageRunner pageRunner) {
+    public CreateUserMealCommand(PageData pageData) {
         super.nameString = "CreateUserMeal";
         super.helpString = "CreateUserMeal [mealName] [mealType] [isPrepared]";
         this.pageData = pageData;

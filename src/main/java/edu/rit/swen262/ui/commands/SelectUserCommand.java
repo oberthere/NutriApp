@@ -24,8 +24,21 @@ public class SelectUserCommand extends UserCommand {
      */
     @Override
     public void performAction(String[] commandArgs) {
+
+        // Ensure proper length
+        if (commandArgs.length < 2) {
+            System.out.println("Error: Please provide a username. Usage: SelectUser [Username]");
+            return;
+        }
+
         String username = commandArgs[1];
         User user = pageData.getUser(username);
+
+        // If a username does not exist, return error
+        if (user == null) {
+            System.out.println("Error: User '" + username + "' not found.");
+            return;
+        }
 
         pageData.setCurrentUser(user);
         Page currentPage = pageRunner.getCurrentPage();
@@ -45,5 +58,6 @@ public class SelectUserCommand extends UserCommand {
                 break;
             }
         }
+
     }
 }

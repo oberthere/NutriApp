@@ -26,26 +26,17 @@ public class NewUserEntryCommand extends UserCommand {
             return;
         }
 
-        double currentWeight;
-        double targetWeight;
-        int targetCalories;
-        boolean isPhysicalFitness;
-        
-
         try {
-            currentWeight = Integer.parseInt(commandArgs[1]);
-            targetWeight = Integer.parseInt(commandArgs[2]);
-            targetCalories = Integer.parseInt(commandArgs[3]);
-            isPhysicalFitness = Boolean.parseBoolean(commandArgs[4]);
+            double currentWeight = Double.parseDouble(commandArgs[1]);
+            double targetWeight = Double.parseDouble(commandArgs[2]);
+            int targetCalories = Integer.parseInt(commandArgs[3]);
+            boolean isPhysicalFitnessGoal = Boolean.parseBoolean(commandArgs[4]);
+
+            user.startNewDay(currentWeight, targetWeight, targetCalories, isPhysicalFitnessGoal);
+
+            System.out.println("Daily entry set up successfully.");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid argument types. Expected: [double] [double] [int] [boolean]");
-            return;
+            System.out.println("Error: Invalid input format.");
         }
-
-        user.startNewDay(currentWeight, targetWeight, targetCalories, isPhysicalFitness);
-
-        System.out.println("New goal service created with target weight: " + targetWeight +
-                           " and current weight: " + currentWeight +
-                           ". Physical fitness priority: " + isPhysicalFitness + ".");
     }
 }
