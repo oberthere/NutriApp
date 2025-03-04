@@ -55,12 +55,17 @@ public class PageRunner {
         userSetupPage.setParentPage(mainPage);
         userDashboardPage.setParentPage(mainPage);
 
+        userSetupPage.setChildrenPage(List.of(userDashboardPage));
+        
         userDashboardPage.setChildrenPage(List.of(mealPage, historyPage, workoutPage));
         mealPage.setParentPage(userDashboardPage);
         historyPage.setParentPage(userDashboardPage);
         workoutPage.setParentPage(userDashboardPage);
 
         currentPage = mainPage;
+
+        PersonalHistory.deserializeAndLoadSavedHistory();
+        pageData.loadUsersFromHistory();
     }
 
     public void setPage(Page page) {
@@ -100,46 +105,47 @@ public class PageRunner {
     }
 
     public void runPage() {
-    while (true) {
-        this.currentPage.printContent();
-        this.currentPage.printCommand();
+        while (true) {
+            this.currentPage.printContent();
+            this.currentPage.printCommand();
 
-        System.out.println("  - exit"); // exit should always be displayed as an available command
+            System.out.println("  - exit"); // exit should always be displayed as an available command
 
-        System.out.print("Enter command: ");
-        String input = scanner.nextLine().trim();
+            System.out.print("Enter command: ");
+            String input = scanner.nextLine().trim();
 
-        if (input.equalsIgnoreCase("exit")) {
-            System.out.println("Saving data...");
-            PersonalHistory.serializeHistoryToSave();  // Save user history before exit
-            System.out.println("Data saved. Exiting application...");
-            break;
-        }
-
-        boolean navigated = false;
-        for (Page child : currentPage.getChildrenPage()) {
-            if (child.getPageName().equalsIgnoreCase(input)) {
-                currentPage = child;
-                System.out.println("\nNavigating to " + child.getPageName() + "...");
-                navigated = true;
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("Saving data...");
+                PersonalHistory.serializeHistoryToSave();  // Save user history before exit
+                System.out.println("Data saved. Exiting application...");
                 break;
             }
-        }
 
-        if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
-            System.out.println("\nGoing back to " + currentPage.getParentPage().getPageName() + "...");
-            currentPage = currentPage.getParentPage();
-            navigated = true;
-        }
+            boolean navigated = false;
+            for (Page child : currentPage.getChildrenPage()) {
+                if (child.getPageName().equalsIgnoreCase(input)) {
+                    currentPage = child;
+                    System.out.println("\nNavigating to " + child.getPageName() + "...");
+                    navigated = true;
+                    break;
+                }
+            }
 
-        if (!navigated) {
-            executeCommand(input);
+            if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
+                System.out.println("\nGoing back to " + currentPage.getParentPage().getPageName() + "...");
+                currentPage = currentPage.getParentPage();
+                navigated = true;
+            }
+
+            if (!navigated) {
+                executeCommand(input);
+            }
+
+            System.out.println();
+            System.out.println();
+            System.out.println();
         }
+        
+        scanner.close();
     }
-    scanner.close();
-
-    System.out.println();
-    System.out.println();
-    System.out.println();
-}
 }

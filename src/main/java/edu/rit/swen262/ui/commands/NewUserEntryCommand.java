@@ -2,15 +2,18 @@ package edu.rit.swen262.ui.commands;
 
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
+import edu.rit.swen262.ui.pages.Page;
 import edu.rit.swen262.user.User;
 
 public class NewUserEntryCommand extends UserCommand {
     private PageData pageData;
+    private PageRunner pageRunner;
 
     public NewUserEntryCommand(PageData pageData, PageRunner pageRunner) {
         super.nameString = "NewUserEntry";
         super.helpString = "NewUserEntry [currentWeight] [targetWeight] [targetCalories] [isPhysicalFitnessGoal]";
         this.pageData = pageData;
+        this.pageRunner = pageRunner;
     }
 
     @Override
@@ -35,6 +38,18 @@ public class NewUserEntryCommand extends UserCommand {
             user.startNewDay(currentWeight, targetWeight, targetCalories, isPhysicalFitnessGoal);
 
             System.out.println("Daily entry set up successfully.");
+            
+            String input = "User Dashboard";
+
+            // Navigates to UserDashboard
+            for (Page child : pageRunner.getCurrentPage().getChildrenPage()) {
+                if (child.getPageName().equalsIgnoreCase(input)) {
+                    pageRunner.setPage(child);
+                    System.out.println("\nNavigating to " + child.getPageName() + "...");
+                    break;
+                }
+            }
+
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid input format.");
         }

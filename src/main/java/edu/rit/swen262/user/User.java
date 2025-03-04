@@ -49,6 +49,7 @@ public class User {
     public void setGoalService(GoalService goalService) {this.goalService = goalService; }
     public ShoppingListService getShoppingListService() {return this.shoppingListService;}
     public DailyHistoryService getDailyHistoryService() {return this.dailyHistoryService;}
+    public void setDailyHistoryService(DailyHistoryService dh) {this.dailyHistoryService = dh;}
     public Date getLastUpdated() {return this.dailyHistoryService.getDate();}
 
     public void startNewDay(double weight, double targetWeight, int targetCalories, boolean isPhysicalFitnessGoal) {
