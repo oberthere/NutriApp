@@ -2,6 +2,7 @@ package edu.rit.swen262.ui.pages;
 
 import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.ui.PageData;
+import edu.rit.swen262.ui.commands.CreateUserMealCommand;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.GoalService;
@@ -15,6 +16,8 @@ public class UserDashboardPage extends Page {
         super(pageData); // Call the parent constructor
         this.pageName = "User Dashboard"; // Assign page name
         this.userCommands = new ArrayList<>();
+
+        this.userCommands.add(new CreateUserMealCommand(pageData));
     }
 
     @Override
