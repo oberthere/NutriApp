@@ -137,5 +137,9 @@ public class PageRunner {
         }
     }
     scanner.close();
+
+    System.out.println();
+    System.out.println();
+    System.out.println();
 }
 }

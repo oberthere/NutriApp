@@ -30,7 +30,7 @@ public abstract class Page {
     public void printCommand() {
         System.out.println("Available commands:");
         for (UserCommand command : userCommands) {
-            System.out.println("  - " + command.getName());
+            System.out.println("  - " + command.getHelp());
         }
     }
 

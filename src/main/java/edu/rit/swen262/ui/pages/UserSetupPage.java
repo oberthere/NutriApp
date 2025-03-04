@@ -20,7 +20,6 @@ public class UserSetupPage extends Page {
 
         this.userCommands = new ArrayList<>();
         this.userCommands.add(new NewUserEntryCommand(pageData, pageRunner));
-        this.userCommands.add(new ContinueUserEntryCommand(pageData, pageRunner));
     }
 
     @Override
