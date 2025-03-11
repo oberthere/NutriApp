@@ -90,6 +90,10 @@ public class PageRunner {
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
 
+            if (currentPage.getParentPage() != null) {
+                System.out.println("  - Back");
+            }
+            
             if (input.equalsIgnoreCase("exit")) {
                 executeCommand("exit");
                 break;
