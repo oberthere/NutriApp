@@ -68,13 +68,8 @@ public class PageRunner {
         pageData.loadUsersFromHistory();
     }
 
-    public void setPage(Page page) {
-        this.currentPage = page;
-    }
-
-    public Page getCurrentPage() {
-        return this.currentPage;
-    }
+    public void setPage(Page page) {this.currentPage = page;}
+    public Page getCurrentPage() {return this.currentPage;}
 
     private void executeCommand(String input) {
         String[] commandArgs = input.split(" ");
