@@ -20,7 +20,7 @@ public class PageRunner {
     // Default Constructor (Used by Spring Boot)
     public PageRunner() {
         this.pageData = new PageData();
-        this.mainPage = new MainPage(pageData, this);
+        this.mainPage = createPages();
         this.currentPage = this.mainPage;
         this.scanner = new Scanner(System.in);
 
@@ -39,31 +39,10 @@ public class PageRunner {
     }
 
     private void registerGlobalCommands() {
-        globalCommands.add(new CreateUserCommand(pageData));
-        globalCommands.add(new SelectUserCommand(pageData, this));
+
     }
 
     public void startUp() {
-        Page userSetupPage = new UserSetupPage(pageData, this);
-        Page userDashboardPage = new UserDashboardPage(pageData);
-        Page mealPage = new MealPage(pageData);
-        Page historyPage = new HistoryPage(pageData);
-        Page workoutPage = new WorkoutPage(pageData);
-
-        // Set up page hierarchy
-        mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage));
-        userSetupPage.setParentPage(mainPage);
-        userDashboardPage.setParentPage(mainPage);
-
-        userSetupPage.setChildrenPage(List.of(userDashboardPage));
-        
-        userDashboardPage.setChildrenPage(List.of(mealPage, historyPage, workoutPage));
-        mealPage.setParentPage(userDashboardPage);
-        historyPage.setParentPage(userDashboardPage);
-        workoutPage.setParentPage(userDashboardPage);
-
-        currentPage = mainPage;
-
         PersonalHistory.deserializeAndLoadSavedHistory();
         pageData.loadUsersFromHistory();
     }
@@ -142,5 +121,28 @@ public class PageRunner {
         }
         
         scanner.close();
+    }
+
+    private Page createPages() {
+        Page mainPage = new MainPage(pageData, this);
+        Page userSetupPage = new UserSetupPage(pageData, this);
+        Page userDashboardPage = new UserDashboardPage(pageData);
+        Page mealPage = new MealPage(pageData);
+        Page historyPage = new HistoryPage(pageData);
+        Page workoutPage = new WorkoutPage(pageData);
+
+        // Set up page hierarchy
+        mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage));
+        userSetupPage.setParentPage(mainPage);
+        userDashboardPage.setParentPage(mainPage);
+
+        userSetupPage.setChildrenPage(List.of(userDashboardPage));
+        
+        userDashboardPage.setChildrenPage(List.of(mealPage, historyPage, workoutPage));
+        mealPage.setParentPage(userDashboardPage);
+        historyPage.setParentPage(userDashboardPage);
+        workoutPage.setParentPage(userDashboardPage);
+
+        return mainPage;
     }
 }
