@@ -15,7 +15,7 @@ public class PageRunner {
     private Page mainPage;
     private Page currentPage;
     private List<UserCommand> globalCommands = new ArrayList<>();
-    private final Scanner scanner;
+    private Scanner scanner;
 
     // Default Constructor (Used by Spring Boot)
     public PageRunner() {
@@ -29,15 +29,20 @@ public class PageRunner {
     }
 
     private void registerGlobalCommands() {
-        globalCommands.add(new CreateUserCommand(pageData));
-        globalCommands.add(new SelectUserCommand(pageData, this));
-        globalCommands.add(new ExitCommand());
-
+        globalCommands.add(new ExitCommand(this));
     }
 
     public void startUp() {
         PersonalHistory.deserializeAndLoadSavedHistory();
         pageData.loadUsersFromHistory();
+    }
+
+    
+    public void printGlobalCommand() {
+        System.out.println("Available Global Commands:");
+        for (UserCommand command : globalCommands) {
+            System.out.println("  - " + command.getHelp());
+        }
     }
 
     public void setPage(Page page) {this.currentPage = page;}
@@ -71,18 +76,26 @@ public class PageRunner {
         System.out.println("Invalid command. Try again.");
     }
 
+    public String getScannerInput(){
+        return scanner.nextLine().trim();
+    }
+
+    public void closeScanner(){
+        scanner.close();
+
+        this.scanner = null;
+    }
+
     public void runPage() {
-        while (true) {
+        
+        while (this.scanner != null) {
             this.currentPage.printContent();
+            printGlobalCommand();
             this.currentPage.printCommand();
 
 
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
-
-            if (currentPage.getParentPage() != null) {
-                System.out.println("  - Back");
-            }
 
             executeCommand(input);
 
@@ -90,8 +103,7 @@ public class PageRunner {
             System.out.println();
             System.out.println();
         }
-        
-        scanner.close();
+    
     }
 
     private Page createPages() {

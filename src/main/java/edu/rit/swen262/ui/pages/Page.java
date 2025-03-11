@@ -28,7 +28,7 @@ public abstract class Page {
     }
 
     public void printCommand() {
-        System.out.println("Available commands:");
+        System.out.println("Available Page Commands:");
         for (UserCommand command : userCommands) {
             System.out.println("  - " + command.getHelp());
         }
