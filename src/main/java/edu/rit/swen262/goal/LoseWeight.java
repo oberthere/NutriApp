@@ -21,4 +21,6 @@ public class LoseWeight implements Goal {
             user.getGoalService().setGoal(new MaintainWeight());
         }
     }
+
+    @Override public String toString() {return "Lose Weight";}
 }
