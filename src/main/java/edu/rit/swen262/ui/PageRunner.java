@@ -83,16 +83,6 @@ public class PageRunner {
             if (currentPage.getParentPage() != null) {
                 System.out.println("  - Back");
             }
-            
-            if (input.equalsIgnoreCase("exit")) {
-                executeCommand("exit");
-                break;
-            }
-
-            if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
-                System.out.println("\nGoing back to " + currentPage.getParentPage().getPageName() + "...");
-                currentPage = currentPage.getParentPage();
-            }
 
             executeCommand(input);
 
