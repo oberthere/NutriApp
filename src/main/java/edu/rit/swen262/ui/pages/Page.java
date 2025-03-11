@@ -38,9 +38,6 @@ public abstract class Page {
 
     public void setParentPage(Page parentPage) { 
         this.parentPage = parentPage;
-        if (!userCommands.stream().anyMatch(cmd -> cmd.getName().equalsIgnoreCase("back"))) {
-            userCommands.add(new GoBackCommand());
-        }
     }
 
     public Page getParentPage() { return this.parentPage; }
@@ -51,17 +48,4 @@ public abstract class Page {
 
     public String getPageName() { return this.pageName; }
 
-    private class GoBackCommand extends UserCommand {
-        public GoBackCommand() {
-            this.nameString = "back";
-            this.helpString = "Go back to the previous page.";
-        }
-
-        @Override
-        public void performAction(String[] commandArgs) {
-            if (parentPage != null) {
-                System.out.println("Going back to " + parentPage.getPageName());
-            }
-        }
-    }
 }

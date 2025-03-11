@@ -30,6 +30,7 @@ public class PageRunner {
 
     private void registerGlobalCommands() {
         globalCommands.add(new ExitCommand(this));
+        globalCommands.add(new BackCommand(this));
     }
 
     public void startUp() {
@@ -42,6 +43,7 @@ public class PageRunner {
         System.out.println("Available Global Commands:");
         for (UserCommand command : globalCommands) {
             System.out.println("  - " + command.getHelp());
+
         }
     }
 

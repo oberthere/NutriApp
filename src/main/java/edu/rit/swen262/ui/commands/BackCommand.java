@@ -8,7 +8,7 @@ public class BackCommand extends UserCommand{
 
     public BackCommand(PageRunner pageRunner) {
         super.nameString = "back";
-        super.helpString = "Return to previous page"; // navigate to the previous page
+        super.helpString = "Back"; // navigate to the previous page
         this.pageRunner = pageRunner;
     }
 
