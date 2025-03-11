@@ -48,11 +48,13 @@ public class SelectUserCommand extends UserCommand {
         for (Page childPage : childrenPages) {
             // If user has a daily entry, then navigate to the User Dashboard
             if (user.getDailyHistoryService() != null && childPage.getPageName().equals("User Dashboard")) {
+                System.out.println("Found Entry For Today...");
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 break;
             // Else navigate to the user setup
             } else if (user.getDailyHistoryService() == null && childPage.getPageName().equals("User Setup")) {
+                System.out.println("No Entry Found For Today...");
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 break;

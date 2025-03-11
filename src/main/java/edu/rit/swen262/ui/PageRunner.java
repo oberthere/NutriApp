@@ -109,7 +109,7 @@ public class PageRunner {
             this.currentPage.printContent();
             this.currentPage.printCommand();
 
-            System.out.println("  - exit"); // exit should always be displayed as an available command
+            System.out.println("  - Exit"); // exit should always be displayed as an available command
 
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
