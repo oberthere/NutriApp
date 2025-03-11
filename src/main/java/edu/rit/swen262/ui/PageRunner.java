@@ -28,16 +28,6 @@ public class PageRunner {
         registerGlobalCommands();
     }
 
-    public PageRunner(PageData pageData, Page mainPage) {
-        this.pageData = pageData;
-        this.mainPage = mainPage;
-        this.currentPage = mainPage;
-        this.scanner = new Scanner(System.in);
-
-        // Register global commands
-        registerGlobalCommands();
-    }
-
     private void registerGlobalCommands() {
         globalCommands.add(new CreateUserCommand(pageData));
         globalCommands.add(new SelectUserCommand(pageData, this));
@@ -99,25 +89,12 @@ public class PageRunner {
                 break;
             }
 
-            boolean navigated = false;
-            for (Page child : currentPage.getChildrenPage()) {
-                if (child.getPageName().equalsIgnoreCase(input)) {
-                    currentPage = child;
-                    System.out.println("\nNavigating to " + child.getPageName() + "...");
-                    navigated = true;
-                    break;
-                }
-            }
-
             if (input.equalsIgnoreCase("back") && currentPage.getParentPage() != null) {
                 System.out.println("\nGoing back to " + currentPage.getParentPage().getPageName() + "...");
                 currentPage = currentPage.getParentPage();
-                navigated = true;
             }
 
-            if (!navigated) {
-                executeCommand(input);
-            }
+            executeCommand(input);
 
             System.out.println();
             System.out.println();
