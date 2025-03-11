@@ -39,6 +39,9 @@ public class PageRunner {
     }
 
     private void registerGlobalCommands() {
+        globalCommands.add(new CreateUserCommand(pageData));
+        globalCommands.add(new SelectUserCommand(pageData, this));
+        globalCommands.add(new ExitCommand());
 
     }
 
@@ -83,15 +86,12 @@ public class PageRunner {
             this.currentPage.printContent();
             this.currentPage.printCommand();
 
-            System.out.println("  - Exit"); // exit should always be displayed as an available command
 
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("exit")) {
-                System.out.println("Saving data...");
-                PersonalHistory.serializeHistoryToSave();  // Save user history before exit
-                System.out.println("Data saved. Exiting application...");
+                executeCommand("exit");
                 break;
             }
 
