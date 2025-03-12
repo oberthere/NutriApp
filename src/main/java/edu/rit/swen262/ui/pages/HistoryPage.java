@@ -1,14 +1,12 @@
 package edu.rit.swen262.ui.pages;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.history.PersonalHistory;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.ui.commands.UserCommand;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryService;
 

@@ -2,7 +2,6 @@ package edu.rit.swen262.ui.commands;
 
 import java.util.List;
 
-import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
 

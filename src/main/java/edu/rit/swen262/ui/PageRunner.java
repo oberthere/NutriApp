@@ -103,8 +103,8 @@ public class PageRunner {
     }
 
     private Page createPages() {
-        Page mainPage = new MainPage(pageData, this);
-        Page userSetupPage = new UserSetupPage(pageData, this);
+        Page mainPage = new MainPage(pageData);
+        Page userSetupPage = new UserSetupPage(pageData);
         Page userDashboardPage = new UserDashboardPage(pageData);
         Page mealPage = new MealPage(pageData);
         Page historyPage = new HistoryPage(pageData);

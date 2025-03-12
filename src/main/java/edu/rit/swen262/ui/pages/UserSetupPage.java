@@ -3,23 +3,19 @@ package edu.rit.swen262.ui.pages;
 import java.util.ArrayList;
 
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.ui.PageRunner;
-import edu.rit.swen262.ui.commands.ContinueUserEntryCommand;
 import edu.rit.swen262.ui.commands.NewUserEntryCommand;
 import edu.rit.swen262.user.User;
 
 public class UserSetupPage extends Page {
     private PageData pageData;
-    private PageRunner pageRunner;
     
-    public UserSetupPage(PageData pageData, PageRunner pageRunner) {
+    public UserSetupPage(PageData pageData) {
         super(pageData);
         this.pageName = "User Setup";
         this.pageData = pageData;
-        this.pageRunner = pageRunner; 
 
         this.userCommands = new ArrayList<>();
-        this.userCommands.add(new NewUserEntryCommand(pageRunner));
+        this.userCommands.add(new NewUserEntryCommand(pageData.getPageRunner()));
     }
 
     @Override
