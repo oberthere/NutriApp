@@ -16,12 +16,12 @@ public class csvReader {
         try {
             Map<Ingredient, Integer> pantryStock = new HashMap<>();
             List<Ingredient> ingredients = new ArrayList<Ingredient>();
-            File file = new File("./resources/data/ingredients.csv"); //file path might be wrong
+            File file = new File("src/main/resources/data/ingredients.csv"); //file path might be wrong
             Scanner s = new Scanner(file);
             s.nextLine(); //skip header line
 
             while (s.hasNextLine()) {
-                List<String> lineData = Arrays.asList(s.nextLine().split(","));
+                List<String> lineData = Arrays.asList(s.nextLine().split("(\\d+),\"([^\"]+)\",([\\d.]+(?:,[\\d.]+)*),\"([^\"]+)\",([\\d.]+),([^,]+),([\\d.]+)"));
                 //lineData[1] is name, lineData[3] is cals, lineData[5] is fat, lineData[4] is protein, lineData[8] is fiber, lineData[7] is carbs, 
                 ingredients.add(new Ingredient(lineData.get(1), 
                                     Integer.parseInt(lineData.get(3)), 
@@ -41,6 +41,8 @@ public class csvReader {
         }
         catch (Exception e) {
             System.out.println(e);
+            System.out.println(e.getStackTrace().toString());
+            System.out.println("*Unable to load in Ingredients");
         }
     }
 }

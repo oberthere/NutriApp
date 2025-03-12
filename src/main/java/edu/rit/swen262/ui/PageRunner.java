@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import edu.rit.swen262.csv.csvReader;
 import edu.rit.swen262.history.PersonalHistory;
 import edu.rit.swen262.ui.commands.*;
 import edu.rit.swen262.ui.pages.*;
@@ -80,6 +81,8 @@ public class PageRunner {
     }
 
     public void startUp() {
+        csvReader reader = new csvReader();
+        reader.ingredientReader();
         PersonalHistory.deserializeAndLoadSavedHistory();
         pageData.loadUsersFromHistory();
     }
