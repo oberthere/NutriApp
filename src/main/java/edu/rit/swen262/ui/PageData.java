@@ -15,8 +15,10 @@ public class PageData {
     private Map<String, User> users;
     private static Date currentDate = new Date();
     private User currentUser;
+    private PageRunner pageRunner;
 
-    public PageData() {
+    public PageData(PageRunner pageRunner) {
+        this.pageRunner = pageRunner;
         this.users = new HashMap<>();
         loadUsersFromHistory(); // Load saved user data
     }

@@ -19,7 +19,7 @@ public class PageRunner {
 
     // Default Constructor (Used by Spring Boot)
     public PageRunner() {
-        this.pageData = new PageData();
+        this.pageData = new PageData(this);
         this.mainPage = createPages();
         this.currentPage = this.mainPage;
         this.scanner = new Scanner(System.in);
@@ -48,6 +48,7 @@ public class PageRunner {
     }
 
     public void setPage(Page page) {this.currentPage = page;}
+    public PageData getPageData() {return this.pageData;}
     public Page getCurrentPage() {return this.currentPage;}
 
     private void executeCommand(String input) {
@@ -78,13 +79,10 @@ public class PageRunner {
         System.out.println("Invalid command. Try again.");
     }
 
-    public String getScannerInput(){
-        return scanner.nextLine().trim();
-    }
+    public String getScannerInput(){return scanner.nextLine().trim();}
 
     public void closeScanner(){
         scanner.close();
-
         this.scanner = null;
     }
 

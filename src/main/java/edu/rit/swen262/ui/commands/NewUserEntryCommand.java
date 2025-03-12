@@ -14,11 +14,11 @@ public class NewUserEntryCommand extends UserCommand {
     private PageData pageData;
     private PageRunner pageRunner;
 
-    public NewUserEntryCommand(PageData pageData, PageRunner pageRunner) {
+    public NewUserEntryCommand(PageRunner pageRunner) {
         super.nameString = "NewUserEntry";
         super.helpString = "NewUserEntry [currentWeight] [targetWeight] [targetCalories] [isPhysicalFitnessGoal]";
-        this.pageData = pageData;
         this.pageRunner = pageRunner;
+        this.pageData = pageRunner.getPageData();
     }
 
     @Override

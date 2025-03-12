@@ -14,7 +14,7 @@ public class MainPage extends Page {
         
         // MainPage Commands
         this.userCommands.add(new CreateUserCommand(pageData));
-        this.userCommands.add(new SelectUserCommand(pageData, pageRunner)); 
+        this.userCommands.add(new SelectUserCommand(pageRunner)); 
     }
 
     @Override
