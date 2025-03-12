@@ -33,6 +33,7 @@ public class PageData {
     public void setCurrentUser(User user) { this.currentUser = user; }
     public User getCurrentUser() { return this.currentUser; }
     public Map<String, User> getAllUsers() { return this.users; }
+    public PageRunner getPageRunner() {return this.pageRunner;}
 
     /**
      * Checks if the given date is today's date.

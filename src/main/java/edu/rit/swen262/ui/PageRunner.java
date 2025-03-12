@@ -17,7 +17,6 @@ public class PageRunner {
     private List<UserCommand> globalCommands = new ArrayList<>();
     private Scanner scanner;
 
-    // Default Constructor (Used by Spring Boot)
     public PageRunner() {
         this.pageData = new PageData(this);
         this.mainPage = createPages();
@@ -28,28 +27,23 @@ public class PageRunner {
         registerGlobalCommands();
     }
 
-    private void registerGlobalCommands() {
-        globalCommands.add(new ExitCommand(this));
-        globalCommands.add(new BackCommand(this));
-    }
-
-    public void startUp() {
-        PersonalHistory.deserializeAndLoadSavedHistory();
-        pageData.loadUsersFromHistory();
-    }
-
-    
-    public void printGlobalCommand() {
-        System.out.println("Available Global Commands:");
-        for (UserCommand command : globalCommands) {
-            System.out.println("  - " + command.getHelp());
-
-        }
-    }
-
     public void setPage(Page page) {this.currentPage = page;}
     public PageData getPageData() {return this.pageData;}
     public Page getCurrentPage() {return this.currentPage;}
+    public String getScannerInput(){return scanner.nextLine().trim();}
+    public void closeScanner() {scanner.close();this.scanner = null;}
+
+    public void printGlobalCommand() {
+        // System.out.println("Available Global Commands:");
+        for (UserCommand command : globalCommands) {
+            System.out.println("  - " + command.getHelp());
+        }
+    }
+
+    private void registerGlobalCommands() {
+        globalCommands.add(new BackCommand(this));
+        globalCommands.add(new ExitCommand(this));
+    }
 
     private void executeCommand(String input) {
         String[] commandArgs = input.split(" ");
@@ -79,19 +73,23 @@ public class PageRunner {
         System.out.println("Invalid command. Try again.");
     }
 
-    public String getScannerInput(){return scanner.nextLine().trim();}
+    private void printNewLineForNewPage(int lines) {
+        for (int i = 0; i < lines; i++) {
+            System.out.println();
+        }
+    }
 
-    public void closeScanner(){
-        scanner.close();
-        this.scanner = null;
+    public void startUp() {
+        PersonalHistory.deserializeAndLoadSavedHistory();
+        pageData.loadUsersFromHistory();
     }
 
     public void runPage() {
         
         while (this.scanner != null) {
             this.currentPage.printContent();
-            printGlobalCommand();
             this.currentPage.printCommand();
+            printGlobalCommand();
 
 
             System.out.print("Enter command: ");
@@ -99,9 +97,7 @@ public class PageRunner {
 
             executeCommand(input);
 
-            System.out.println();
-            System.out.println();
-            System.out.println();
+            printNewLineForNewPage(10);
         }
     
     }

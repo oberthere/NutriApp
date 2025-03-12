@@ -24,6 +24,7 @@ public class GoCommand extends UserCommand {
         for (Page page : childrenPage) {
             returnString += page.getPageName() + "|";
         }
+        returnString = returnString.substring(0, returnString.length() - 1);
         returnString += "]";
         
         return returnString;

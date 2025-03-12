@@ -18,6 +18,7 @@ public class UserDashboardPage extends Page {
         this.pageName = "User Dashboard"; // Assign page name
         this.userCommands = new ArrayList<>();
         this.userCommands.add(new CreateUserMealCommand(pageData));
+        this.userCommands.add(new GoCommand(pageData.getPageRunner()));
     }
 
     @Override
