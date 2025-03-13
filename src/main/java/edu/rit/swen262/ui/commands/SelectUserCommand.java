@@ -12,8 +12,8 @@ public class SelectUserCommand extends UserCommand {
     private PageRunner pageRunner;
 
     public SelectUserCommand(PageRunner pageRunner) {
-        super.nameString = "SelectUser";
-        super.helpString = "SelectUser [Username]";
+        super.nameString = "Select";
+        super.helpString = "Select [Username]";
         this.pageRunner = pageRunner;
         this.pageData = pageRunner.getPageData();
     }

@@ -1,6 +1,8 @@
 package edu.rit.swen262.ui.commands;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,9 +27,16 @@ public class GetIngredientsCommand extends UserCommand {
         this.tempIngredientRecord = PantryStock.getAllIngredients();
         List<Ingredient[]> returnls = new ArrayList<>();
         
-        Set<Ingredient> ingredientSet = PantryStock.getAllIngredients().keySet();
+        Set<Integer> idSet = PantryStock.getIngredientIDMap().keySet();
+        
+        List<Integer> allID = new ArrayList<>();
+        allID.addAll(idSet);
+        allID.sort(Comparator.reverseOrder());
+
         List<Ingredient> allIngredients = new ArrayList<>();
-        allIngredients.addAll(ingredientSet);
+        for (Integer id : allID) {
+            allIngredients.add(PantryStock.getIngredientByID(id));
+        }
 
         int totalIngredients = allIngredients.size();
         int numberOfGroups;

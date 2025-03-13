@@ -15,8 +15,8 @@ public class CreateUserCommand extends UserCommand {
     private PageData pageData;
 
     public CreateUserCommand(PageData pageData) {
-        super.nameString = "CreateUser";
-        super.helpString = "CreateUser [Username] [height] [weight] [Birthday in MM/dd/yyyy]";
+        super.nameString = "Create";
+        super.helpString = "Create [Username] [height] [weight] [Birthday in MM/dd/yyyy]";
         this.pageData = pageData;
     }
     
