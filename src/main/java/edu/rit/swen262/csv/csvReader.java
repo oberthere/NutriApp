@@ -1,6 +1,7 @@
 package edu.rit.swen262.csv;
 
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,8 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.supercsv.io.CsvListReader;
+
+import com.opencsv.CSVReader;
+
 import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.PantryStock;
+import jakarta.validation.constraints.NotNull;
 
 public class csvReader {
     public void ingredientReader() {
@@ -18,11 +24,16 @@ public class csvReader {
             List<Ingredient> ingredients = new ArrayList<Ingredient>();
             File file = new File("src/main/resources/data/ingredients.csv"); //file path might be wrong
             Scanner s = new Scanner(file);
+            
+
+
+            // CsvListReader csvReader = new CsvListReader(null, new NotNull);
             s.nextLine(); //skip header line
 
             while (s.hasNextLine()) {
                 List<String> lineData = Arrays.asList(s.nextLine().split("(\\d+),\"([^\"]+)\",([\\d.]+(?:,[\\d.]+)*),\"([^\"]+)\",([\\d.]+),([^,]+),([\\d.]+)"));
                 //lineData[1] is name, lineData[3] is cals, lineData[5] is fat, lineData[4] is protein, lineData[8] is fiber, lineData[7] is carbs, 
+                
                 ingredients.add(new Ingredient(lineData.get(1), 
                                     Integer.parseInt(lineData.get(3)), 
                                     Double.parseDouble(lineData.get(5)), 
@@ -43,6 +54,22 @@ public class csvReader {
             System.out.println(e);
             System.out.println(e.getStackTrace().toString());
             System.out.println("*Unable to load in Ingredients");
+        }
+    }
+
+    public void test() {
+        try {
+            CSVReader reader = new CSVReader(new FileReader("src/main/resources/data/ingredients.csv"));
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                String returnString = "";
+                for (String string : nextLine) {
+                    returnString += string;
+                }
+                System.out.println(returnString);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 }

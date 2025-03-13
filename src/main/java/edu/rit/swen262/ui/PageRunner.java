@@ -82,7 +82,8 @@ public class PageRunner {
 
     public void startUp() {
         csvReader reader = new csvReader();
-        reader.ingredientReader();
+        // reader.ingredientReader();
+        reader.test();
         PersonalHistory.deserializeAndLoadSavedHistory();
         pageData.loadUsersFromHistory();
     }
