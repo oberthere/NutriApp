@@ -2,6 +2,7 @@ package edu.rit.swen262.food;
 
 public class Ingredient implements Food {
 
+    int id;
     String name;
     int calories;
     double fat;
@@ -10,6 +11,7 @@ public class Ingredient implements Food {
     double fiber;
 
     public Ingredient(
+        int id,
         String name, 
         int calories, 
         double fat, 
@@ -17,6 +19,7 @@ public class Ingredient implements Food {
         double carbs, 
         double fiber) 
     {
+        this.id = id;
         this.name = name;
         this.calories = calories;
         this.fat = fat;
@@ -25,6 +28,8 @@ public class Ingredient implements Food {
         this.fiber = fiber;
 
     }
+
+    public int getID() {return this.id;}
 
     @Override
     public String getName() {

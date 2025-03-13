@@ -8,7 +8,7 @@ import java.util.Map;
 
 public final class PantryStock {
     private static final Map<Ingredient, Integer> ingredientRecord = new HashMap<>();
-    public static List<Recipe> RecipeRecord = new ArrayList<>();
+    private static List<Recipe> recipeRecord = new ArrayList<>();
     
     public static void updateIngredients(Ingredient ingredient, int amount) {
         PantryStock.ingredientRecord.put(ingredient, amount);

@@ -2,6 +2,7 @@ package edu.rit.swen262.ui.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.supercsv.io.CsvListReader;
@@ -11,27 +12,74 @@ import edu.rit.swen262.food.PantryStock;
 
 public class GetIngredientsCommand extends UserCommand {
     private List<Ingredient[]> ingredientList; 
+    private Map<Ingredient, Integer> tempIngredientRecord;
     
     public GetIngredientsCommand() {
         super.nameString = "Ingredient";
         super.helpString = "Ingredient [Not implemented]";
+        this.tempIngredientRecord = PantryStock.getAllIngredients();
 
     }
 
-    private List<Ingredient[]> generateIngredientList(int size) {
+    private void updateIngredientList(int size) {
+        this.tempIngredientRecord = PantryStock.getAllIngredients();
         List<Ingredient[]> returnls = new ArrayList<>();
+        
+        Set<Ingredient> ingredientSet = PantryStock.getAllIngredients().keySet();
+        List<Ingredient> allIngredients = new ArrayList<>();
+        allIngredients.addAll(ingredientSet);
 
-        Set<Ingredient> allIngredients = PantryStock.getAllIngredients().keySet();
-        System.out.println(allIngredients.size());
-        for (Ingredient ingredient : allIngredients) {
-            System.out.println(ingredient.getName());
+        int totalIngredients = allIngredients.size();
+        int numberOfGroups;
+        if (totalIngredients % size == 0) {numberOfGroups = totalIngredients / size;}
+        else {numberOfGroups = ((int) (totalIngredients / size)) + 1;}
+
+        for (int i = 0; i < numberOfGroups; i++) {
+            Ingredient[] group = new Ingredient[size];
+            
+            for (int j = 0; j < group.length; j++) {
+                if (allIngredients.size() != 0 && allIngredients.get(allIngredients.size()-1) != null) {
+                    group[j] = allIngredients.remove(allIngredients.size()-1);
+                } else {break;}
+            }
+            returnls.add(group);
         }
 
-        return returnls;
+        this.ingredientList = returnls;
+    }
+
+    private void printIngredientPage(int pageNum) {
+        System.out.println("A Total of " + this.tempIngredientRecord.size() + " Unique Ingredients Was Recorded");
+        System.out.println("Currently Viewing Page " + pageNum + "/" + this.ingredientList.size());
+        for (Ingredient ingredient : ingredientList.get(pageNum)) {
+            if (ingredient == null) {
+                System.out.println("\t-");
+            }
+            else {
+                System.out.println("\t- [#" + ingredient.getID() + "] " + ingredient.getName() + ": " + this.tempIngredientRecord.get(ingredient));
+        
+            }
+        }
+    }
+
+    @Override
+    public String getHelp() {
+        if (ingredientList == null) {updateIngredientList(10);}
+        String returnString = "Ingredient ";
+        returnString += "[0-" + (this.ingredientList.size()-1) + "]";
+        
+        return returnString;
     }
 
     @Override
     public void performAction(String[] commandArgs) {
-        generateIngredientList(0);
+        if (commandArgs.length < 2) {
+            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
+            return;
+        }
+
+        updateIngredientList(10);
+        int pageNumber = Integer.parseInt(commandArgs[1]);
+        printIngredientPage(pageNumber);
     }
 }

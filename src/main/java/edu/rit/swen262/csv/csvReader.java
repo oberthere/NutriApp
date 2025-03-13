@@ -21,14 +21,16 @@ public class csvReader {
             List<String[]> allLines = reader.readAll();
             allLines.remove(0);
             for (String[] line : allLines) {
-                //lineData[1] is name, lineData[3] is cals, lineData[5] is fat, lineData[4] is protein, lineData[8] is fiber, lineData[7] is carbs, 
-                //System.out.println(": " + line[1] + line[3] + line[5] + line[4] + line[8] + line[7]);
+                //lineData[0] is id, lineData[1] is name, lineData[3] is cals, lineData[5] is fat, lineData[4] is protein, lineData[8] is fiber, lineData[7] is carbs, 
+                // System.out.println(": " + line[1] + line[3] + line[5] + line[4] + line[8] + line[7]);
                 
                 for (int i = 0; i < line.length; i++) {
                     if (line[i].length() == 0 || line[i] == null) {line[i] = "0";}
                 }
 
-                ingredients.add(new Ingredient(line[1], 
+                ingredients.add(new Ingredient(
+                                    Integer.parseInt(line[0]),
+                                    line[1], 
                                     Integer.parseInt(line[3]), 
                                     Double.parseDouble(line[5]), 
                                     Double.parseDouble(line[4]), 
@@ -36,7 +38,7 @@ public class csvReader {
                                     Double.parseDouble(line[7])));
             }
 
-            System.out.println("A Total of " + ingredients.size() + " Has Been Found");
+            System.out.println("A Total of " + ingredients.size() + " Ingredients Has Been Found");
             
             for (Ingredient ingredient : ingredients) { 
                 if (pantryStock.containsKey(ingredient)) {
