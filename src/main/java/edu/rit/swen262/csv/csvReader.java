@@ -22,37 +22,42 @@ public class csvReader {
         try {
             Map<Ingredient, Integer> pantryStock = new HashMap<>();
             List<Ingredient> ingredients = new ArrayList<Ingredient>();
-            File file = new File("src/main/resources/data/ingredients.csv"); //file path might be wrong
-            Scanner s = new Scanner(file);
-            
+            CSVReader reader = new CSVReader(new FileReader("src/main/resources/data/ingredients.csv"));
 
-
-            // CsvListReader csvReader = new CsvListReader(null, new NotNull);
-            s.nextLine(); //skip header line
-
-            while (s.hasNextLine()) {
-                List<String> lineData = Arrays.asList(s.nextLine().split("(\\d+),\"([^\"]+)\",([\\d.]+(?:,[\\d.]+)*),\"([^\"]+)\",([\\d.]+),([^,]+),([\\d.]+)"));
+            List<String[]> allLines = reader.readAll();
+            allLines.remove(0);
+            for (String[] line : allLines) {
                 //lineData[1] is name, lineData[3] is cals, lineData[5] is fat, lineData[4] is protein, lineData[8] is fiber, lineData[7] is carbs, 
+                //System.out.println(": " + line[1] + line[3] + line[5] + line[4] + line[8] + line[7]);
                 
-                ingredients.add(new Ingredient(lineData.get(1), 
-                                    Integer.parseInt(lineData.get(3)), 
-                                    Double.parseDouble(lineData.get(5)), 
-                                    Double.parseDouble(lineData.get(4)), 
-                                    Double.parseDouble(lineData.get(8)), 
-                                    Double.parseDouble(lineData.get(7))));
+                for (int i = 0; i < line.length; i++) {
+                    if (line[i].length() == 0 || line[i] == null) {line[i] = "0";}
+                }
+
+                ingredients.add(new Ingredient(line[1], 
+                                    Integer.parseInt(line[3]), 
+                                    Double.parseDouble(line[5]), 
+                                    Double.parseDouble(line[4]), 
+                                    Double.parseDouble(line[8]), 
+                                    Double.parseDouble(line[7])));
             }
 
-            for (Ingredient ingredient : ingredients) {
-                pantryStock.put(ingredient, 0);
+            System.out.println("A Total of " + ingredients.size() + " Has Been Found");
+            
+            for (Ingredient ingredient : ingredients) { 
+                if (pantryStock.containsKey(ingredient)) {
+                    pantryStock.put(ingredient, pantryStock.get(ingredient) + 1);
+                    System.out.println("Duplicate of " + ingredient.getName() + " was found");
+                }
+                else {pantryStock.put(ingredient, 1);}
             }
 
             PantryStock.updateIngredientRecord(pantryStock);
-
-            s.close();
+            reader.close();
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println(e.getStackTrace().toString());
+            System.out.println(Arrays.toString(e.getStackTrace()));
             System.out.println("*Unable to load in Ingredients");
         }
     }
@@ -62,11 +67,12 @@ public class csvReader {
             CSVReader reader = new CSVReader(new FileReader("src/main/resources/data/ingredients.csv"));
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
-                String returnString = "";
-                for (String string : nextLine) {
-                    returnString += string;
-                }
-                System.out.println(returnString);
+                // String returnString = "";
+                // for (String string : nextLine) {
+                //     returnString += string;
+                // }
+                // System.out.println(returnString);
+                System.out.println(nextLine.length);
             }
         } catch (Exception e) {
             // TODO: handle exception

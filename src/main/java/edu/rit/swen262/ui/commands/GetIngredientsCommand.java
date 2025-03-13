@@ -24,7 +24,7 @@ public class GetIngredientsCommand extends UserCommand {
         Set<Ingredient> allIngredients = PantryStock.getAllIngredients().keySet();
         System.out.println(allIngredients.size());
         for (Ingredient ingredient : allIngredients) {
-            System.out.println(ingredient);
+            System.out.println(ingredient.getName());
         }
 
         return returnls;
