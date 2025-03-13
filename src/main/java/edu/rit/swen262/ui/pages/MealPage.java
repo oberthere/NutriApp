@@ -5,6 +5,7 @@ import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddRecipeCommand;
 import edu.rit.swen262.ui.commands.GetIngredientsCommand;
+import edu.rit.swen262.ui.commands.GetRecipeCommand;
 import edu.rit.swen262.user.service.DailyHistoryService;
 
 public class MealPage extends Page {
@@ -13,6 +14,7 @@ public class MealPage extends Page {
         this.pageName = "Meal";
         super.userCommands.add(new GetIngredientsCommand());
         super.userCommands.add(new AddRecipeCommand());
+        super.userCommands.add(new GetRecipeCommand());
     }
 
     @Override
