@@ -3,6 +3,7 @@ package edu.rit.swen262.ui.pages;
 import java.util.List;
 import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.ui.PageData;
+import edu.rit.swen262.ui.commands.AddMealCommand;
 import edu.rit.swen262.ui.commands.AddRecipeCommand;
 import edu.rit.swen262.ui.commands.GetIngredientsCommand;
 import edu.rit.swen262.ui.commands.GetRecipeCommand;
@@ -15,6 +16,7 @@ public class MealPage extends Page {
         super.userCommands.add(new GetIngredientsCommand());
         super.userCommands.add(new AddRecipeCommand());
         super.userCommands.add(new GetRecipeCommand());
+        super.userCommands.add(new AddMealCommand());
     }
 
     @Override
