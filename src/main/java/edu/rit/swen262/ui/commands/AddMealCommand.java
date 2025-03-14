@@ -45,7 +45,7 @@ public class AddMealCommand extends UserCommand {
         try {
             List<Recipe> recipes = getRecipeFromInput(commandArgs);
             String name = commandArgs[1];
-            MealType mealType = MealType.valueOf(commandArgs[commandArgs.length].toUpperCase(Locale.ENGLISH));
+            MealType mealType = MealType.valueOf(commandArgs[commandArgs.length - 1].toUpperCase(Locale.ENGLISH));
             Meal meal = new Meal(name, recipes, mealType);
             System.out.println(mealType);
         } catch (InvalidMealCreation e) {
