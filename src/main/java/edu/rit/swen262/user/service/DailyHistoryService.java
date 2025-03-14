@@ -63,6 +63,7 @@ public class DailyHistoryService implements Serializable { // Now serializable
     public void prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
         List<Ingredient> lowStockIngredients = new ArrayList<>();
         Map<Ingredient, Integer> record = PantryStock.getAllIngredients();
+        Map<Ingredient, Integer> newRecord = Map.copyOf(record);
 
         for (Recipe recipe : recipes) {
             for (Ingredient ingre : recipe.getIngredients()) {
@@ -70,7 +71,7 @@ public class DailyHistoryService implements Serializable { // Now serializable
                 if (stock <= 0) {
                     lowStockIngredients.add(ingre);
                 } else {
-                    record.put(ingre, stock - 1); // Deduct ingredient from pantry stock
+                    PantryStock.updateIngredients(ingre, stock - 1); // Deduct ingredient from pantry stock
                 }
             }
         }
