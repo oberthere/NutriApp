@@ -10,7 +10,7 @@ public class WorkoutPage extends Page {
     public WorkoutPage(PageData pageData) {
         super(pageData);
         this.pageName = "Workout";
-        this.userCommands.add(new AddWorkoutCommand());
+        this.userCommands.add(new AddWorkoutCommand(pageData));
     }
 
     @Override
