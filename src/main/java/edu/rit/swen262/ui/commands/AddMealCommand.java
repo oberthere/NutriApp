@@ -60,7 +60,6 @@ public class AddMealCommand extends UserCommand {
                 e.printStackTrace();
             }
         } catch (InvalidMealCreation e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
