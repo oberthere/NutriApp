@@ -121,4 +121,13 @@ public class DailyHistoryService implements Serializable { // Now serializable
         Workout genericWorkout = new Workout("Jogging", excessCalories / 10, avgIntensity);
         return genericWorkout;
     }
+
+    public void addWorkout(Workout workout) {
+        if (workout == null) {
+            System.out.println("Error: Workout cannot be null.");
+            return;
+        }
+    
+        this.workouts.add(workout);
+    }
 }
