@@ -70,7 +70,7 @@ public class DailyHistoryService implements Serializable { // Now serializable
                 if (stock <= 0) {
                     lowStockIngredients.add(ingre);
                 } else {
-                    record.put(ingre, stock - 1); // Deduct ingredient from pantry stock
+                    PantryStock.updateIngredients(ingre, stock - 1); // Deduct ingredient from pantry stock
                 }
             }
         }
