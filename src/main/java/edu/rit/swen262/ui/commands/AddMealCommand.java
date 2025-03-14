@@ -5,16 +5,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.food.MealType;
 import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 import edu.rit.swen262.other.exception.InvalidMealCreation;
+import edu.rit.swen262.other.exception.LowStockException;
+import edu.rit.swen262.ui.PageData;
+import edu.rit.swen262.user.service.DailyHistoryService;
 
 public class AddMealCommand extends UserCommand {
-    public AddMealCommand() {
+    private PageData pageData;
+
+    public AddMealCommand(PageData pageData) {
         super.nameString = "AddMeal";
         super.helpString = "AddMeal [name] [recipeName] [recipeName] ... [breakfast|lunch|dinner]";
+        this.pageData = pageData;
     }
 
     private List<Recipe> getRecipeFromInput(String[] args) throws InvalidMealCreation {
@@ -45,9 +50,15 @@ public class AddMealCommand extends UserCommand {
         try {
             List<Recipe> recipes = getRecipeFromInput(commandArgs);
             String name = commandArgs[1];
-            MealType mealType = MealType.valueOf(commandArgs[commandArgs.length].toUpperCase(Locale.ENGLISH));
-            Meal meal = new Meal(name, recipes, mealType);
-            System.out.println(mealType);
+            MealType mealType = MealType.valueOf(commandArgs[commandArgs.length - 1].toUpperCase(Locale.ENGLISH));
+            
+            try {
+                DailyHistoryService dailyHistory = pageData.getCurrentUser().getDailyHistoryService();
+                dailyHistory.prepareMeal(name, recipes, mealType);
+                System.out.println("Successfully added Meal" + commandArgs[1]);
+            } catch (LowStockException e) {
+                e.printStackTrace();
+            }
         } catch (InvalidMealCreation e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
