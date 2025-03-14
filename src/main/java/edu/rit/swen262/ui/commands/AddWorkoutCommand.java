@@ -14,9 +14,10 @@ import edu.rit.swen262.ui.PageData;
 public class AddWorkoutCommand extends UserCommand {
     private PageData pageData;
 
-    public AddWorkoutCommand() {
+    public AddWorkoutCommand(PageData pageData) {
         super.nameString = "AddWorkout";
         super.helpString = "AddWorkout [workoutName] [durationMin] [intensity]";
+        this.pageData = pageData;
     }
 
     /**
