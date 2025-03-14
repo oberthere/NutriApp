@@ -3,20 +3,26 @@ package edu.rit.swen262.ui.commands;
 import java.util.Locale;
 import java.util.Map;
 
-import edu.rit.swen262.other.exception.InvalidMealCreation;
-import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.workout.HighIntensityStrategy;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.LowIntensityStrategy;
 import edu.rit.swen262.workout.MediumIntensityStrategy;
 import edu.rit.swen262.workout.Workout;
+import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.ui.PageData;
 
 public class AddWorkoutCommand extends UserCommand {
+    private PageData pageData;
+
     public AddWorkoutCommand() {
         super.nameString = "AddWorkout";
         super.helpString = "AddWorkout [workoutName] [durationMin] [intensity]";
     }
 
+    /**
+     * Method to add a new workout
+     * @param commandArgs AddWorkout [workoutName] [durationMin] [intensity]
+     */
     @Override
     public void performAction(String[] commandArgs) {
         if (commandArgs.length < 4) {
@@ -26,11 +32,15 @@ public class AddWorkoutCommand extends UserCommand {
 
         String workoutName = commandArgs[1];
         int durationMin = Integer.parseInt(commandArgs[2]);
+
+        // uses the getIntensityStrategy helper method to get the IntensityStrategy
         IntensityStrategy intensity = getIntensityStrategy(commandArgs[3]);
 
         Workout newWorkout = new Workout(workoutName, durationMin, intensity);
-        // PageData pageData = getPageData();
-        // pageData.getCurrentUser().getDailyHistoryService().addWorkout(newWorkout);
+
+        // get the current user's daily history service and add the new workout to it
+        DailyHistoryService dh = pageData.getCurrentUser().getDailyHistoryService();
+        dh.addWorkout(newWorkout);
 
         System.out.println(workoutName + " Workout Added Successfully.");
     }
