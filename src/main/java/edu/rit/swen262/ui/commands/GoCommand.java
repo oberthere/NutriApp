@@ -19,12 +19,12 @@ public class GoCommand extends UserCommand {
         Page currentPage = pageRunner.getCurrentPage();
         List<Page> childrenPage = currentPage.getChildrenPage();
         
-        String returnString = "Go [";
+        String returnString = "Go > [ ";
         for (Page page : childrenPage) {
-            returnString += page.getPageName() + "|";
+            returnString += page.getPageName() + " | ";
         }
-        returnString = returnString.substring(0, returnString.length() - 1);
-        returnString += "]";
+        returnString = returnString.substring(0, returnString.length() - 3);
+        returnString += " ]";
         
         return returnString;
     }
