@@ -3,8 +3,10 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.opencsv.CSVReader;
 
@@ -17,8 +19,9 @@ public class csvReader {
             Map<Ingredient, Integer> pantryStock = new HashMap<>();
             List<Ingredient> ingredients = new ArrayList<Ingredient>();
             CSVReader reader = new CSVReader(new FileReader("src/main/resources/data/ingredients.csv"));
-
+            Set<String> allIngredientName = new HashSet<>();
             List<String[]> allLines = reader.readAll();
+            
             allLines.remove(0);
             for (String[] line : allLines) {
                 //lineData[0] is id, lineData[1] is name, lineData[3] is cals, lineData[5] is fat, lineData[4] is protein, lineData[8] is fiber, lineData[7] is carbs, 
@@ -28,14 +31,23 @@ public class csvReader {
                     if (line[i].length() == 0 || line[i] == null) {line[i] = "0";}
                 }
 
-                ingredients.add(new Ingredient(
+                String rawName = line[1];
+                String cutName = rawName.split(",")[0].split(" ")[0].toLowerCase();
+
+                if (allIngredientName.contains(cutName) == false)
+                {
+                    ingredients.add(new Ingredient(
                                     Integer.parseInt(line[0]),
-                                    line[1], 
+                                    cutName, 
                                     Integer.parseInt(line[3]), 
                                     Double.parseDouble(line[5]), 
                                     Double.parseDouble(line[4]), 
                                     Double.parseDouble(line[8]), 
                                     Double.parseDouble(line[7])));
+                    
+                    allIngredientName.add(cutName);
+                }
+                
             }
 
             System.out.println("A Total of " + ingredients.size() + " Ingredients Has Been Found");

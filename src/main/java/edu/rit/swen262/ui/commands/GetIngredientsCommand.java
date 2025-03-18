@@ -88,7 +88,14 @@ public class GetIngredientsCommand extends UserCommand {
         }
 
         updateIngredientList(10);
+
         int pageNumber = Integer.parseInt(commandArgs[1]);
+        
+        if (pageNumber >= ingredientList.size() || pageNumber < 0) {
+            System.out.println("Error: Invalid pageNumber. Usage: " + getHelp());
+            return;
+        }
+        
         printIngredientPage(pageNumber);
     }
 }
