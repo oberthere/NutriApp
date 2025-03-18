@@ -57,10 +57,9 @@ public class AddMealCommand extends UserCommand {
                 dailyHistory.prepareMeal(name, recipes, mealType);
                 System.out.println("Successfully added Meal" + commandArgs[1]);
             } catch (LowStockException e) {
-                e.printStackTrace();
+                System.out.println("Low Stock Exception. Go to ShoppingList to see the low ingredients");
             }
         } catch (InvalidMealCreation e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

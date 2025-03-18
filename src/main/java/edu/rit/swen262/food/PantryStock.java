@@ -1,9 +1,7 @@
 package edu.rit.swen262.food;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public final class PantryStock {

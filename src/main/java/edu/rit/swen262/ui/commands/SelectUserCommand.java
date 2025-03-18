@@ -27,7 +27,7 @@ public class SelectUserCommand extends UserCommand {
 
         // Ensure proper length
         if (commandArgs.length < 2) {
-            System.out.println("Error: Please provide a username. Usage: SelectUser [Username]");
+            System.out.println("Error: Please provide a username. Usage: Select [Username]");
             return;
         }
 

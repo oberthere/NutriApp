@@ -2,7 +2,6 @@ package edu.rit.swen262.ui.pages;
 
 import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.ui.commands.AddMealCommand;
 import edu.rit.swen262.ui.commands.GoCommand;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryService;
