@@ -56,14 +56,10 @@ public class GetIngredientsCommand extends UserCommand {
 
     private void printIngredientPage(int pageNum) {
         System.out.println("A Total of " + this.tempIngredientRecord.size() + " Unique Ingredients Was Recorded");
-        System.out.println("Currently Viewing Page " + pageNum + "/" + this.ingredientList.size());
+        System.out.println("Currently Viewing Page " + pageNum + "/" + (this.ingredientList.size() - 1));
         for (Ingredient ingredient : ingredientList.get(pageNum)) {
-            if (ingredient == null) {
-                System.out.println("\t-");
-            }
-            else {
+            if (ingredient != null) {
                 System.out.println("\t- [#" + ingredient.getID() + "] " + ingredient.getName() + ": " + this.tempIngredientRecord.get(ingredient));
-        
             }
         }
     }
