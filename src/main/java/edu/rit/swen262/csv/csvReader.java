@@ -16,6 +16,7 @@ import edu.rit.swen262.food.PantryStock;
 public class csvReader {
     public void ingredientReader() {
         try {
+            Integer id = 0;
             Map<Ingredient, Integer> pantryStock = new HashMap<>();
             List<Ingredient> ingredients = new ArrayList<Ingredient>();
             CSVReader reader = new CSVReader(new FileReader("src/main/resources/data/ingredients.csv"));
@@ -37,7 +38,7 @@ public class csvReader {
                 if (allIngredientName.contains(cutName) == false)
                 {
                     ingredients.add(new Ingredient(
-                                    Integer.parseInt(line[0]),
+                                    id++,
                                     cutName, 
                                     Integer.parseInt(line[3]), 
                                     Double.parseDouble(line[5]), 
