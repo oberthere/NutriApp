@@ -11,7 +11,7 @@ public final class PantryStock {
     private static Map<Integer, Recipe> recipeByID = new HashMap<>();
     
     public static void updateIngredients(Ingredient ingredient, int amount) {
-        PantryStock.ingredientRecord.put(ingredient, amount);
+        PantryStock.ingredientRecord.put(ingredient, amount + ingredientRecord.get(ingredient));
     }
 
     public static void updateIngredientRecord(Map<Ingredient, Integer> ingredientRecord) {

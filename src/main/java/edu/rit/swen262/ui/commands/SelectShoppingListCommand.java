@@ -39,6 +39,7 @@ public class SelectShoppingListCommand extends UserCommand {
             Recipe recipe = PantryStock.getRecipeRecord().get(commandArgs[2]);
             shoppingListService.setCriteria(new ShopCriteriaLowRecipeStrategy());
             shoppingListService.generateShoppingList(recipe);
+            System.out.println("Sucesfully selected the Shopping List for " + recipe.getName());
         }
         pageData.getCurrentUser().setShoppingListService(shoppingListService);
     }
