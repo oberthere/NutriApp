@@ -15,7 +15,7 @@ public class GetIngredientsCommand extends UserCommand {
     
     public GetIngredientsCommand() {
         super.nameString = "Ingredient";
-        super.helpString = "Ingredient [Not implemented]";
+        super.helpString = "Ingredient [IngredientID / Name | Page [0-83]]";
         this.tempIngredientRecord = PantryStock.getAllIngredients();
 
     }
@@ -67,8 +67,8 @@ public class GetIngredientsCommand extends UserCommand {
     @Override
     public String getHelp() {
         if (ingredientList == null) {updateIngredientList(10);}
-        String returnString = "Ingredient ";
-        returnString += "[0-" + (this.ingredientList.size()-1) + "]";
+        String returnString = "Ingredient [IngredientID / Name | ";
+        returnString += "Page [0-" + (this.ingredientList.size()-1) + "]]";
         
         return returnString;
     }
@@ -80,15 +80,32 @@ public class GetIngredientsCommand extends UserCommand {
             return;
         }
 
-        updateIngredientList(10);
+        if (commandArgs.length < 3) {
+            Ingredient search;
+            int stock;
+            try {
+                Integer.parseInt(commandArgs[1]);
+                search = PantryStock.getIngredientByID(Integer.parseInt(commandArgs[1]));
+                stock = PantryStock.getIngredientCountByID(Integer.parseInt(commandArgs[1]));
+            }
+            catch (NumberFormatException e) {
+                search = PantryStock.getIngredientByName(commandArgs[1].toLowerCase());
+                stock = PantryStock.getIngredientCountByName(commandArgs[1].toLowerCase());
+            }
+            if (search == null || stock == 0) {
+                System.out.println("Error: That ingredient could not be found. Try again: " + getHelp());
+            } else {System.out.println("\t- " + search + " [Stock: " + stock + "]");}
+        } else {
+            updateIngredientList(10);
 
-        int pageNumber = Integer.parseInt(commandArgs[1]);
-        
-        if (pageNumber >= ingredientList.size() || pageNumber < 0) {
-            System.out.println("Error: Invalid pageNumber. Usage: " + getHelp());
-            return;
+            int pageNumber = Integer.parseInt(commandArgs[2]);
+            
+            if (pageNumber >= ingredientList.size() || pageNumber < 0) {
+                System.out.println("Error: Invalid pageNumber. Usage: " + getHelp());
+                return;
+            }
+            
+            printIngredientPage(pageNumber);
         }
-        
-        printIngredientPage(pageNumber);
     }
 }

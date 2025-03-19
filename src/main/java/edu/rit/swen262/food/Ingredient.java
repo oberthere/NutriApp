@@ -74,8 +74,9 @@ public class Ingredient implements Food {
         }
         return false;
     }
-
     
-
-    
+    @Override
+    public String toString() {
+        return "[#" + this.getID() + "] " + this.getName() + " [Calories: " + this.getCalories() + ", Fat: " + this.getFat() + "g, Protein: " + this.getProtein() + "g, Carbs: " + this.getCarbs() + "g, Fiber: " + this.getFiber() + "g]";
+    }
 }

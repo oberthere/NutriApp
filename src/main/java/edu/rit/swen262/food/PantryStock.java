@@ -31,12 +31,39 @@ public final class PantryStock {
     }
 
     public static Ingredient getIngredientByID(int ID) {
-        return PantryStock.ingredientByID.get(ID);
+        for (int id : PantryStock.ingredientByID.keySet()) {
+            if (id == ID) {
+                return PantryStock.ingredientByID.get(ID);
+            }
+        }
+        return null;
     }
 
     public static int getIngredientCountByID(int ID) {
-        Ingredient ingredient = PantryStock.ingredientByID.get(ID);
-        return PantryStock.ingredientRecord.get(ingredient);
+        for (int id : PantryStock.ingredientByID.keySet()) {
+            if (id == ID) {
+                return PantryStock.ingredientRecord.get(PantryStock.ingredientByID.get(ID));
+            }
+        }
+        return 0;
+    }
+
+    public static Ingredient getIngredientByName(String name) {
+        for (Ingredient ingredient : PantryStock.ingredientRecord.keySet()) {
+            if (ingredient.getName().equals(name)) {
+                return ingredient;
+            }
+        }
+        return null;
+    }
+
+    public static int getIngredientCountByName(String name) {
+        for (Ingredient ingredient : PantryStock.ingredientRecord.keySet()) {
+            if (ingredient.getName().equals(name)) {
+                return PantryStock.ingredientRecord.get(ingredient);
+            }
+        }
+        return 0;
     }
 
     public static void addRecipe(Recipe recipe) {
