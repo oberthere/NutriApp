@@ -8,6 +8,7 @@ public final class PantryStock {
     private static final Map<Ingredient, Integer> ingredientRecord = new HashMap<>();
     private static final Map<Integer, Ingredient> ingredientByID = new HashMap<>();
     private static Map<String, Recipe> recipeRecord = new HashMap<>();
+    private static Map<Integer, Recipe> recipeByID = new HashMap<>();
     
     public static void updateIngredients(Ingredient ingredient, int amount) {
         PantryStock.ingredientRecord.put(ingredient, amount);
@@ -38,7 +39,17 @@ public final class PantryStock {
         return PantryStock.ingredientRecord.get(ingredient);
     }
 
-    public static void addRecipe(Recipe recipe) {PantryStock.recipeRecord.put(recipe.getName(), recipe);}
-    public static Map<String, Recipe> getRecipeRecord() {return Collections.unmodifiableMap(PantryStock.recipeRecord);}
+    public static void addRecipe(Recipe recipe) {
+        PantryStock.recipeByID.put(recipe.getID(), recipe);
+        PantryStock.recipeRecord.put(recipe.getName(), recipe);
+    }
+
+    public static Map<Integer, Recipe> getRecipeIDMap() {
+        return Collections.unmodifiableMap(PantryStock.recipeByID);
+    }
+
+    public static Map<String, Recipe> getRecipeRecord() {
+        return Collections.unmodifiableMap(PantryStock.recipeRecord);
+    }
 
 }

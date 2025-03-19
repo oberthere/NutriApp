@@ -3,16 +3,20 @@ package edu.rit.swen262.food;
 import java.util.List;
 
 public class Recipe implements Food {
+    private static int serial = 0;
+    private final int id;
     private String name;
-    private String instructions;
     private List<Ingredient> ingredients;
+    private String instructions;
 
     public Recipe(String name, List<Ingredient> ingredients, String instructions) {
+        this.id = serial++;
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
     }
 
+    public int getID() {return this.id;}
     public String getInstructions() {return this.instructions;}
     public List<Ingredient> getIngredients() {return ingredients;}
     @Override public String getName() {return this.name;}
@@ -51,5 +55,4 @@ public class Recipe implements Food {
         for (Food food : ingredients) {fiber += food.getFiber();}
         return fiber;
     }
-    
 }

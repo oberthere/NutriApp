@@ -18,22 +18,23 @@ public class AddMealCommand extends UserCommand {
 
     public AddMealCommand(PageData pageData) {
         super.nameString = "AddMeal";
-        super.helpString = "AddMeal [name] [recipeName] [recipeName] ... [breakfast|lunch|dinner]";
+        super.helpString = "AddMeal [name] [recipeID] [recipeID] ... [breakfast|lunch|dinner]";
         this.pageData = pageData;
     }
 
     private List<Recipe> getRecipeFromInput(String[] args) throws InvalidMealCreation {
-        Map<String, Recipe> recipeRecord = PantryStock.getRecipeRecord();
+        Map<Integer, Recipe> recipeIDMap = PantryStock.getRecipeIDMap();
         List<Recipe> ls = new ArrayList<>();
         boolean raise = false;
 
         for (int i = 2; i < args.length - 1; i++) {
-            String recipeName = args[i];
-            if (recipeRecord.containsKey(recipeName) == false) {
-                System.out.println("Recipe " + recipeName + " Not Found");
+            Integer recipeID = Integer.valueOf(args[i]);
+
+            if (recipeIDMap.containsKey(recipeID) == false) {
+                System.out.println("Recipe ID " + recipeID + " Not Found");
                 raise = true;
             }
-            ls.add(recipeRecord.get(recipeName));
+            ls.add(recipeIDMap.get(recipeID));
         }
 
         if (raise) {throw new InvalidMealCreation("Unable to Create Meal");}
@@ -55,12 +56,12 @@ public class AddMealCommand extends UserCommand {
             try {
                 DailyHistoryService dailyHistory = pageData.getCurrentUser().getDailyHistoryService();
                 dailyHistory.prepareMeal(name, recipes, mealType);
-                System.out.println("Successfully added Meal" + commandArgs[1]);
+                System.out.println("Successfully added Meal " + commandArgs[1]);
             } catch (LowStockException e) {
                 System.out.println("Low Stock Exception. Go to ShoppingList to see the low ingredients");
             }
         } catch (InvalidMealCreation e) {
-            e.printStackTrace();
+            System.out.println("Invalid Meal Creation: Check your arguments and try again. " + getHelp());
         }
     }
 }
