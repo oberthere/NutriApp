@@ -89,21 +89,21 @@ public class PageRunner {
     }
 
     public void runPage() {
-        
         while (this.scanner != null) {
             this.currentPage.printContent();
             this.currentPage.printCommand();
             printGlobalCommand();
-
 
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
 
             executeCommand(input);
 
+            System.out.print("\nPress any key to continue...");
+            getScannerInput();
+
             printNewLineForNewPage(10);
         }
-    
     }
 
     private Page createPages() {
