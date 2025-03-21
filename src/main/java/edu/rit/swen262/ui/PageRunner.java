@@ -110,7 +110,7 @@ public class PageRunner {
         Page mainPage = new MainPage(pageData);
         Page userSetupPage = new UserSetupPage(pageData);
         Page userDashboardPage = new UserDashboardPage(pageData);
-        Page mealPage = new MealPage(pageData);
+        Page foodPage = new FoodPage(pageData);
         Page historyPage = new HistoryPage(pageData);
         Page workoutPage = new WorkoutPage(pageData);
         Page shoppingListPage = new ShoppingListPage(pageData);
@@ -122,8 +122,8 @@ public class PageRunner {
 
         userSetupPage.setChildrenPage(List.of(userDashboardPage));
         
-        userDashboardPage.setChildrenPage(List.of(mealPage, historyPage, workoutPage, shoppingListPage));
-        mealPage.setParentPage(userDashboardPage);
+        userDashboardPage.setChildrenPage(List.of(foodPage, historyPage, workoutPage, shoppingListPage));
+        foodPage.setParentPage(userDashboardPage);
         historyPage.setParentPage(userDashboardPage);
         workoutPage.setParentPage(userDashboardPage);
         shoppingListPage.setParentPage(userDashboardPage);
