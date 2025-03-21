@@ -10,10 +10,10 @@ import edu.rit.swen262.ui.commands.GetIngredientsCommand;
 import edu.rit.swen262.ui.commands.GetRecipeCommand;
 import edu.rit.swen262.user.service.DailyHistoryService;
 
-public class MealPage extends Page {
-    public MealPage(PageData pageData) {
+public class FoodPage extends Page {
+    public FoodPage(PageData pageData) {
         super(pageData);
-        this.pageName = "Meal";
+        this.pageName = "Food";
         super.userCommands.add(new GetIngredientsCommand());
         super.userCommands.add(new AddRecipeCommand());
         super.userCommands.add(new GetRecipeCommand());
