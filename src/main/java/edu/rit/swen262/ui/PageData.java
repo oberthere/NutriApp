@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.rit.swen262.history.PersonalHistory;
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.GoalService;
@@ -47,12 +47,12 @@ public class PageData {
     }
 
     /**
-     * Loads saved users from PersonalHistory on startup.
+     * Loads saved users from SaveData on startup.
      */
     public void loadUsersFromHistory() {
         System.out.println("Loading saved users from history...");
-        PersonalHistory.deserializeAndLoadSavedHistory();
-        Map<String, List<DailyHistoryService>> history = PersonalHistory.getHistory();
+        SaveData.deserializeAndLoadSavedHistory();
+        Map<String, List<DailyHistoryService>> history = SaveData.getHistory();
     
         for (String username : history.keySet()) {
             if (!users.containsKey(username)) {

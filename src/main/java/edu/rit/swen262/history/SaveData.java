@@ -16,13 +16,13 @@ import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
-public final class PersonalHistory {
+public final class SaveData {
     private static Map<String, List<DailyHistoryService>> history = new HashMap<>();
-    public static final String savedPersonalHistoryFileName = "PersonalHistorySave";
+    public static final String saveDataFileName = "SaveData";
 
-    public static Map<String, List<DailyHistoryService>> getHistory() { return Collections.unmodifiableMap(PersonalHistory.history);}
+    public static Map<String, List<DailyHistoryService>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
     
-    public static void setHistory(Map<String, List<DailyHistoryService>> historyMap) {PersonalHistory.history = historyMap;}
+    public static void setHistory(Map<String, List<DailyHistoryService>> historyMap) {SaveData.history = historyMap;}
 
     /*
      * The DailyHistory added to the history 
@@ -32,10 +32,10 @@ public final class PersonalHistory {
         String userName = dh.getUserID();
         
         // Ensure the user history list exists
-        List<DailyHistoryService> userHistoryRecord = PersonalHistory.history.get(userName);
+        List<DailyHistoryService> userHistoryRecord = SaveData.history.get(userName);
         if (userHistoryRecord == null) {
             userHistoryRecord = new ArrayList<>();  
-            PersonalHistory.history.put(userName, userHistoryRecord);
+            SaveData.history.put(userName, userHistoryRecord);
         }
     
         userHistoryRecord.add(dh);
@@ -45,7 +45,7 @@ public final class PersonalHistory {
     }
     
     public static List<DailyHistoryService> getUserHistory(String userID) {
-        return PersonalHistory.history.get(userID);
+        return SaveData.history.get(userID);
     }
 
     public static IntensityStrategy getWorkoutIntensityTrend(String userID) {
@@ -82,7 +82,7 @@ public final class PersonalHistory {
             }
     
             // Save the history data inside the correct folder
-            FileOutputStream file = new FileOutputStream("src/main/resources/data/" + savedPersonalHistoryFileName);
+            FileOutputStream file = new FileOutputStream("src/main/resources/data/" + saveDataFileName);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(history);
             out.close();
@@ -99,7 +99,7 @@ public final class PersonalHistory {
     @SuppressWarnings("unchecked")
     public static void deserializeAndLoadSavedHistory() {
         try {
-            File file = new File("src/main/resources/data/" + savedPersonalHistoryFileName);
+            File file = new File("src/main/resources/data/" + saveDataFileName);
 
             // Check if the file exists before trying to read it
             if (!file.exists()) {

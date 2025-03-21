@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import edu.rit.swen262.history.PersonalHistory;
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryService;
@@ -49,10 +49,10 @@ public class CreateUserCommand extends UserCommand {
 
             // Create a new daily history entry for this user
             DailyHistoryService dailyHistory = new DailyHistoryService(username, new Date(), height, weight, birthdate, 2000);
-            PersonalHistory.addDailyHistory(dailyHistory);
+            SaveData.addDailyHistory(dailyHistory);
 
             // Save user data
-            PersonalHistory.serializeHistoryToSave();
+            SaveData.serializeHistoryToSave();
 
             System.out.println("\nUser created successfully: " + username);
         } catch (NumberFormatException e) {

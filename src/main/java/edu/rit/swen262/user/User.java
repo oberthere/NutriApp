@@ -2,7 +2,7 @@ package edu.rit.swen262.user;
 
 import java.util.Date;
 
-import edu.rit.swen262.history.PersonalHistory;
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.GoalService;
 import edu.rit.swen262.user.service.ShoppingListService;
@@ -57,8 +57,8 @@ public class User {
     
         // Save previous day's data before resetting
         if (this.dailyHistoryService != null) {
-            PersonalHistory.addDailyHistory(dailyHistoryService);
-            PersonalHistory.serializeHistoryToSave();
+            SaveData.addDailyHistory(dailyHistoryService);
+            SaveData.serializeHistoryToSave();
         }
     
         // Update goal service

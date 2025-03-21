@@ -15,7 +15,7 @@ import edu.rit.swen262.other.exception.LowStockException;
 import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.workout.Workout;
 import edu.rit.swen262.workout.IntensityStrategy;
-import edu.rit.swen262.history.PersonalHistory;
+import edu.rit.swen262.history.SaveData;
 
 public class DailyHistoryService implements Serializable { // Now serializable
     private static final long serialVersionUID = 1L;  // Recommended for Serializable classes
@@ -107,7 +107,7 @@ public class DailyHistoryService implements Serializable { // Now serializable
             return null; // No workout needed
         }
 
-        IntensityStrategy avgIntensity = PersonalHistory.getWorkoutIntensityTrend(this.userID);
+        IntensityStrategy avgIntensity = SaveData.getWorkoutIntensityTrend(this.userID);
 
         // Example: Find an appropriate workout to burn excess calories using the average intensity
         for (Workout workout : workouts) {

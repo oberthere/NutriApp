@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import edu.rit.swen262.food.Meal;
-import edu.rit.swen262.history.PersonalHistory;
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryService;
@@ -21,7 +21,7 @@ public class HistoryPage extends Page {
     @Override
     public void printContent() {
         User user = pageData.getCurrentUser();
-        List<DailyHistoryService> dhs = PersonalHistory.getUserHistory(user.getName());
+        List<DailyHistoryService> dhs = SaveData.getUserHistory(user.getName());
         List<DailyHistoryService> sorted = sortRecordByDate(dhs);
 
         super.printContent();
@@ -59,7 +59,7 @@ public class HistoryPage extends Page {
     }
 
     private void printWeightHistory(User user) {
-        List<DailyHistoryService> historyRecords = PersonalHistory.getUserHistory(user.getName());
+        List<DailyHistoryService> historyRecords = SaveData.getUserHistory(user.getName());
 
         if (historyRecords == null || historyRecords.isEmpty()) {
             System.out.println("No weight history available.");

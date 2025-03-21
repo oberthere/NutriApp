@@ -1,6 +1,6 @@
 package edu.rit.swen262.ui.commands;
 
-import edu.rit.swen262.history.PersonalHistory;
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageRunner;
 
 public class ExitCommand extends UserCommand{
@@ -18,7 +18,7 @@ public class ExitCommand extends UserCommand{
     @Override 
     public void performAction(String[] commandArgs){
         System.out.println("Saving date...");
-        PersonalHistory.serializeHistoryToSave(); // save user history before exiting
+        SaveData.serializeHistoryToSave(); // save user history before exiting
         System.out.println("Data saved. Exiting application...");
         pr.closeScanner();
     }

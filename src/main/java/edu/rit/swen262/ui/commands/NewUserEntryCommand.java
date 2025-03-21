@@ -3,7 +3,7 @@ package edu.rit.swen262.ui.commands;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.rit.swen262.history.PersonalHistory;
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
@@ -47,15 +47,15 @@ public class NewUserEntryCommand extends UserCommand {
             DailyHistoryService dailyHistory = new DailyHistoryService(user.getName(), new Date(), user.getHeight(), currentWeight, user.getBirthdate(), targetCalories);
 
             // Ensure user history exists
-            if (!PersonalHistory.getHistory().containsKey(user.getName())) {
-                PersonalHistory.getHistory().put(user.getName(), new ArrayList<>());
+            if (!SaveData.getHistory().containsKey(user.getName())) {
+                SaveData.getHistory().put(user.getName(), new ArrayList<>());
             }
 
             // Add the new daily history entry
-            PersonalHistory.getHistory().get(user.getName()).add(dailyHistory);
+            SaveData.getHistory().get(user.getName()).add(dailyHistory);
 
             // Save the updated history to file
-            PersonalHistory.serializeHistoryToSave();
+            SaveData.serializeHistoryToSave();
 
             System.out.println("Daily entry set up successfully.");
             
