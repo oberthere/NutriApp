@@ -13,16 +13,26 @@ import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserDataService;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
 public final class SaveData {
     private static Map<String, List<DailyHistoryService>> history = new HashMap<>();
+    private static Map<String, UserDataService> userData = new HashMap<>();
+    
     public static final String saveDataFileName = "SaveData";
-
+    
+    public static Map<String, UserDataService> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
     public static Map<String, List<DailyHistoryService>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
     
     public static void setHistory(Map<String, List<DailyHistoryService>> historyMap) {SaveData.history = historyMap;}
+    
+    public static void addUserData(UserDataService userDataService) {
+        String username = userDataService.getUsername();
+        SaveData.userData.put(username, userDataService);
+        serializeHistoryToSave();
+    }
 
     /*
      * The DailyHistory added to the history 
@@ -85,6 +95,7 @@ public final class SaveData {
             FileOutputStream file = new FileOutputStream("src/main/resources/data/" + saveDataFileName);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(history);
+            out.writeObject(userData);
             out.close();
             file.close();
     
@@ -110,10 +121,12 @@ public final class SaveData {
             FileInputStream fileInput = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileInput);
             Map<String, List<DailyHistoryService>> tempHistory = (Map<String, List<DailyHistoryService>>) in.readObject();
+            Map<String, UserDataService> tempUserData = (Map<String, UserDataService>) in.readObject();
             in.close();
             fileInput.close();
 
             setHistory(tempHistory);
+            userData = tempUserData;
             System.out.println("Personal History successfully loaded from file.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Unsuccessful attempt in loading Personal History.");

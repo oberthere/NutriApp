@@ -44,7 +44,7 @@ public class NewUserEntryCommand extends UserCommand {
             user.startNewDay(currentWeight, targetWeight, targetCalories, isPhysicalFitnessGoal);
 
             // Create a new DailyHistoryService entry
-            DailyHistoryService dailyHistory = new DailyHistoryService(user.getName(), new Date(), user.getHeight(), currentWeight, user.getBirthdate(), targetCalories);
+            DailyHistoryService dailyHistory = new DailyHistoryService(user.getName(), new Date(), currentWeight, targetCalories);
 
             // Ensure user history exists
             if (!SaveData.getHistory().containsKey(user.getName())) {

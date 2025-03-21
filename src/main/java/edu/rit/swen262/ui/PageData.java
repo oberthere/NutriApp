@@ -8,6 +8,7 @@ import java.util.Map;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.user.User;
+import edu.rit.swen262.user.service.UserDataService;
 import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.GoalService;
 
@@ -53,15 +54,17 @@ public class PageData {
         System.out.println("Loading saved users from history...");
         SaveData.deserializeAndLoadSavedHistory();
         Map<String, List<DailyHistoryService>> history = SaveData.getHistory();
+        Map<String, UserDataService> userData = SaveData.getUserData();
     
         for (String username : history.keySet()) {
             if (!users.containsKey(username)) {
                 List<DailyHistoryService> userHistory = history.get(username);
+                UserDataService userDataService = userData.get(username);
                 if (!userHistory.isEmpty()) {
                     DailyHistoryService latestHistory = userHistory.get(userHistory.size() - 1);  // Most recent entry
     
                     // Create user and assign latest history
-                    User user = new User(username, latestHistory.getHeight(), latestHistory.getWeight(), latestHistory.getBirthdate());
+                    User user = new User(username, userDataService.getHeight(), latestHistory.getWeight(), userDataService.getBirthdate());
                     user.setDailyHistoryService(latestHistory);
     
                     // Ensure GoalService is initialized properly

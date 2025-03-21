@@ -22,8 +22,6 @@ public class DailyHistoryService implements Serializable { // Now serializable
 
     private String userID;
     private Date date;
-    private Date birthdate;
-    private double height;
     private double weight;
     private int targetCalories;
     private GoalService goalService;
@@ -32,12 +30,10 @@ public class DailyHistoryService implements Serializable { // Now serializable
     private List<Workout> workouts;
     private int netCalories;
 
-    public DailyHistoryService(String userID, Date date, double height, double weight, Date birthdate, int targetCalories) {
+    public DailyHistoryService(String userID, Date date, double weight, int targetCalories) {
         this.userID = userID;
         this.date = date;
-        this.height = height;
         this.weight = weight;
-        this.birthdate = birthdate;
         this.targetCalories = targetCalories;
         this.preparedMeals = new ArrayList<>();
         this.eatenMeals = new ArrayList<>();
@@ -50,9 +46,7 @@ public class DailyHistoryService implements Serializable { // Now serializable
     
     public String getUserID() { return userID; }
     public Date getDate() { return date; }
-    public double getHeight() { return height; }
     public double getWeight() { return weight; }
-    public Date getBirthdate() { return birthdate; }
     public int getTargetCalories() { return targetCalories; }
     public GoalService getGoalService() { return goalService; }
     public List<Meal> getPreparedMeals() { return preparedMeals; }

@@ -9,6 +9,7 @@ import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserDataService;
 
 public class CreateUserCommand extends UserCommand {
 
@@ -48,11 +49,12 @@ public class CreateUserCommand extends UserCommand {
             pageData.addUser(username, user);
 
             // Create a new daily history entry for this user
-            DailyHistoryService dailyHistory = new DailyHistoryService(username, new Date(), height, weight, birthdate, 2000);
+            DailyHistoryService dailyHistory = new DailyHistoryService(username, new Date(), weight, 2000);
             SaveData.addDailyHistory(dailyHistory);
-
-            // Save user data
-            SaveData.serializeHistoryToSave();
+            
+            // Update the user data
+            UserDataService userDataService = new UserDataService(username, birthdate, height);
+            SaveData.addUserData(userDataService);
 
             System.out.println("\nUser created successfully: " + username);
         } catch (NumberFormatException e) {
