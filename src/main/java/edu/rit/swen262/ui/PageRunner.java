@@ -98,6 +98,7 @@ public class PageRunner {
             String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("Exit")) {
+                executeCommand(input);
                 break;
             }
 
