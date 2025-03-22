@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.rit.swen262.food.PantryRecord;
 import edu.rit.swen262.user.service.DailyHistoryService;
 import edu.rit.swen262.user.service.UserDataService;
 import edu.rit.swen262.workout.IntensityStrategy;
@@ -20,14 +21,15 @@ import edu.rit.swen262.workout.Workout;
 public final class SaveData {
     private static Map<String, List<DailyHistoryService>> history = new HashMap<>();
     private static Map<String, UserDataService> userData = new HashMap<>();
-    
+    private static PantryRecord pantryRecord = new PantryRecord();
+
     public static final String saveDataFileName = "SaveData";
-    
+
     public static Map<String, UserDataService> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
     public static Map<String, List<DailyHistoryService>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
-    
+
     public static void setHistory(Map<String, List<DailyHistoryService>> historyMap) {SaveData.history = historyMap;}
-    
+
     public static void addUserData(UserDataService userDataService) {
         String username = userDataService.getUsername();
         SaveData.userData.put(username, userDataService);
@@ -35,25 +37,25 @@ public final class SaveData {
     }
 
     /*
-     * The DailyHistory added to the history 
+     * The DailyHistory added to the history
      * and stored only at the end of the day.
      */
     public static void addDailyHistory(DailyHistoryService dh) {
         String userName = dh.getUserID();
-        
+
         // Ensure the user history list exists
         List<DailyHistoryService> userHistoryRecord = SaveData.history.get(userName);
         if (userHistoryRecord == null) {
-            userHistoryRecord = new ArrayList<>();  
+            userHistoryRecord = new ArrayList<>();
             SaveData.history.put(userName, userHistoryRecord);
         }
-    
+
         userHistoryRecord.add(dh);
-    
+
         // Save data immediately after adding a new history entry
         serializeHistoryToSave();
     }
-    
+
     public static List<DailyHistoryService> getUserHistory(String userID) {
         return SaveData.history.get(userID);
     }
@@ -90,23 +92,27 @@ public final class SaveData {
             if (!directory.exists()) {
                 directory.mkdirs();  // Create directories if they don't exist
             }
-    
+            
+            // Reloads pantry data
+            pantryRecord = new PantryRecord();
+
             // Save the history data inside the correct folder
             FileOutputStream file = new FileOutputStream("src/main/resources/data/" + saveDataFileName);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(history);
             out.writeObject(userData);
+            out.writeObject(pantryRecord);
             out.close();
             file.close();
-    
+
             System.out.println("Personal History has been successfully saved to file.");
         } catch (IOException e) {
             System.out.println("Unsuccessful attempt in saving Personal History.");
             e.printStackTrace();
         }
     }
-    
-    
+
+
     @SuppressWarnings("unchecked")
     public static void deserializeAndLoadSavedHistory() {
         try {
@@ -122,11 +128,16 @@ public final class SaveData {
             ObjectInputStream in = new ObjectInputStream(fileInput);
             Map<String, List<DailyHistoryService>> tempHistory = (Map<String, List<DailyHistoryService>>) in.readObject();
             Map<String, UserDataService> tempUserData = (Map<String, UserDataService>) in.readObject();
+            PantryRecord tempPantryRecord = (PantryRecord) in.readObject();
             in.close();
             fileInput.close();
 
             setHistory(tempHistory);
             userData = tempUserData;
+            pantryRecord = tempPantryRecord;
+            // Reloads pantry data
+            pantryRecord.readToPantryStock();
+            
             System.out.println("Personal History successfully loaded from file.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Unsuccessful attempt in loading Personal History.");
@@ -134,6 +145,6 @@ public final class SaveData {
         }
     }
 
-    
+
 
 }

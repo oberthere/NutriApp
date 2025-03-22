@@ -1,8 +1,9 @@
 package edu.rit.swen262.food;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Recipe implements Food {
+public class Recipe implements Food, Serializable {
     private static int serial = 0;
     private final int id;
     private String name;

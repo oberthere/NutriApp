@@ -1,6 +1,8 @@
 package edu.rit.swen262.food;
 
-public class Ingredient implements Food {
+import java.io.Serializable;
+
+public class Ingredient implements Food, Serializable {
 
     int id;
     String name;
