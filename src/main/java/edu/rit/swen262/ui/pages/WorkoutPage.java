@@ -2,7 +2,7 @@ package edu.rit.swen262.ui.pages;
 
 import java.util.List;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserHistoryService;
 import edu.rit.swen262.workout.Workout;
 import edu.rit.swen262.ui.commands.AddWorkoutCommand;
 
@@ -15,7 +15,7 @@ public class WorkoutPage extends Page {
 
     @Override
     public void printContent() {
-        DailyHistoryService dh = pageData.getCurrentUser().getDailyHistoryService();
+        UserHistoryService dh = pageData.getCurrentUser().getUserHistoryService();
         super.printContent();
         System.out.println("Workouts Recorded:");
         printWorkouts(dh.getWorkouts());

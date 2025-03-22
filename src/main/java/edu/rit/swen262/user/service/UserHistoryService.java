@@ -17,7 +17,7 @@ import edu.rit.swen262.workout.Workout;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.history.SaveData;
 
-public class DailyHistoryService implements Serializable { // Now serializable
+public class UserHistoryService implements Serializable { // Now serializable
     private static final long serialVersionUID = 1L;  // Recommended for Serializable classes
 
     private String userID;
@@ -30,7 +30,7 @@ public class DailyHistoryService implements Serializable { // Now serializable
     private List<Workout> workouts;
     private int netCalories;
 
-    public DailyHistoryService(String userID, Date date, double weight, int targetCalories) {
+    public UserHistoryService(String userID, Date date, double weight, int targetCalories) {
         this.userID = userID;
         this.date = date;
         this.weight = weight;

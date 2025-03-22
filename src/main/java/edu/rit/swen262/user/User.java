@@ -4,7 +4,7 @@ import java.util.Date;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.user.service.UserDataService;
-import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserHistoryService;
 import edu.rit.swen262.user.service.GoalService;
 import edu.rit.swen262.user.service.ShoppingListService;
 
@@ -13,7 +13,7 @@ public class User {
     private double weight;
     private GoalService goalService;
     private ShoppingListService shoppingListService;
-    private DailyHistoryService dailyHistoryService;
+    private UserHistoryService userHistoryService;
     private UserDataService userDataService;
 
     /**
@@ -29,11 +29,11 @@ public class User {
         this.userDataService = new UserDataService(name, birthdate, height);
     }
 
-    public User(String name, double height, double weight, Date birthdate, DailyHistoryService dailyHistoryService)
+    public User(String name, double height, double weight, Date birthdate, UserHistoryService userHistoryService)
         {
             this.name = name;
             this.weight = weight;
-            this.dailyHistoryService = dailyHistoryService;
+            this.userHistoryService = userHistoryService;
             this.userDataService = new UserDataService(name, birthdate, height);
         }
 
@@ -47,24 +47,24 @@ public class User {
     public void setGoalService(GoalService goalService) {this.goalService = goalService; }
     public ShoppingListService getShoppingListService() {return this.shoppingListService;}
     public void setShoppingListService(ShoppingListService shoppingListService) {this.shoppingListService = shoppingListService;}
-    public DailyHistoryService getDailyHistoryService() {return this.dailyHistoryService;}
-    public void setDailyHistoryService(DailyHistoryService dh) {this.dailyHistoryService = dh;}
+    public UserHistoryService getUserHistoryService() {return this.userHistoryService;}
+    public void setUserHistoryService(UserHistoryService dh) {this.userHistoryService = dh;}
     public UserDataService getUserDataService() {return this.userDataService;}
     public void setUserDataService(UserDataService userDataService) {this.userDataService = userDataService;}
-    public Date getLastUpdated() {return this.dailyHistoryService.getDate();}
+    public Date getLastUpdated() {return this.userHistoryService.getDate();}
 
     public void startNewDay(double weight, double targetWeight, int targetCalories, boolean isPhysicalFitnessGoal) {
     
         // Save previous day's data before resetting
-        if (this.dailyHistoryService != null) {
-            SaveData.addDailyHistory(dailyHistoryService);
+        if (this.userHistoryService != null) {
+            SaveData.addUserHistory(userHistoryService);
             SaveData.serializeHistoryToSave();
         }
     
         // Update goal service
         this.goalService = new GoalService(isPhysicalFitnessGoal, targetWeight, weight);
     
-        this.dailyHistoryService = new DailyHistoryService(
+        this.userHistoryService = new UserHistoryService(
             name,              // userID
             new Date(),        // current date   
             weight,          

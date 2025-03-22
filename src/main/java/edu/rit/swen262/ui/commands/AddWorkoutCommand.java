@@ -8,7 +8,7 @@ import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.LowIntensityStrategy;
 import edu.rit.swen262.workout.MediumIntensityStrategy;
 import edu.rit.swen262.workout.Workout;
-import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserHistoryService;
 import edu.rit.swen262.ui.PageData;
 
 public class AddWorkoutCommand extends UserCommand {
@@ -39,8 +39,8 @@ public class AddWorkoutCommand extends UserCommand {
 
         Workout newWorkout = new Workout(workoutName, durationMin, intensity);
 
-        // get the current user's daily history service and add the new workout to it
-        DailyHistoryService dh = pageData.getCurrentUser().getDailyHistoryService();
+        // get the current user's user history service and add the new workout to it
+        UserHistoryService dh = pageData.getCurrentUser().getUserHistoryService();
         dh.addWorkout(newWorkout);
 
         System.out.println(workoutName + " Workout Added Successfully.");

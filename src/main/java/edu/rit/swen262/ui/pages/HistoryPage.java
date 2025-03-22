@@ -8,7 +8,7 @@ import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserHistoryService;
 import edu.rit.swen262.workout.Workout;
 
 public class HistoryPage extends Page {
@@ -21,26 +21,26 @@ public class HistoryPage extends Page {
     @Override
     public void printContent() {
         User user = pageData.getCurrentUser();
-        List<DailyHistoryService> dhs = SaveData.getUserHistory(user.getName());
-        List<DailyHistoryService> sorted = sortRecordByDate(dhs);
+        List<UserHistoryService> dhs = SaveData.getUserHistory(user.getName());
+        List<UserHistoryService> sorted = sortRecordByDate(dhs);
 
         super.printContent();
 
         // Print Weight History
         printWeightHistory(user);
         
-        for (DailyHistoryService dailyHistoryService : sorted) {
-            printDailyHistoryRecord(dailyHistoryService);
+        for (UserHistoryService userHistoryService : sorted) {
+            printUserHistoryRecord(userHistoryService);
             System.out.println();
         }
     }
 
-    private List<DailyHistoryService> sortRecordByDate(List<DailyHistoryService> dhs) {
+    private List<UserHistoryService> sortRecordByDate(List<UserHistoryService> dhs) {
         dhs.sort(Comparator.comparing(d -> d.getDate().getTime()));
         return dhs;
     }
 
-    private void printDailyHistoryRecord(DailyHistoryService dh) {
+    private void printUserHistoryRecord(UserHistoryService dh) {
         System.out.println("Activity Info For " + dh.getDate() + " :");
         System.out.println("Net Calories Consumed: " + dh.getNetCalories());
         System.out.println("Meals Prepared:");
@@ -59,7 +59,7 @@ public class HistoryPage extends Page {
     }
 
     private void printWeightHistory(User user) {
-        List<DailyHistoryService> historyRecords = SaveData.getUserHistory(user.getName());
+        List<UserHistoryService> historyRecords = SaveData.getUserHistory(user.getName());
 
         if (historyRecords == null || historyRecords.isEmpty()) {
             System.out.println("No weight history available.");
@@ -67,7 +67,7 @@ public class HistoryPage extends Page {
         }
 
         System.out.println("Weight History: ");
-        for (DailyHistoryService dh : historyRecords) {
+        for (UserHistoryService dh : historyRecords) {
             System.out.println("\t- " + dh.getDate() + " | Weight: " + dh.getWeight() + " lbs");
         }
 

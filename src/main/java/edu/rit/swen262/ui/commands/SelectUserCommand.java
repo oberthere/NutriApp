@@ -46,14 +46,14 @@ public class SelectUserCommand extends UserCommand {
 
         // Goes through each children Page to find the UserDashboard
         for (Page childPage : childrenPages) {
-            // If user has a daily entry, then navigate to the User Dashboard
-            if (user.getDailyHistoryService() != null && childPage.getPageName().equals("User Dashboard")) {
+            // If user has a user entry, then navigate to the User Dashboard
+            if (user.getUserHistoryService() != null && childPage.getPageName().equals("User Dashboard")) {
                 System.out.println("Found Entry For Today...");
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 break;
             // Else navigate to the user setup
-            } else if (user.getDailyHistoryService() == null && childPage.getPageName().equals("User Setup")) {
+            } else if (user.getUserHistoryService() == null && childPage.getPageName().equals("User Setup")) {
                 System.out.println("No Entry Found For Today...");
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);

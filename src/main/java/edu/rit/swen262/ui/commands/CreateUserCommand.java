@@ -8,7 +8,7 @@ import java.util.Date;
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserHistoryService;
 import edu.rit.swen262.user.service.UserDataService;
 
 public class CreateUserCommand extends UserCommand {
@@ -48,9 +48,9 @@ public class CreateUserCommand extends UserCommand {
             User user = new User(username, height, weight, birthdate);
             pageData.addUser(username, user);
 
-            // Create a new daily history entry for this user
-            DailyHistoryService dailyHistory = new DailyHistoryService(username, new Date(), weight, 2000);
-            SaveData.addDailyHistory(dailyHistory);
+            // Create a new user history entry for this user
+            UserHistoryService userHistory = new UserHistoryService(username, new Date(), weight, 2000);
+            SaveData.addUserHistory(userHistory);
             
             // Update the user data
             UserDataService userDataService = new UserDataService(username, birthdate, height);

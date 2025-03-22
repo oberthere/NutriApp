@@ -13,22 +13,22 @@ import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.food.PantryRecord;
-import edu.rit.swen262.user.service.DailyHistoryService;
+import edu.rit.swen262.user.service.UserHistoryService;
 import edu.rit.swen262.user.service.UserDataService;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
 public final class SaveData {
-    private static Map<String, List<DailyHistoryService>> history = new HashMap<>();
+    private static Map<String, List<UserHistoryService>> history = new HashMap<>();
     private static Map<String, UserDataService> userData = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
 
     public static final String saveDataFileName = "SaveData";
 
     public static Map<String, UserDataService> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
-    public static Map<String, List<DailyHistoryService>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
+    public static Map<String, List<UserHistoryService>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
 
-    public static void setHistory(Map<String, List<DailyHistoryService>> historyMap) {SaveData.history = historyMap;}
+    public static void setHistory(Map<String, List<UserHistoryService>> historyMap) {SaveData.history = historyMap;}
 
     public static void addUserData(UserDataService userDataService) {
         String username = userDataService.getUsername();
@@ -37,14 +37,13 @@ public final class SaveData {
     }
 
     /*
-     * The DailyHistory added to the history
-     * and stored only at the end of the day.
+     * The UserHistory added to the history
      */
-    public static void addDailyHistory(DailyHistoryService dh) {
+    public static void addUserHistory(UserHistoryService dh) {
         String userName = dh.getUserID();
 
         // Ensure the user history list exists
-        List<DailyHistoryService> userHistoryRecord = SaveData.history.get(userName);
+        List<UserHistoryService> userHistoryRecord = SaveData.history.get(userName);
         if (userHistoryRecord == null) {
             userHistoryRecord = new ArrayList<>();
             SaveData.history.put(userName, userHistoryRecord);
@@ -56,13 +55,13 @@ public final class SaveData {
         serializeHistoryToSave();
     }
 
-    public static List<DailyHistoryService> getUserHistory(String userID) {
+    public static List<UserHistoryService> getUserHistory(String userID) {
         return SaveData.history.get(userID);
     }
 
     public static IntensityStrategy getWorkoutIntensityTrend(String userID) {
         Map<IntensityStrategy, Integer> workoutIntensityCollections = new HashMap<>();
-        for (DailyHistoryService dh: history.get(userID)) {
+        for (UserHistoryService dh: history.get(userID)) {
             for (Workout workout : dh.getWorkouts()) {
                 IntensityStrategy intensity = workout.getIntensity();
                 if (workoutIntensityCollections.containsKey(intensity) == false) {
@@ -126,7 +125,7 @@ public final class SaveData {
 
             FileInputStream fileInput = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileInput);
-            Map<String, List<DailyHistoryService>> tempHistory = (Map<String, List<DailyHistoryService>>) in.readObject();
+            Map<String, List<UserHistoryService>> tempHistory = (Map<String, List<UserHistoryService>>) in.readObject();
             Map<String, UserDataService> tempUserData = (Map<String, UserDataService>) in.readObject();
             PantryRecord tempPantryRecord = (PantryRecord) in.readObject();
             in.close();
