@@ -8,7 +8,7 @@ import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 
 public class AddRecipeCommand extends UserCommand {
-    
+
     public AddRecipeCommand() {
         super.nameString = "AddRecipe";
         super.helpString = "AddRecipe [Name] [Instruction] [IngredientID] [IngredientID] ...";
@@ -21,7 +21,8 @@ public class AddRecipeCommand extends UserCommand {
             return;
         }
 
-        // build the arguments with spaces inside quotes
+        // build the args with spaces inside quotes
+        // only instructions args should be inside quotes with spaces
         List<String> parsedArgs = new ArrayList<>();
         StringBuilder current = new StringBuilder();
         boolean inQuotes = false;
@@ -47,7 +48,7 @@ public class AddRecipeCommand extends UserCommand {
             return;
         }
 
-        // make srue there is enough args after parsing
+        // make sure there is enough args after parsing
         if (parsedArgs.size() < 4) {
             System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
             return;
