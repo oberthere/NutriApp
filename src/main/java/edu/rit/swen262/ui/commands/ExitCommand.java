@@ -17,6 +17,11 @@ public class ExitCommand extends UserCommand{
 
     @Override 
     public void performAction(String[] commandArgs){
+        if (commandArgs.length != 1) {
+            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
+            return;
+        }
+
         System.out.println("Saving date...");
         SaveData.serializeHistoryToSave(); // save user history before exiting
         System.out.println("Data saved. Exiting application...");
