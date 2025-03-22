@@ -97,6 +97,10 @@ public class PageRunner {
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
 
+            if (input.equalsIgnoreCase("Exit")) {
+                break;
+            }
+
             executeCommand(input);
 
             System.out.print("\nPress any key to continue...");
