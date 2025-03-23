@@ -14,7 +14,7 @@ import edu.rit.swen262.workout.Workout;
 public class HistoryPage extends Page {
     public HistoryPage(PageData pageData) {
         super(pageData);
-        this.pageName = "History";
+        this.pageName = "History Page";
         this.userCommands = new ArrayList<>(); // Generate commands here
     }
 

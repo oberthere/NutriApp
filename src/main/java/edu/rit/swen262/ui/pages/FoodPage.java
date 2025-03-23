@@ -13,7 +13,7 @@ import edu.rit.swen262.user.service.UserHistoryService;
 public class FoodPage extends Page {
     public FoodPage(PageData pageData) {
         super(pageData);
-        this.pageName = "Food";
+        this.pageName = "Food Page";
         super.userCommands.add(new GetIngredientsCommand());
         super.userCommands.add(new AddRecipeCommand());
         super.userCommands.add(new GetRecipeCommand());

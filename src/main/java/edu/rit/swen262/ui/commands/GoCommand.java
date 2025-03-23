@@ -21,7 +21,7 @@ public class GoCommand extends UserCommand {
         
         String returnString = "Go > [ ";
         for (Page page : childrenPage) {
-            returnString += page.getPageName() + " | ";
+            returnString += page.getPageName().split(" ")[0] + " | ";
         }
         returnString = returnString.substring(0, returnString.length() - 3);
         returnString += " ]";
@@ -41,7 +41,8 @@ public class GoCommand extends UserCommand {
         boolean pageFound = false;
         
         for (Page page : childrenPage) {
-            if (page.getPageName().equalsIgnoreCase(pageName)) {
+            if (page.getPageName().split(" ")[0].equalsIgnoreCase(pageName)) {
+                System.out.println("\nNavigating to " + page.getPageName());
                 pageRunner.setPage(page);
                 pageFound = true;
                 break;

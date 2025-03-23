@@ -9,7 +9,7 @@ import edu.rit.swen262.ui.commands.AddWorkoutCommand;
 public class WorkoutPage extends Page {
     public WorkoutPage(PageData pageData) {
         super(pageData);
-        this.pageName = "Workout";
+        this.pageName = "Workout Page";
         this.userCommands.add(new AddWorkoutCommand(pageData));
     }
 

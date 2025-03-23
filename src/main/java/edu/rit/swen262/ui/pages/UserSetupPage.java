@@ -11,7 +11,7 @@ public class UserSetupPage extends Page {
     
     public UserSetupPage(PageData pageData) {
         super(pageData);
-        this.pageName = "User Setup";
+        this.pageName = "User Setup Page";
         this.pageData = pageData;
 
         this.userCommands = new ArrayList<>();

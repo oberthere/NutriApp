@@ -10,7 +10,7 @@ public class ShoppingListPage extends Page {
     
     public ShoppingListPage(PageData pageData) {
         super(pageData);
-        this.pageName = "ShoppingList";
+        this.pageName = "ShoppingList Page";
         super.userCommands.add(new SelectShoppingListCommand(pageData));
         super.userCommands.add(new RestockIngredientCommand());
     }
