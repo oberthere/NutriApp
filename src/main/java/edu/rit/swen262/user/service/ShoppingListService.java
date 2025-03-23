@@ -9,7 +9,7 @@ import edu.rit.swen262.shoppingList.strag.strategy.ShopCriteriaStrategy;
 
 public class ShoppingListService {
     private ShopCriteriaStrategy shopCriteria;
-    private ShoppingList shoppingList;
+    private ShoppingList shoppingList = new ShoppingList();
 
     public ShopCriteriaStrategy getCriteriaStrategy() { return this.shopCriteria; }
 
