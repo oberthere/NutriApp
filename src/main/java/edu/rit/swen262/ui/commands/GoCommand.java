@@ -31,14 +31,26 @@ public class GoCommand extends UserCommand {
 
     @Override
     public void performAction(String[] commandArgs) {
+        if (commandArgs.length != 2) {
+            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
+            return;
+        }
+
         String pageName = commandArgs[1];
         List<Page> childrenPage = pageRunner.getCurrentPage().getChildrenPage();
+        boolean pageFound = false;
         
         for (Page page : childrenPage) {
             if (page.getPageName().equalsIgnoreCase(pageName)) {
                 pageRunner.setPage(page);
+                pageFound = true;
                 break;
             }
+        }
+
+        // added this to display that the page was not found instead of printing nothing
+        if (!pageFound) {
+            System.out.println("Error: Invalid Page Name. Usage: " + getHelp());
         }
     }
 }
