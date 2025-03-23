@@ -18,13 +18,39 @@ public class RestockIngredientCommand extends UserCommand{
     public void performAction(String[] commandArgs) {
         
         // Ensure proper length
-        if (commandArgs.length < 2) {
+        if (commandArgs.length != 3) {
             System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
             return;
         }
 
-        Ingredient ingredient = PantryStock.getIngredientByID(Integer.parseInt(commandArgs[1]));
-        int amount = Integer.parseInt(commandArgs[2]);
+        // check that ingredient ID is a number and a valid ID 
+        Ingredient ingredient;
+        try {
+            ingredient = PantryStock.getIngredientByID(Integer.parseInt(commandArgs[1]));
+            if (ingredient == null) {
+                System.out.println("Error: Invalid ingredient ID. Usage: " + getHelp());
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Ingredient ID must be an number. Usage: " + getHelp());
+            return;
+        }
+
+
+        // check that the amount is a positive number 
+        int amount;
+        try {
+            amount = Integer.parseInt(commandArgs[2]);
+            if (amount <= 0) {
+                System.out.println("Error: Amount must be a positive number. Usage: " + getHelp());
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Amount must be a number. Usage:" + getHelp());
+            return;
+        }
+
+        // update the ingredient stock
         PantryStock.updateIngredients(ingredient, amount);
         System.out.println("Sucessfully added " + amount + " stock to " + ingredient.getName());
     }
