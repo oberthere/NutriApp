@@ -9,7 +9,7 @@ import edu.rit.swen262.user.User;
 public class MainPage extends Page {
     public MainPage(PageData pageData) {
         super(pageData);
-        this.pageName = "\nMain Page";
+        this.pageName = "Main Page";
         
         // MainPage Commands
         this.userCommands.add(new CreateUserCommand(pageData));
