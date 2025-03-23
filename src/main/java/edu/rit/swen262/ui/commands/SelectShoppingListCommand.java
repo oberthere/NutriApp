@@ -22,24 +22,32 @@ public class SelectShoppingListCommand extends UserCommand {
      */
     @Override
     public void performAction(String[] commandArgs) {
-        
         // Ensure proper length
-        if (commandArgs.length < 2) {
-            System.out.println("Error: Please provide a shopping list type. Usage: Select [LowIngredient | Recipe [Recipe Name]]");
+        if (commandArgs.length < 2 || commandArgs.length > 3) {
+            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
             return;
         }
 
         pageData.getCurrentUser().setShoppingListService(new ShoppingListService());
         ShoppingListService shoppingListService = pageData.getCurrentUser().getShoppingListService();
-
-        if (commandArgs.length < 3) {
+        
+        if (commandArgs.length == 2 && commandArgs[1].equals("LowIngredient")) {
             shoppingListService.setCriteria(new ShopCriteraLowIngredientStrategy());
             shoppingListService.generateShoppingList(null);
-        } else {
+            System.out.println("Succesfully selected the Shopping List for Low Ingredients");
+        } else if (commandArgs.length == 3 && commandArgs[1].equals("Recipe")) {
             Recipe recipe = PantryStock.getRecipeRecord().get(commandArgs[2]);
+            if (recipe == null) {
+                System.out.println("Error: Recipe name not found. Usage: " + getHelp());
+                return;
+            }
             shoppingListService.setCriteria(new ShopCriteriaLowRecipeStrategy());
             shoppingListService.generateShoppingList(recipe);
-            System.out.println("Sucesfully selected the Shopping List for " + recipe.getName());
+            
+            System.out.println("Succesfully selected the Shopping List for " + recipe.getName());
+        } else {
+            System.out.println("Error: Invalid ShoppingList Selection: Check your arguments and try again. Usage: " + getHelp());
+            return;
         }
         pageData.getCurrentUser().setShoppingListService(shoppingListService);
     }
