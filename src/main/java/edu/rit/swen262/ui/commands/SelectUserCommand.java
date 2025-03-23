@@ -26,8 +26,11 @@ public class SelectUserCommand extends UserCommand {
     public void performAction(String[] commandArgs) {
 
         // Ensure proper length
-        if (commandArgs.length < 2) {
+        if (commandArgs.length == 1) {
             System.out.println("Error: Please provide a username. Usage: Select [Username]");
+            return;
+        } else if (commandArgs.length != 2) {
+            System.out.println("Error: Too many arguments. Usage: Select [Username]");
             return;
         }
 
