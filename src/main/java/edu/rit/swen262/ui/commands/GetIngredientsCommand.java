@@ -75,7 +75,7 @@ public class GetIngredientsCommand extends UserCommand {
 
     @Override
     public void performAction(String[] commandArgs) {
-        if (commandArgs.length < 2) {
+        if (commandArgs.length < 2 || commandArgs.length > 3) {
             System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
             return;
         }
@@ -98,10 +98,21 @@ public class GetIngredientsCommand extends UserCommand {
         } else {
             updateIngredientList(10);
 
-            int pageNumber = Integer.parseInt(commandArgs[2]);
+            // checks that pageNumber is a integer
+            int pageNumber;
+            try {
+                pageNumber = Integer.parseInt(commandArgs[2]);
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Page must be a number. Usage: " + getHelp());
+                return;
+            }
             
-            if (pageNumber >= ingredientList.size() || pageNumber < 0) {
-                System.out.println("Error: Invalid pageNumber. Usage: " + getHelp());
+            // checks that pageNumber is within the valid range and if its a positive number
+            if (pageNumber >= ingredientList.size()) {
+                System.out.println("Error: Page number is too large. Usage: " + getHelp());
+                return;
+            } else if (pageNumber < 0) {
+                System.out.println("Error: Page number must a positive number. Usage: " + getHelp());
                 return;
             }
             
