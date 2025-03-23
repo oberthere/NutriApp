@@ -23,7 +23,7 @@ public class NewUserEntryCommand extends UserCommand {
 
     @Override
     public void performAction(String[] commandArgs) {
-        if (commandArgs.length < 5) {
+        if (commandArgs.length != 5) {
             System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight] [targetWeight] [targetCalories] [isPhysicalFitnessGoal]");
             return;
         }
@@ -35,10 +35,34 @@ public class NewUserEntryCommand extends UserCommand {
         }
 
         try {
+            // checks that the currentWeight is a positive num
             double currentWeight = Double.parseDouble(commandArgs[1]);
+            if (currentWeight <= 0) {
+                System.out.println("Error: Current weight must be a positive number.");
+                return;
+            }
+
+            // checks that the targetWeight is a positive num
             double targetWeight = Double.parseDouble(commandArgs[2]);
+            if (targetWeight <= 0) {
+                System.out.println("Error: Target weight must be a positive number.");
+                return;
+            }
+
+            // checks that the targetCalories is a positive integer
             int targetCalories = Integer.parseInt(commandArgs[3]);
-            boolean isPhysicalFitnessGoal = Boolean.parseBoolean(commandArgs[4]);
+            if (targetCalories <= 0) {
+                System.out.println("Error: Target calories must be a positive number.");
+                return;
+            }
+
+            // checks that the isPhysicalFitnessGoal is a boolean and then sets it
+            if (!commandArgs[4].equalsIgnoreCase("true") && !commandArgs[4].equalsIgnoreCase("false")) {
+                System.out.println("Error: Invalid boolean value for 'isPhysicalFitnessGoal'. Please enter 'true' or 'false'.");
+                return;
+            }
+        
+            boolean isPhysicalFitnessGoal = commandArgs[4].equalsIgnoreCase("true");
 
             // Update user user history
             user.startNewDay(currentWeight, targetWeight, targetCalories, isPhysicalFitnessGoal);
@@ -58,7 +82,7 @@ public class NewUserEntryCommand extends UserCommand {
             SaveData.serializeHistoryToSave();
 
             System.out.println("User entry set up successfully.");
-            
+
             // Navigate to User Dashboard
             for (Page child : pageRunner.getCurrentPage().getChildrenPage()) {
                 if (child.getPageName().equalsIgnoreCase("User Dashboard")) {
@@ -72,5 +96,4 @@ public class NewUserEntryCommand extends UserCommand {
             System.out.println("Error: Invalid input format.");
         }
     }
-
 }
