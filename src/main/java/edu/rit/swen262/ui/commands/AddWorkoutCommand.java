@@ -26,13 +26,27 @@ public class AddWorkoutCommand extends UserCommand {
      */
     @Override
     public void performAction(String[] commandArgs) {
-        if (commandArgs.length < 4) {
+        if (commandArgs.length != 4) {
             System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
             return;
         }
 
         String workoutName = commandArgs[1];
-        int durationMin = Integer.parseInt(commandArgs[2]);
+
+        // parse the duration to make sure its a positive integer
+        int durationMin;
+
+        try {
+            durationMin = Integer.parseInt(commandArgs[2]);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Duration must be an integer.");
+            return;
+        }
+    
+        if (durationMin <= 0) {
+            System.out.println("Error: Duration must be a positive integer.");
+            return;
+        }
 
         // uses the getIntensityStrategy helper method to get the IntensityStrategy
         IntensityStrategy intensity = getIntensityStrategy(commandArgs[3]);
@@ -56,7 +70,12 @@ public class AddWorkoutCommand extends UserCommand {
         // makes all caps incase of character differences
         intensityString = intensityString.toUpperCase(Locale.ENGLISH);
 
-        // returns the corresponding IntensityStrategy or the default of HighIntensityStrategy if not found
-        return intensityStrategyMap.getOrDefault(intensityString, new HighIntensityStrategy());
+        // returns the corresponding IntensityStrategy
+        if (!intensityStrategyMap.containsKey(intensityString)) {
+            System.out.println("Error: Invalid intensity. Please enter 'High', 'Medium', or 'Low'.");
+            return null; // or throw an exception
+        }
+    
+        return intensityStrategyMap.get(intensityString);
     }
 }
