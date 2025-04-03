@@ -10,7 +10,7 @@ import edu.rit.swen262.ui.pages.Page;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.service.DailyHistoryComponent;
 
-public class NewUserEntryCommand extends UserCommand {
+public class NewUserEntryCommand extends UndoableCommand {
     private PageData pageData;
     private PageRunner pageRunner;
 

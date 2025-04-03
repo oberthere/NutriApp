@@ -13,7 +13,7 @@ import edu.rit.swen262.other.exception.LowStockException;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.service.DailyHistoryComponent;
 
-public class AddMealCommand extends UserCommand {
+public class AddMealCommand extends UndoableCommand {
     private PageData pageData;
 
     public AddMealCommand(PageData pageData) {

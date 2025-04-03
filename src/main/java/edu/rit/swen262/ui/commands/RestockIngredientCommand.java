@@ -3,7 +3,7 @@ package edu.rit.swen262.ui.commands;
 import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.PantryStock;
 
-public class RestockIngredientCommand extends UserCommand{
+public class RestockIngredientCommand extends UndoableCommand {
 
     public RestockIngredientCommand() {
         super.nameString = "Restock";

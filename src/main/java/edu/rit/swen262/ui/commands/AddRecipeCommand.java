@@ -7,7 +7,7 @@ import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 
-public class AddRecipeCommand extends UserCommand {
+public class AddRecipeCommand extends UndoableCommand {
 
     public AddRecipeCommand() {
         super.nameString = "AddRecipe";

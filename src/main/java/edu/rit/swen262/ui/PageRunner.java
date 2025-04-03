@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 import edu.rit.swen262.csv.csvReader;
 import edu.rit.swen262.history.SaveData;
@@ -16,6 +17,7 @@ public class PageRunner {
     private Page mainPage;
     private Page currentPage;
     private List<UserCommand> globalCommands = new ArrayList<>();
+    private Stack<UndoPreviousCommand> undoableCommandHistory = new Stack<>();
     private Scanner scanner;
 
     public PageRunner() {

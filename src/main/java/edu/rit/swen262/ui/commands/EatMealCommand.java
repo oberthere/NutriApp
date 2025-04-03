@@ -5,7 +5,7 @@ import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.service.DailyHistoryComponent;
 
-public class EatMealCommand extends UserCommand {
+public class EatMealCommand extends UndoableCommand {
     private PageData pageData;
 
     public EatMealCommand(PageData pageData) {
