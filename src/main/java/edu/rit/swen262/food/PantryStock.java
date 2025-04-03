@@ -78,5 +78,4 @@ public final class PantryStock {
     public static Map<String, Recipe> getRecipeRecord() {
         return Collections.unmodifiableMap(PantryStock.recipeRecord);
     }
-
 }

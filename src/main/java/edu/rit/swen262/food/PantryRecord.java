@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 public class PantryRecord implements Serializable {
-
   private static final long serialVersionUID = 1L;
 
   private Map<Ingredient, Integer> ingredients;
@@ -22,4 +21,3 @@ public class PantryRecord implements Serializable {
     }
   }
 }
-

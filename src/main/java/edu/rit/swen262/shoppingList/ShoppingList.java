@@ -14,7 +14,8 @@ public class ShoppingList {
     }
 
     public List<Ingredient> getShoppingList() {return this.shoppingList;}
-    public void removeFromShoppingList(Ingredient ingredient) {this.shoppingList.remove(ingredient);}
-    public void addToShoppingList(Ingredient ingredient) {this.shoppingList.add(ingredient);}
-}
 
+    public void addToShoppingList(Ingredient ingredient) {this.shoppingList.add(ingredient);}
+    
+    public void removeFromShoppingList(Ingredient ingredient) {this.shoppingList.remove(ingredient);}
+}

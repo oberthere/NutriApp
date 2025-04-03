@@ -3,7 +3,6 @@ package edu.rit.swen262.ui.commands;
 import edu.rit.swen262.ui.PageRunner;
 
 public class UndoPreviousCommand extends UserCommand {
-
   private PageRunner pageRunner;
 
   public UndoPreviousCommand(PageRunner pageRunner) {

@@ -11,7 +11,6 @@ import edu.rit.swen262.shoppingList.ShoppingList;
  * Builds a shopping list of ALL of the low ingredients
  */
 public class ShopCriteraLowIngredientStrategy implements ShopCriteriaStrategy {
-
     @Override
     public ShoppingList buildShoppingList(Food food) {
         ShoppingList shoppingList = new ShoppingList();
@@ -23,5 +22,4 @@ public class ShopCriteraLowIngredientStrategy implements ShopCriteriaStrategy {
         }
         return shoppingList;
     }
-    
 }

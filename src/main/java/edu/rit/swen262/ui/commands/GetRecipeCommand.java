@@ -4,7 +4,6 @@ import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 
 public class GetRecipeCommand extends UserCommand {
-    
     public GetRecipeCommand() {
         super.nameString = "ViewRecipes";
         super.helpString = "ViewRecipes";

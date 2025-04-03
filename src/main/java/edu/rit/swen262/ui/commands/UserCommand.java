@@ -8,10 +8,7 @@ public abstract class UserCommand {
     public String getHelp() {return this.helpString;}
     public void performAction(String[] commandArgs) {throw new UnsupportedOperationException("Method not implemented");}
 
-
     @Override
     public String toString() {
         return helpString;
     }}
-
-    

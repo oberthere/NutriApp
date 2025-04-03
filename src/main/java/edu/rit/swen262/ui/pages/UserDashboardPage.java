@@ -3,7 +3,7 @@ package edu.rit.swen262.ui.pages;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.GoCommand;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.GoalComponent;
+import edu.rit.swen262.user.components.GoalComponent;
 import java.util.ArrayList;
 
 public class UserDashboardPage extends Page {
@@ -28,19 +28,19 @@ public class UserDashboardPage extends Page {
         System.out.println("User: " + currentUser.getName());
 
         System.out.println("\nGeneral Info:");
-        System.out.println("\tHeight: " + currentUser.getHeight());
-        System.out.println("\tWeight: " + currentUser.getWeight());
+        System.out.println("\tHeight: " + currentUser.getHeight() + " inches");
+        System.out.println("\tWeight: " + currentUser.getWeight() + " pounds");
         System.out.println("\tBirthdate: " + currentUser.getBirthdate());
 
         System.out.println("\nGoal Info:");
 
-        GoalComponent goalService = currentUser.getGoalService(); // Fetch goal service
-        if (goalService == null) {
+        GoalComponent goalComponent = currentUser.getGoalComponent(); // Fetch goal service
+        if (goalComponent == null) {
             System.out.println("\tCurrent Goal: No goal set.");
         } else {
-            System.out.println("\tCurrent Goal: " + goalService.getCurrentGoal());
-            System.out.println("\tTarget Calories: " + goalService.getTargetCalories());
-            System.out.println("\tTarget Weight: " + goalService.getTargetWeight());
+            System.out.println("\tCurrent Goal: " + goalComponent.getCurrentGoal());
+            System.out.println("\tTarget Calories: " + goalComponent.getTargetCalories());
+            System.out.println("\tTarget Weight: " + goalComponent.getTargetWeight() + " pounds");
         }
 
         System.out.println();

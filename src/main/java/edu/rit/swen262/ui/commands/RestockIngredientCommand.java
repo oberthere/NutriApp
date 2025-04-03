@@ -4,7 +4,6 @@ import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.PantryStock;
 
 public class RestockIngredientCommand extends UndoableCommand {
-
     public RestockIngredientCommand() {
         super.nameString = "Restock";
         super.helpString = "Restock [IngredientID] [Amount to add]";
@@ -16,7 +15,6 @@ public class RestockIngredientCommand extends UndoableCommand {
      */
     @Override
     public void performAction(String[] commandArgs) {
-        
         // Ensure proper length
         if (commandArgs.length != 3) {
             System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
@@ -35,7 +33,6 @@ public class RestockIngredientCommand extends UndoableCommand {
             System.out.println("Error: Ingredient ID must be an number. Usage: " + getHelp());
             return;
         }
-
 
         // check that the amount is a positive number 
         int amount;

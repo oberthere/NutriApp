@@ -16,6 +16,14 @@ public abstract class Page {
         this.pageData = pageData;
     }
 
+    public Page getParentPage() {return this.parentPage;}
+    public String getPageName() {return this.pageName;}
+    public List<Page> getChildrenPage() {return this.childrenPage;}
+    public List<UserCommand> getCommands() {return this.userCommands;}
+
+    public void setParentPage(Page parentPage) {this.parentPage = parentPage;}
+    public void setChildrenPage(List<Page> childrenPages) {this.childrenPage = childrenPages;}
+
     public void printContent() {
         String pageLink = pageName;
         Page page = parentPage;
@@ -33,19 +41,4 @@ public abstract class Page {
             System.out.println("  - " + command.getHelp());
         }
     }
-
-    public List<UserCommand> getCommands() { return userCommands; }
-
-    public void setParentPage(Page parentPage) { 
-        this.parentPage = parentPage;
-    }
-
-    public Page getParentPage() { return this.parentPage; }
-
-    public void setChildrenPage(List<Page> childrenPages) { this.childrenPage = childrenPages; }
-
-    public List<Page> getChildrenPage() { return this.childrenPage; }
-
-    public String getPageName() { return this.pageName; }
-
 }

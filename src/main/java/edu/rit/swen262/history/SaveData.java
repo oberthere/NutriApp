@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.food.PantryRecord;
-import edu.rit.swen262.user.service.DailyHistoryComponent;
-import edu.rit.swen262.user.service.UserDataComponent;
+import edu.rit.swen262.user.components.DailyHistoryComponent;
+import edu.rit.swen262.user.components.UserDataComponent;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
@@ -25,8 +25,8 @@ public final class SaveData {
 
     public static final String saveDataFileName = "SaveData";
 
-    public static Map<String, UserDataComponent> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
     public static Map<String, List<DailyHistoryComponent>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
+    public static Map<String, UserDataComponent> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
 
     public static void setHistory(Map<String, List<DailyHistoryComponent>> historyMap) {SaveData.history = historyMap;}
 
@@ -37,32 +37,30 @@ public final class SaveData {
     }
 
     /*
-     * The UserHistory added to the history
+     * The DailyHistory added to the history
      */
-    public static void addUserHistory(DailyHistoryComponent dh) {
-        String userName = dh.getUserID();
+    public static void addDailyHistory(DailyHistoryComponent dailyHistory) {
+        String userName = dailyHistory.getUserID();
 
         // Ensure the user history list exists
-        List<DailyHistoryComponent> userHistoryRecord = SaveData.history.get(userName);
-        if (userHistoryRecord == null) {
-            userHistoryRecord = new ArrayList<>();
-            SaveData.history.put(userName, userHistoryRecord);
+        List<DailyHistoryComponent> dailyHistoryRecord = SaveData.history.get(userName);
+        if (dailyHistoryRecord == null) {
+            dailyHistoryRecord = new ArrayList<>();
+            SaveData.history.put(userName, dailyHistoryRecord);
         }
 
-        userHistoryRecord.add(dh);
+        dailyHistoryRecord.add(dailyHistory);
 
         // Save data immediately after adding a new history entry
         serializeHistoryToSave();
     }
 
-    public static List<DailyHistoryComponent> getUserHistory(String userID) {
-        return SaveData.history.get(userID);
-    }
+    public static List<DailyHistoryComponent> getDailyHistory(String userID) {return SaveData.history.get(userID);}
 
     public static IntensityStrategy getWorkoutIntensityTrend(String userID) {
         Map<IntensityStrategy, Integer> workoutIntensityCollections = new HashMap<>();
-        for (DailyHistoryComponent dh: history.get(userID)) {
-            for (Workout workout : dh.getWorkouts()) {
+        for (DailyHistoryComponent dailyHistory: history.get(userID)) {
+            for (Workout workout : dailyHistory.getWorkouts()) {
                 IntensityStrategy intensity = workout.getIntensity();
                 if (workoutIntensityCollections.containsKey(intensity) == false) {
                     workoutIntensityCollections.put(intensity, 0);
@@ -111,7 +109,6 @@ public final class SaveData {
         }
     }
 
-
     @SuppressWarnings("unchecked")
     public static void deserializeAndLoadSavedHistory() {
         try {
@@ -143,7 +140,4 @@ public final class SaveData {
             e.printStackTrace();
         }
     }
-
-
-
 }

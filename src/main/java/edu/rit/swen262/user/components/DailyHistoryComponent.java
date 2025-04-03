@@ -1,4 +1,4 @@
-package edu.rit.swen262.user.service;
+package edu.rit.swen262.user.components;
 
 import java.io.Serializable;  // Import Serializable
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
     private Date date;
     private double weight;
     private int targetCalories;
-    private GoalComponent goalService;
+    private GoalComponent goalComponent;
     private List<Meal> preparedMeals;
     private List<Meal> eatenMeals;
     private List<Workout> workouts;
@@ -39,20 +39,20 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
         this.workouts = new ArrayList<>();
         this.netCalories = 0;
     
-        // initialize a default GoalService 
-        this.goalService = new GoalComponent(false, weight, weight);
-        this.targetCalories = goalService.getTargetCalories();
+        // initialize a default GoalComponent 
+        this.goalComponent = new GoalComponent(false, weight, weight);
+        this.targetCalories = goalComponent.getTargetCalories();
     }
     
-    public String getUserID() { return userID; }
-    public Date getDate() { return date; }
-    public double getWeight() { return weight; }
-    public int getTargetCalories() { return targetCalories; }
-    public GoalComponent getGoalService() { return goalService; }
-    public List<Meal> getPreparedMeals() { return preparedMeals; }
-    public List<Meal> getEatenMeals() { return eatenMeals; }
-    public List<Workout> getWorkouts() { return workouts; }
-    public int getNetCalories() { return netCalories; }
+    public String getUserID() {return userID;}
+    public Date getDate() {return date;}
+    public double getWeight() {return weight;}
+    public int getTargetCalories() {return targetCalories;}
+    public GoalComponent getGoalComponent() {return goalComponent;}
+    public List<Meal> getPreparedMeals() {return preparedMeals;}
+    public List<Meal> getEatenMeals() {return eatenMeals;}
+    public List<Workout> getWorkouts() {return workouts;}
+    public int getNetCalories() {return netCalories;}
 
     public void prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
         List<Ingredient> lowStockIngredients = new ArrayList<>();
@@ -105,7 +105,7 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
 
         // Example: Find an appropriate workout to burn excess calories using the average intensity
         for (Workout workout : workouts) {
-            double burnedCalories = workout.getIntensity().calorieBurnAlgorithm(workout);
+            double burnedCalories = workout.getIntensity().caloriesBurned(workout);
             if (burnedCalories >= excessCalories && workout.getIntensity().equals(avgIntensity)) {
                 return workout;
             }
@@ -121,7 +121,7 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
             System.out.println("Error: Workout cannot be null.");
             return;
         }
-    
+
         this.workouts.add(workout);
     }
 }

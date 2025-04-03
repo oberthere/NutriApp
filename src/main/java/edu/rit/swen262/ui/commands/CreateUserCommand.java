@@ -8,16 +8,15 @@ import java.util.Date;
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.DailyHistoryComponent;
-import edu.rit.swen262.user.service.UserDataComponent;
+import edu.rit.swen262.user.components.DailyHistoryComponent;
+import edu.rit.swen262.user.components.UserDataComponent;
 
 public class CreateUserCommand extends UserCommand {
-
     private PageData pageData;
 
     public CreateUserCommand(PageData pageData) {
         super.nameString = "Create";
-        super.helpString = "Create [Username] [Password] [Height] [Weight] [Birthday in MM/dd/yyyy]";
+        super.helpString = "Create [Username] [Password] [Height in inches] [Weight in pounds] [Birthday in MM/dd/yyyy]";
         this.pageData = pageData;
     }
     
@@ -28,7 +27,7 @@ public class CreateUserCommand extends UserCommand {
     @Override
     public void performAction(String[] commandArgs) {
         if (commandArgs.length < 6) {
-            System.out.println("Error: Invalid number of arguments. Usage: CreateUser [Username] [Password] [Height] [Weight] [Birthday in MM/dd/yyyy]");
+            System.out.println("Error: Invalid number of arguments. Usage: CreateUser [Username] [Password] [Height in inches] [Weight in pounds] [Birthday in MM/dd/yyyy]");
             return;
         }
 
@@ -50,12 +49,12 @@ public class CreateUserCommand extends UserCommand {
             pageData.addUser(username, user);
 
             // Create a new user history entry for this user
-            DailyHistoryComponent userHistory = new DailyHistoryComponent(username, new Date(), weight);
-            SaveData.addUserHistory(userHistory);
+            DailyHistoryComponent dailyHistory = new DailyHistoryComponent(username, new Date(), weight);
+            SaveData.addDailyHistory(dailyHistory);
             
             // Update the user data
-            UserDataComponent userDataService = new UserDataComponent(username, password, birthdate, height);
-            SaveData.addUserData(userDataService);
+            UserDataComponent userDataComponent = new UserDataComponent(username, password, birthdate, height);
+            SaveData.addUserData(userDataComponent);
 
             System.out.println("\nUser created successfully: " + username);
         } catch (NumberFormatException e) {
@@ -65,6 +64,6 @@ public class CreateUserCommand extends UserCommand {
         }
     }
 
-
-    @Override public String toString() {return super.toString();}
+    @Override 
+    public String toString() {return super.toString();}
 }

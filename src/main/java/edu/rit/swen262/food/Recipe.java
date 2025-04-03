@@ -18,9 +18,13 @@ public class Recipe implements Food, Serializable {
     }
 
     public int getID() {return this.id;}
-    public String getInstructions() {return this.instructions;}
+
+    @Override 
+    public String getName() {return this.name;}
+
     public List<Ingredient> getIngredients() {return ingredients;}
-    @Override public String getName() {return this.name;}
+
+    public String getInstructions() {return this.instructions;}
 
     @Override
     public int getCalories() {

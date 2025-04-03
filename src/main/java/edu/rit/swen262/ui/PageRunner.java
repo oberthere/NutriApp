@@ -30,17 +30,18 @@ public class PageRunner {
         registerGlobalCommands();
     }
 
-    public void setPage(Page page) {this.currentPage = page;}
     public PageData getPageData() {return this.pageData;}
     public Page getCurrentPage() {return this.currentPage;}
     public String getScannerInput(){return scanner.nextLine().trim();}
+
+    public void setPage(Page page) {this.currentPage = page;}
     public void closeScanner() {scanner.close();this.scanner = null;}
 
     public UndoableCommand popLastUndoableCommand() {
-      if (!undoableCommandHistory.isEmpty()) {
-        return undoableCommandHistory.pop();
-      }
-      return null;
+        if (!undoableCommandHistory.isEmpty()) {
+            return undoableCommandHistory.pop();
+        }
+        return null;
     }
 
     public void printGlobalCommand() {
@@ -129,14 +130,12 @@ public class PageRunner {
         Page historyPage = new HistoryPage(pageData);
         Page workoutPage = new WorkoutPage(pageData);
         Page shoppingListPage = new ShoppingListPage(pageData);
-      
 
         // Set up page hierarchy
         mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage, userGuestPage));
         userSetupPage.setParentPage(mainPage);
         userDashboardPage.setParentPage(mainPage);
         userGuestPage.setParentPage(mainPage);
-
 
         userSetupPage.setChildrenPage(List.of(userDashboardPage));
         

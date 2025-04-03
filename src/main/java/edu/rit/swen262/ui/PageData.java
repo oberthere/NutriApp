@@ -8,9 +8,9 @@ import java.util.Map;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.UserDataComponent;
-import edu.rit.swen262.user.service.DailyHistoryComponent;
-import edu.rit.swen262.user.service.GoalComponent;
+import edu.rit.swen262.user.components.UserDataComponent;
+import edu.rit.swen262.user.components.DailyHistoryComponent;
+import edu.rit.swen262.user.components.GoalComponent;
 
 public class PageData {
     private Map<String, User> users;
@@ -28,13 +28,16 @@ public class PageData {
         this.users = users;
     }
 
-    public User getUser(String name) { return this.users.get(name); }
-    public void addUser(String name, User user) { this.users.put(name, user); }
-    public void removeUser(String name) { this.users.remove(name); }
-    public void setCurrentUser(User user) { this.currentUser = user; }
-    public User getCurrentUser() { return this.currentUser; }
-    public Map<String, User> getAllUsers() { return this.users; }
+    public Map<String, User> getAllUsers() {return this.users;}
+    public User getUser(String name) {return this.users.get(name);}
+    public User getCurrentUser() {return this.currentUser;}
+
+    public static Date getCurrentDate() {return PageData.currentDate;}
+    public void setCurrentUser(User user) {this.currentUser = user;}
     public PageRunner getPageRunner() {return this.pageRunner;}
+
+    public void addUser(String name, User user) {this.users.put(name, user);}
+    public void removeUser(String name) {this.users.remove(name);}
 
     /**
      * Checks if the given date is today's date.
@@ -58,31 +61,27 @@ public class PageData {
     
         for (String username : history.keySet()) {
             if (!users.containsKey(username)) {
-                List<DailyHistoryComponent> userHistory = history.get(username);
-                UserDataComponent userDataService = userData.get(username);
-                if (!userHistory.isEmpty()) {
-                    DailyHistoryComponent latestHistory = userHistory.get(userHistory.size() - 1);  // Most recent entry
+                List<DailyHistoryComponent> dailyHistory = history.get(username);
+                UserDataComponent userDataComponent = userData.get(username);
+                if (!dailyHistory.isEmpty()) {
+                    DailyHistoryComponent latestHistory = dailyHistory.get(dailyHistory.size() - 1);  // Most recent entry
     
                     // Create user and assign latest history
-                    User user = new User(username, userDataService.getPassword(),userDataService.getHeight(), latestHistory.getWeight(), userDataService.getBirthdate());
-                    user.setUserHistoryService(latestHistory);
+                    User user = new User(username, userDataComponent.getPassword(),userDataComponent.getHeight(), latestHistory.getWeight(), userDataComponent.getBirthdate());
+                    user.setDailyHistoryComponent(latestHistory);
     
-                    // Ensure GoalService is initialized properly
-                    if (latestHistory.getGoalService() != null) {
-                        user.setGoalService(latestHistory.getGoalService());
+                    // Ensure GoalComponent is initialized properly
+                    if (latestHistory.getGoalComponent() != null) {
+                        user.setGoalComponent(latestHistory.getGoalComponent());
                     } else {
-                        System.out.println("Warning: GoalService is null for user " + username + ". Setting default goal.");
-                        user.setGoalService(new GoalComponent(false, latestHistory.getWeight(), latestHistory.getWeight()));  
+                        System.out.println("Warning: GoalComponent is null for user " + username + ". Setting default goal.");
+                        user.setGoalComponent(new GoalComponent(false, latestHistory.getWeight(), latestHistory.getWeight()));  
                     }
     
                     users.put(username, user);
                 }
             }
         }
-    
         System.out.println("Users loaded from history: " + users.keySet());
     }
-    
-
-    public static Date getCurrentDate() { return PageData.currentDate; }
 }

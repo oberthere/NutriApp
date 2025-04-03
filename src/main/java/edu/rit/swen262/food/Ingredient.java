@@ -3,24 +3,15 @@ package edu.rit.swen262.food;
 import java.io.Serializable;
 
 public class Ingredient implements Food, Serializable {
+    private int id;
+    private String name;
+    private int calories;
+    private double fat;
+    private double protein;
+    private double carbs;
+    private double fiber;
 
-    int id;
-    String name;
-    int calories;
-    double fat;
-    double protein;
-    double carbs;
-    double fiber;
-
-    public Ingredient(
-        int id,
-        String name, 
-        int calories, 
-        double fat, 
-        double protein, 
-        double carbs, 
-        double fiber) 
-    {
+    public Ingredient(int id, String name, int calories, double fat, double protein, double carbs, double fiber) {
         this.id = id;
         this.name = name;
         this.calories = calories;
@@ -28,45 +19,30 @@ public class Ingredient implements Food, Serializable {
         this.protein = protein;
         this.carbs = carbs;
         this.fiber = fiber;
-
     }
 
     public int getID() {return this.id;}
 
     @Override
-    public String getName() {
-        return name;
-    }
+    public String getName() {return this.name;}
 
     @Override
-    public int getCalories() {
-        return calories;
-    }
+    public int getCalories() {return this.calories;}
 
     @Override
-    public double getFat() {
-        return fat;
-    }
+    public double getFat() {return this.fat;}
 
     @Override
-    public double getProtein() {
-        return protein;
-    }
+    public double getProtein() {return this.protein;}
 
     @Override
-    public double getCarbs() {
-        return carbs;
-    }
+    public double getCarbs() {return this.carbs;}
 
     @Override
-    public double getFiber() {
-        return fiber;
-    }
+    public double getFiber() {return this.fiber;}
 
     @Override
-    public int hashCode() {
-        return this.name.hashCode();
-    }
+    public int hashCode() {return this.name.hashCode();}
 
     @Override
     public boolean equals(Object obj) {

@@ -2,20 +2,16 @@ package edu.rit.swen262.ui.commands;
 
 import java.util.List;
 
-import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
 
 public class GuestUserCommand extends UserCommand {
-    
-    private PageData pageData;
     private PageRunner pageRunner;
 
     public GuestUserCommand(PageRunner pageRunner) {
         super.nameString = "Guest";
         super.helpString = "Guest";
         this.pageRunner = pageRunner;
-        this.pageData = pageRunner.getPageData();
     }
 
     /**
@@ -24,8 +20,6 @@ public class GuestUserCommand extends UserCommand {
      */
     @Override
     public void performAction(String[] commandArgs) {
-
-
         Page currentPage = pageRunner.getCurrentPage();
         List<Page> childrenPages = currentPage.getChildrenPage();
 
@@ -37,7 +31,6 @@ public class GuestUserCommand extends UserCommand {
                 pageRunner.setPage(childPage);
                 break;
             }
-        }   
-
+        }
     }
 }

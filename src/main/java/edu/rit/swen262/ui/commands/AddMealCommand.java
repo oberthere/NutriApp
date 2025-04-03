@@ -11,7 +11,7 @@ import edu.rit.swen262.food.Recipe;
 import edu.rit.swen262.other.exception.InvalidMealCreation;
 import edu.rit.swen262.other.exception.LowStockException;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.user.service.DailyHistoryComponent;
+import edu.rit.swen262.user.components.DailyHistoryComponent;
 
 public class AddMealCommand extends UndoableCommand {
     private PageData pageData;
@@ -54,8 +54,8 @@ public class AddMealCommand extends UndoableCommand {
             MealType mealType = MealType.valueOf(commandArgs[commandArgs.length - 1].toUpperCase(Locale.ENGLISH));
             
             try {
-                DailyHistoryComponent userHistory = pageData.getCurrentUser().getUserHistoryService();
-                userHistory.prepareMeal(name, recipes, mealType);
+                DailyHistoryComponent dailyHistory = pageData.getCurrentUser().getDailyHistoryComponent();
+                dailyHistory.prepareMeal(name, recipes, mealType);
                 System.out.println("Successfully added Meal " + commandArgs[1]);
             } catch (LowStockException e) {
                 System.out.println("Low Stock Exception. Go to ShoppingList to see the low ingredients");

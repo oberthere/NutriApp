@@ -5,7 +5,7 @@ import edu.rit.swen262.food.Recipe;
 import edu.rit.swen262.shoppingList.strag.strategy.ShopCriteraLowIngredientStrategy;
 import edu.rit.swen262.shoppingList.strag.strategy.ShopCriteriaLowRecipeStrategy;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.user.service.ShoppingListComponent;
+import edu.rit.swen262.user.components.ShoppingListComponent;
 
 public class SelectShoppingListCommand extends UserCommand {
     private PageData pageData;
@@ -28,12 +28,12 @@ public class SelectShoppingListCommand extends UserCommand {
             return;
         }
 
-        pageData.getCurrentUser().setShoppingListService(new ShoppingListComponent());
-        ShoppingListComponent shoppingListService = pageData.getCurrentUser().getShoppingListService();
+        pageData.getCurrentUser().setShoppingListComponent(new ShoppingListComponent());
+        ShoppingListComponent shoppingListComponent = pageData.getCurrentUser().getShoppingListComponent();
         
         if (commandArgs.length == 2 && commandArgs[1].equals("LowIngredient")) {
-            shoppingListService.setCriteria(new ShopCriteraLowIngredientStrategy());
-            shoppingListService.generateShoppingList(null);
+            shoppingListComponent.setCriteria(new ShopCriteraLowIngredientStrategy());
+            shoppingListComponent.generateShoppingList(null);
             System.out.println("Succesfully selected the Shopping List for Low Ingredients");
         } else if (commandArgs.length == 3 && commandArgs[1].equals("Recipe")) {
             Recipe recipe = PantryStock.getRecipeRecord().get(commandArgs[2]);
@@ -41,14 +41,14 @@ public class SelectShoppingListCommand extends UserCommand {
                 System.out.println("Error: Recipe name not found. Usage: " + getHelp());
                 return;
             }
-            shoppingListService.setCriteria(new ShopCriteriaLowRecipeStrategy());
-            shoppingListService.generateShoppingList(recipe);
+            shoppingListComponent.setCriteria(new ShopCriteriaLowRecipeStrategy());
+            shoppingListComponent.generateShoppingList(recipe);
             
             System.out.println("Succesfully selected the Shopping List for " + recipe.getName());
         } else {
             System.out.println("Error: Invalid ShoppingList Selection: Check your arguments and try again. Usage: " + getHelp());
             return;
         }
-        pageData.getCurrentUser().setShoppingListService(shoppingListService);
+        pageData.getCurrentUser().setShoppingListComponent(shoppingListComponent);
     }
 }

@@ -1,6 +1,5 @@
 package edu.rit.swen262.food;
 
-
 import java.util.List;
 
 public class Meal implements Food{
@@ -16,11 +15,9 @@ public class Meal implements Food{
 
     @Override public String getName() {return this.name;}
 
-    public MealType getMealType() { return mealType; }
+    public MealType getMealType() {return this.mealType;}
 
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
+    public List<Recipe> getRecipes() {return this.recipes;}
     
     @Override
     public int getCalories() {
@@ -58,6 +55,4 @@ public class Meal implements Food{
         for (Food food: recipes) {fiber += food.getFiber();}
         return fiber;
     }
-
-
 }

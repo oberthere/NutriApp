@@ -24,7 +24,6 @@ public class SelectUserCommand extends UserCommand {
      */
     @Override
     public void performAction(String[] commandArgs) {
-
         // Ensure proper length
         if (commandArgs.length < 3) {
             System.out.println("Error: Please provide a username and password. Usage: Select [Username] [Password]");
@@ -43,7 +42,7 @@ public class SelectUserCommand extends UserCommand {
             System.out.println("Error: User '" + username + "' not found.");
             return;
         }
-        if (!password.equals(user.getUserDataService().getPassword())) {
+        if (!password.equals(user.getUserDataComponent().getPassword())) {
             System.out.println("Error: Invalid Password");
             return;
         }
@@ -55,19 +54,18 @@ public class SelectUserCommand extends UserCommand {
         // Goes through each children Page to find the UserDashboard
         for (Page childPage : childrenPages) {
             // If user has a user entry, then navigate to the User Dashboard
-            if (user.getUserHistoryService() != null && childPage.getPageName().equals("User Dashboard")) {
+            if (user.getDailyHistoryComponent() != null && childPage.getPageName().equals("User Dashboard")) {
                 System.out.println("\nFound Entry For Today...");
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 break;
             // Else navigate to the user setup
-            } else if (user.getUserHistoryService() == null && childPage.getPageName().equals("User Setup Page")) {
+            } else if (user.getDailyHistoryComponent() == null && childPage.getPageName().equals("User Setup Page")) {
                 System.out.println("\nNo Entry Found For Today...");
                 System.out.println("Navigating to " + childPage.getPageName());
                 pageRunner.setPage(childPage);
                 break;
             }
         }
-
     }
 }

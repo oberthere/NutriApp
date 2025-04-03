@@ -11,7 +11,7 @@ public class NewUserEntryCommand extends UndoableCommand {
 
     public NewUserEntryCommand(PageRunner pageRunner) {
         super.nameString = "NewUserEntry";
-        super.helpString = "NewUserEntry [currentWeight] [targetWeight] [isPhysicalFitnessGoal]";
+        super.helpString = "NewUserEntry [currentWeight in pounds] [targetWeight in pounds] [isPhysicalFitnessGoal]";
         this.pageRunner = pageRunner;
         this.pageData = pageRunner.getPageData();
     }
@@ -19,7 +19,7 @@ public class NewUserEntryCommand extends UndoableCommand {
     @Override
     public void performAction(String[] commandArgs) {
         if (commandArgs.length != 4) {
-            System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight] [targetWeight] [isPhysicalFitnessGoal]");
+            System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight in pounds] [targetWeight in pounds] [isPhysicalFitnessGoal]");
             return;
         }
 
@@ -55,7 +55,7 @@ public class NewUserEntryCommand extends UndoableCommand {
             // Update user user history
             user.startNewDay(currentWeight, targetWeight, isPhysicalFitnessGoal);
 
-            user.getGoalService().getCurrentGoal().calculateTargetCalories(user);
+            user.getGoalComponent().getCurrentGoal().calculateTargetCalories(user);
 
             System.out.println("User entry set up successfully.");
 

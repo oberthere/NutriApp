@@ -14,21 +14,13 @@ public class Workout{
         this.intensity = intensity;
     }
 
-    public IntensityStrategy getCaloriesBurned() {
-        return intensity;
-    }
+    public IntensityStrategy getCaloriesBurned() {return this.intensity;}
 
-    public Date getRecordedDate(){
-        return recordedDate;
-    }
+    public Date getRecordedDate() {return this.recordedDate;}
 
-    public int getDurationMin(){
-        return durationMin;
-    }
+    public int getDurationMin() {return this.durationMin;}
 
-    public IntensityStrategy getIntensity(){
-        return intensity;
-    }
+    public IntensityStrategy getIntensity() {return this.intensity;}
 
     public String getName() {return this.workoutName;}
 }

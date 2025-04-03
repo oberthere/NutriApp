@@ -4,15 +4,15 @@ import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageRunner;
 
 public class ExitCommand extends UserCommand{
-
-    private PageRunner pr;
+    private PageRunner pageRunner;
+    
     /** 
     * ExitCommand handles the exit functionality as a standalone command.
     */
-    public ExitCommand(PageRunner pr) {
+    public ExitCommand(PageRunner pageRunner) {
         this.nameString = "exit";
         this.helpString = "Exit";
-        this.pr = pr;
+        this.pageRunner = pageRunner;
     }
 
     @Override 
@@ -25,6 +25,6 @@ public class ExitCommand extends UserCommand{
         System.out.println("Saving date...");
         SaveData.serializeHistoryToSave(); // save user history before exiting
         System.out.println("Data saved. Exiting application...");
-        pr.closeScanner();
+        pageRunner.closeScanner();
     }
 }

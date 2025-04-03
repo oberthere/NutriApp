@@ -1,4 +1,4 @@
-package edu.rit.swen262.user.service;
+package edu.rit.swen262.user.components;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,6 +22,19 @@ public class GoalComponent implements Serializable {
         setDefaultCalories();
     }
 
+    public Goal getCurrentGoal() {return this.currentGoal;}
+    public boolean isPhysicalFitness() {return this.physicalFitness;}
+    public int getTargetCalories() {return this.targetCalories;}
+    public double getTargetWeight() {return this.targetWeight;}
+
+    public void setGoal(Goal newGoal) {this.currentGoal = newGoal;}
+    public void setTargetCalories(int targetCalories) {this.targetCalories = targetCalories;}
+    public void setTargetWeight(double targetWeight, double currentWeight) {
+        this.targetWeight = targetWeight;
+        calculateGoal(targetWeight, currentWeight);
+        setDefaultCalories();
+    }
+
     private void calculateGoal(double targetWeight, double currentWeight) {
         if (targetWeight == currentWeight) {
             currentGoal = new MaintainWeight();
@@ -40,36 +53,6 @@ public class GoalComponent implements Serializable {
         } else if (currentGoal instanceof GainWeight) {
             this.targetCalories = 2500;
         }
-    }
-
-    public void setGoal(Goal newGoal) {
-        currentGoal = newGoal;
-    }
-
-    public Goal getCurrentGoal() {
-        return this.currentGoal;
-    }
-
-    public boolean isPhysicalFitness() {
-        return this.physicalFitness;
-    }
-
-    public int getTargetCalories() {
-        return this.targetCalories;
-    }
-
-    public double getTargetWeight() {
-        return this.targetWeight;
-    }
-
-    public void setTargetWeight(double targetWeight, double currentWeight) {
-        this.targetWeight = targetWeight;
-        calculateGoal(targetWeight, currentWeight);
-        setDefaultCalories();
-    }
-
-    public void setTargetCalories(int targetCalories) {
-        this.targetCalories = targetCalories;
     }
 
     private void writeObject(ObjectOutputStream oos) throws IOException {
