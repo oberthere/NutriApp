@@ -17,7 +17,7 @@ public class PageRunner {
     private Page mainPage;
     private Page currentPage;
     private List<UserCommand> globalCommands = new ArrayList<>();
-    private Stack<UndoPreviousCommand> undoableCommandHistory = new Stack<>();
+    private Stack<UndoableCommand> undoableCommandHistory = new Stack<>();
     private Scanner scanner;
 
     public PageRunner() {
@@ -35,6 +35,13 @@ public class PageRunner {
     public Page getCurrentPage() {return this.currentPage;}
     public String getScannerInput(){return scanner.nextLine().trim();}
     public void closeScanner() {scanner.close();this.scanner = null;}
+
+    public UndoableCommand popLastUndoableCommand() {
+      if (!undoableCommandHistory.isEmpty()) {
+        return undoableCommandHistory.pop();
+      }
+      return null;
+    }
 
     public void printGlobalCommand() {
         // System.out.println("Available Global Commands:");
@@ -106,7 +113,7 @@ public class PageRunner {
 
             executeCommand(input);
 
-            System.out.print("\nPress any key to continue...");
+            System.out.print("\nPress Enter to continue...");
             getScannerInput();
 
             printNewLineForNewPage(10);
