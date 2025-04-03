@@ -30,11 +30,10 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
     private List<Workout> workouts;
     private int netCalories;
 
-    public DailyHistoryComponent(String userID, Date date, double weight, int targetCalories) {
+    public DailyHistoryComponent(String userID, Date date, double weight) {
         this.userID = userID;
         this.date = date;
         this.weight = weight;
-        this.targetCalories = targetCalories;
         this.preparedMeals = new ArrayList<>();
         this.eatenMeals = new ArrayList<>();
         this.workouts = new ArrayList<>();
@@ -42,6 +41,7 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
     
         // initialize a default GoalService 
         this.goalService = new GoalComponent(false, weight, weight);
+        this.targetCalories = goalService.getTargetCalories();
     }
     
     public String getUserID() { return userID; }

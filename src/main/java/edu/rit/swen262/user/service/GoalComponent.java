@@ -15,13 +15,6 @@ public class GoalComponent implements Serializable {
     private int targetCalories;
     private double targetWeight;
 
-    public GoalComponent() {
-        this.currentGoal = new MaintainWeight();
-        this.targetWeight = 0;
-        this.targetCalories = 2000;
-        this.physicalFitness = false;
-    }
-
     public GoalComponent(boolean physicalFitness, double targetWeight, double currentWeight) {
         this.physicalFitness = physicalFitness;
         this.targetWeight = targetWeight;

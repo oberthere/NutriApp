@@ -50,7 +50,7 @@ public class CreateUserCommand extends UserCommand {
             pageData.addUser(username, user);
 
             // Create a new user history entry for this user
-            DailyHistoryComponent userHistory = new DailyHistoryComponent(username, new Date(), weight, 2000);
+            DailyHistoryComponent userHistory = new DailyHistoryComponent(username, new Date(), weight);
             SaveData.addUserHistory(userHistory);
             
             // Update the user data

@@ -53,7 +53,7 @@ public class User {
     public void setUserDataService(UserDataComponent userDataService) {this.userDataService = userDataService;}
     public Date getLastUpdated() {return this.userHistoryService.getDate();}
 
-    public void startNewDay(double weight, double targetWeight, int targetCalories, boolean isPhysicalFitnessGoal) {
+    public void startNewDay(double weight, double targetWeight, boolean isPhysicalFitnessGoal) {
     
         // Save previous day's data before resetting
         if (this.userHistoryService != null) {
@@ -67,8 +67,7 @@ public class User {
         this.userHistoryService = new DailyHistoryComponent(
             name,              // userID
             new Date(),        // current date   
-            weight,          
-            targetCalories     
+            weight
         );
     }
     

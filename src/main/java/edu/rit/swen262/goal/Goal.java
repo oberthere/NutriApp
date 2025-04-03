@@ -4,6 +4,6 @@ import java.io.Serializable;
 import edu.rit.swen262.user.User;
 
 public interface Goal extends Serializable {
-    int calculateTargetCalories(User user);
+    void calculateTargetCalories(User user);
     void changeGoal(User user);
 }
