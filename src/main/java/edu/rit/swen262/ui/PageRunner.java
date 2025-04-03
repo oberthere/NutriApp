@@ -113,7 +113,7 @@ public class PageRunner {
 
             executeCommand(input);
 
-            System.out.print("\nPress any key to continue...");
+            System.out.print("\nPress Enter to continue...");
             getScannerInput();
 
             printNewLineForNewPage(10);
