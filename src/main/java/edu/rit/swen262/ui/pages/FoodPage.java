@@ -8,7 +8,7 @@ import edu.rit.swen262.ui.commands.AddRecipeCommand;
 import edu.rit.swen262.ui.commands.EatMealCommand;
 import edu.rit.swen262.ui.commands.GetIngredientsCommand;
 import edu.rit.swen262.ui.commands.GetRecipeCommand;
-import edu.rit.swen262.user.service.UserHistoryService;
+import edu.rit.swen262.user.service.DailyHistoryComponent;
 
 public class FoodPage extends Page {
     public FoodPage(PageData pageData) {
@@ -23,7 +23,7 @@ public class FoodPage extends Page {
 
     @Override
     public void printContent() {
-        UserHistoryService dh = pageData.getCurrentUser().getUserHistoryService();
+        DailyHistoryComponent dh = pageData.getCurrentUser().getUserHistoryService();
         super.printContent();
         System.out.println("Meals Prepared:");
         printMeal(dh.getPreparedMeals());

@@ -3,7 +3,7 @@ package edu.rit.swen262.ui.pages;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.GoCommand;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.GoalService;
+import edu.rit.swen262.user.service.GoalComponent;
 import java.util.ArrayList;
 
 public class UserDashboardPage extends Page {
@@ -34,7 +34,7 @@ public class UserDashboardPage extends Page {
 
         System.out.println("\nGoal Info:");
 
-        GoalService goalService = currentUser.getGoalService(); // Fetch goal service
+        GoalComponent goalService = currentUser.getGoalService(); // Fetch goal service
         if (goalService == null) {
             System.out.println("\tCurrent Goal: No goal set.");
         } else {

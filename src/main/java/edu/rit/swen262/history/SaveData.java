@@ -13,24 +13,24 @@ import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.food.PantryRecord;
-import edu.rit.swen262.user.service.UserHistoryService;
-import edu.rit.swen262.user.service.UserDataService;
+import edu.rit.swen262.user.service.DailyHistoryComponent;
+import edu.rit.swen262.user.service.UserDataComponent;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
 public final class SaveData {
-    private static Map<String, List<UserHistoryService>> history = new HashMap<>();
-    private static Map<String, UserDataService> userData = new HashMap<>();
+    private static Map<String, List<DailyHistoryComponent>> history = new HashMap<>();
+    private static Map<String, UserDataComponent> userData = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
 
     public static final String saveDataFileName = "SaveData";
 
-    public static Map<String, UserDataService> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
-    public static Map<String, List<UserHistoryService>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
+    public static Map<String, UserDataComponent> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
+    public static Map<String, List<DailyHistoryComponent>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
 
-    public static void setHistory(Map<String, List<UserHistoryService>> historyMap) {SaveData.history = historyMap;}
+    public static void setHistory(Map<String, List<DailyHistoryComponent>> historyMap) {SaveData.history = historyMap;}
 
-    public static void addUserData(UserDataService userDataService) {
+    public static void addUserData(UserDataComponent userDataService) {
         String username = userDataService.getUsername();
         SaveData.userData.put(username, userDataService);
         serializeHistoryToSave();
@@ -39,11 +39,11 @@ public final class SaveData {
     /*
      * The UserHistory added to the history
      */
-    public static void addUserHistory(UserHistoryService dh) {
+    public static void addUserHistory(DailyHistoryComponent dh) {
         String userName = dh.getUserID();
 
         // Ensure the user history list exists
-        List<UserHistoryService> userHistoryRecord = SaveData.history.get(userName);
+        List<DailyHistoryComponent> userHistoryRecord = SaveData.history.get(userName);
         if (userHistoryRecord == null) {
             userHistoryRecord = new ArrayList<>();
             SaveData.history.put(userName, userHistoryRecord);
@@ -55,13 +55,13 @@ public final class SaveData {
         serializeHistoryToSave();
     }
 
-    public static List<UserHistoryService> getUserHistory(String userID) {
+    public static List<DailyHistoryComponent> getUserHistory(String userID) {
         return SaveData.history.get(userID);
     }
 
     public static IntensityStrategy getWorkoutIntensityTrend(String userID) {
         Map<IntensityStrategy, Integer> workoutIntensityCollections = new HashMap<>();
-        for (UserHistoryService dh: history.get(userID)) {
+        for (DailyHistoryComponent dh: history.get(userID)) {
             for (Workout workout : dh.getWorkouts()) {
                 IntensityStrategy intensity = workout.getIntensity();
                 if (workoutIntensityCollections.containsKey(intensity) == false) {
@@ -125,8 +125,8 @@ public final class SaveData {
 
             FileInputStream fileInput = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileInput);
-            Map<String, List<UserHistoryService>> tempHistory = (Map<String, List<UserHistoryService>>) in.readObject();
-            Map<String, UserDataService> tempUserData = (Map<String, UserDataService>) in.readObject();
+            Map<String, List<DailyHistoryComponent>> tempHistory = (Map<String, List<DailyHistoryComponent>>) in.readObject();
+            Map<String, UserDataComponent> tempUserData = (Map<String, UserDataComponent>) in.readObject();
             PantryRecord tempPantryRecord = (PantryRecord) in.readObject();
             in.close();
             fileInput.close();

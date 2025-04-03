@@ -8,9 +8,9 @@ import java.util.Map;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.UserDataService;
-import edu.rit.swen262.user.service.UserHistoryService;
-import edu.rit.swen262.user.service.GoalService;
+import edu.rit.swen262.user.service.UserDataComponent;
+import edu.rit.swen262.user.service.DailyHistoryComponent;
+import edu.rit.swen262.user.service.GoalComponent;
 
 public class PageData {
     private Map<String, User> users;
@@ -53,18 +53,18 @@ public class PageData {
     public void loadUsersFromHistory() {
         System.out.println("Loading saved users from history...");
         SaveData.deserializeAndLoadSavedHistory();
-        Map<String, List<UserHistoryService>> history = SaveData.getHistory();
-        Map<String, UserDataService> userData = SaveData.getUserData();
+        Map<String, List<DailyHistoryComponent>> history = SaveData.getHistory();
+        Map<String, UserDataComponent> userData = SaveData.getUserData();
     
         for (String username : history.keySet()) {
             if (!users.containsKey(username)) {
-                List<UserHistoryService> userHistory = history.get(username);
-                UserDataService userDataService = userData.get(username);
+                List<DailyHistoryComponent> userHistory = history.get(username);
+                UserDataComponent userDataService = userData.get(username);
                 if (!userHistory.isEmpty()) {
-                    UserHistoryService latestHistory = userHistory.get(userHistory.size() - 1);  // Most recent entry
+                    DailyHistoryComponent latestHistory = userHistory.get(userHistory.size() - 1);  // Most recent entry
     
                     // Create user and assign latest history
-                    User user = new User(username, userDataService.getHeight(), latestHistory.getWeight(), userDataService.getBirthdate());
+                    User user = new User(username, userDataService.getPassword(),userDataService.getHeight(), latestHistory.getWeight(), userDataService.getBirthdate());
                     user.setUserHistoryService(latestHistory);
     
                     // Ensure GoalService is initialized properly
@@ -72,7 +72,7 @@ public class PageData {
                         user.setGoalService(latestHistory.getGoalService());
                     } else {
                         System.out.println("Warning: GoalService is null for user " + username + ". Setting default goal.");
-                        user.setGoalService(new GoalService(false, latestHistory.getWeight(), latestHistory.getWeight()));  
+                        user.setGoalService(new GoalComponent(false, latestHistory.getWeight(), latestHistory.getWeight()));  
                     }
     
                     users.put(username, user);

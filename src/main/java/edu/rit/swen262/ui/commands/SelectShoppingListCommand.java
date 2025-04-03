@@ -5,7 +5,7 @@ import edu.rit.swen262.food.Recipe;
 import edu.rit.swen262.shoppingList.strag.strategy.ShopCriteraLowIngredientStrategy;
 import edu.rit.swen262.shoppingList.strag.strategy.ShopCriteriaLowRecipeStrategy;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.user.service.ShoppingListService;
+import edu.rit.swen262.user.service.ShoppingListComponent;
 
 public class SelectShoppingListCommand extends UserCommand {
     private PageData pageData;
@@ -28,8 +28,8 @@ public class SelectShoppingListCommand extends UserCommand {
             return;
         }
 
-        pageData.getCurrentUser().setShoppingListService(new ShoppingListService());
-        ShoppingListService shoppingListService = pageData.getCurrentUser().getShoppingListService();
+        pageData.getCurrentUser().setShoppingListService(new ShoppingListComponent());
+        ShoppingListComponent shoppingListService = pageData.getCurrentUser().getShoppingListService();
         
         if (commandArgs.length == 2 && commandArgs[1].equals("LowIngredient")) {
             shoppingListService.setCriteria(new ShopCriteraLowIngredientStrategy());

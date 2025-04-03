@@ -8,7 +8,7 @@ import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.service.UserHistoryService;
+import edu.rit.swen262.user.service.DailyHistoryComponent;
 
 public class NewUserEntryCommand extends UserCommand {
     private PageData pageData;
@@ -68,7 +68,7 @@ public class NewUserEntryCommand extends UserCommand {
             user.startNewDay(currentWeight, targetWeight, targetCalories, isPhysicalFitnessGoal);
 
             // Create a new UserHistoryService entry
-            UserHistoryService userHistory = new UserHistoryService(user.getName(), new Date(), currentWeight, targetCalories);
+            DailyHistoryComponent userHistory = new DailyHistoryComponent(user.getName(), new Date(), currentWeight, targetCalories);
 
             // Ensure user history exists
             if (!SaveData.getHistory().containsKey(user.getName())) {

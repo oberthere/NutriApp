@@ -3,7 +3,7 @@ package edu.rit.swen262.ui.commands;
 import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.ui.PageData;
-import edu.rit.swen262.user.service.UserHistoryService;
+import edu.rit.swen262.user.service.DailyHistoryComponent;
 
 public class EatMealCommand extends UserCommand {
     private PageData pageData;
@@ -21,7 +21,7 @@ public class EatMealCommand extends UserCommand {
             return;
         }
         try {
-            UserHistoryService userHistory = pageData.getCurrentUser().getUserHistoryService();
+            DailyHistoryComponent userHistory = pageData.getCurrentUser().getUserHistoryService();
             for (Meal meal : userHistory.getPreparedMeals()) {
                 if (meal.getName().equals(commandArgs[1])) {
                     userHistory.eatMeal(meal);
