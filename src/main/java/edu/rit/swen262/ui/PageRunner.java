@@ -117,15 +117,19 @@ public class PageRunner {
         Page mainPage = new MainPage(pageData);
         Page userSetupPage = new UserSetupPage(pageData);
         Page userDashboardPage = new UserDashboardPage(pageData);
+        Page userGuestPage = new GuestPage(pageData);
         Page foodPage = new FoodPage(pageData);
         Page historyPage = new HistoryPage(pageData);
         Page workoutPage = new WorkoutPage(pageData);
         Page shoppingListPage = new ShoppingListPage(pageData);
+      
 
         // Set up page hierarchy
-        mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage));
+        mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage, userGuestPage));
         userSetupPage.setParentPage(mainPage);
         userDashboardPage.setParentPage(mainPage);
+        userGuestPage.setParentPage(mainPage);
+
 
         userSetupPage.setChildrenPage(List.of(userDashboardPage));
         
