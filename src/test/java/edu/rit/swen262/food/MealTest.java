@@ -1,84 +1,112 @@
 package edu.rit.swen262.food;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.util.Arrays;
-import java.util.Collections;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
 
-class MealTest {
-    
-    private Meal meal;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-    @BeforeEach
-    void setUp() {
-        // Create recipes
-        List<Ingredient> pancakeIngredients = Arrays.asList(
-            new Ingredient("Flour", 100, 5, 1.0, 3.0, 20.0),
-            new Ingredient("Milk", 50, 3, 2.0, 3.5, 5.0),
-            new Ingredient("Egg", 70, 3, 5.0, 6.0, 1.0)
-        );
+import edu.rit.swen262.csv.csvReader;
 
-        Recipe pancake = new Recipe("Pancakes", pancakeIngredients, 
-            "Combine the flour, eggs, milk and salt in a large bowl and whisk to combine. Whisk it until it's smooth and there are no lumps.\r\n" + //
-            "Pour the batter into small rounds onto a hot, lightly greased skillet and flip after about 20 to 30 seconds. Let cook for an additional 15 to 20 seconds.\r\n" + //
-            "Serve hot with maple syrup on top. Enjoy!");
+public class MealTest {
+    private static Ingredient butter;
+    private static Ingredient cheese;
+    private static Ingredient apple;
+    private static Recipe breakfastRecipe;
+    private static Recipe dessertRecipe;
 
-
-        List<Ingredient> omeletteIngredients = Arrays.asList(
-            new Ingredient("Egg", 70, 7.0, 5.0, 6.0, 1.0),
-            new Ingredient("Cheese", 80, 6.0, 5.0, 1.0, 0.0)
-        );
-
-        Recipe omelette = new Recipe("Omelette", omeletteIngredients, 
-            "Beat the eggs until smooth. Pour eggs into a pan and wait until the edges crisp. " +                                                            
-            "Then, put the cheese in the center. Fold one side of the egg over the other. Enjoy!");
-
-
-        // Create a meal
-        List<Recipe> recipes = Arrays.asList(pancake, omelette);
-        meal = new Meal("Breakfast Combo", recipes, MealType.BREAKFAST);
+    @BeforeAll
+    static void setup() {
+        // Load real ingredients from CSV
+        new csvReader().ingredientReader();
+        
+        // Get actual ingredients from pantry
+        butter = PantryStock.getIngredientByName("butter");
+        cheese = PantryStock.getIngredientByName("cheese");
+        apple = PantryStock.getIngredientByName("apple");
+        
+        // Create realistic recipes using pantry ingredients
+        breakfastRecipe = new Recipe("Breakfast", 
+            List.of(butter, cheese), 
+            "Melt butter, add cheese");
+            
+        dessertRecipe = new Recipe("Dessert", 
+            List.of(apple, butter), 
+            "Slice apples, drizzle with butter");
     }
 
     @Test
-    void testGetName() {
-        assertEquals("Breakfast Combo", meal.getName());
+    void testMealCreation() {
+        Meal testMeal = new Meal("Test Meal", 
+            List.of(breakfastRecipe), 
+            MealType.BREAKFAST);
+            
+        assertEquals("Test Meal", testMeal.getName());
+        assertEquals(MealType.BREAKFAST, testMeal.getMealType());
+        assertEquals(1, testMeal.getRecipes().size());
+        assertEquals(breakfastRecipe, testMeal.getRecipes().get(0));
     }
 
     @Test
-    void testGetCalories() {
-        assertEquals(370, meal.getCalories());
+    void testMealNutritionCalculations() {
+        Meal comboMeal = new Meal("Combo Meal", 
+            List.of(breakfastRecipe, dessertRecipe), 
+            MealType.LUNCH);
+            
+        // Verify calculations sum all recipe values
+        assertEquals(breakfastRecipe.getCalories() + dessertRecipe.getCalories(), 
+                    comboMeal.getCalories());
+        assertEquals(breakfastRecipe.getFat() + dessertRecipe.getFat(), 
+                    comboMeal.getFat(), 0.001);
+        assertEquals(breakfastRecipe.getProtein() + dessertRecipe.getProtein(), 
+                    comboMeal.getProtein(), 0.001);
+        assertEquals(breakfastRecipe.getCarbs() + dessertRecipe.getCarbs(), 
+                    comboMeal.getCarbs(), 0.001);
+        assertEquals(breakfastRecipe.getFiber() + dessertRecipe.getFiber(), 
+                    comboMeal.getFiber(), 0.001);
     }
 
     @Test
-    void testGetFat() {
-        assertEquals(24.0, meal.getFat(), 0.001);
+    void testSingleRecipeMeal() {
+        Meal simpleMeal = new Meal("Simple Meal", 
+            List.of(breakfastRecipe), 
+            MealType.DINNER);
+            
+        // Verify values match the single recipe
+        assertEquals(breakfastRecipe.getCalories(), simpleMeal.getCalories());
+        assertEquals(breakfastRecipe.getFat(), simpleMeal.getFat(), 0.001);
+        assertEquals(breakfastRecipe.getProtein(), simpleMeal.getProtein(), 0.001);
     }
 
     @Test
-    void testGetProtein() {
-        assertEquals(18.0, meal.getProtein(), 0.001);
-    }
-
-    @Test
-    void testGetCarbs() {
-        assertEquals(19.5, meal.getCarbs(), 0.001);
-    }
-
-    @Test
-    void testGetFiber() {
-        assertEquals(27.0, meal.getFiber(), 0.001);
+    void testMealTypeBehavior() {
+        Meal breakfast = new Meal("Morning", List.of(breakfastRecipe), MealType.BREAKFAST);
+        Meal lunch = new Meal("Noon", List.of(breakfastRecipe), MealType.LUNCH);
+        Meal dinner = new Meal("Evening", List.of(breakfastRecipe), MealType.DINNER);
+        
+        assertNotEquals(breakfast.getMealType(), lunch.getMealType());
+        assertNotEquals(lunch.getMealType(), dinner.getMealType());
     }
 
     @Test
     void testEmptyMeal() {
-        Meal emptyMeal = new Meal("Empty Meal", Collections.emptyList(), MealType.BREAKFAST);
+        // While commands prevent this, the class should handle it gracefully
+        Meal emptyMeal = new Meal("Empty", new ArrayList<>(), MealType.LUNCH);
+        
         assertEquals(0, emptyMeal.getCalories());
         assertEquals(0.0, emptyMeal.getFat(), 0.001);
         assertEquals(0.0, emptyMeal.getProtein(), 0.001);
         assertEquals(0.0, emptyMeal.getCarbs(), 0.001);
         assertEquals(0.0, emptyMeal.getFiber(), 0.001);
     }
-}
 
+    @Test
+    void testZeroCalorieMeal() {
+        Recipe zeroRecipe = new Recipe("Zero", List.of(), "Empty");
+        Meal meal = new Meal("Zero Meal", List.of(zeroRecipe), MealType.BREAKFAST);
+        assertEquals(0, meal.getCalories());
+    }
+}
