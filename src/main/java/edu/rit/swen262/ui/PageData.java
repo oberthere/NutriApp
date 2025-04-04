@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.history.SaveData;
+import edu.rit.swen262.history.UserData;
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.components.UserDataComponent;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 import edu.rit.swen262.user.components.GoalComponent;
 
@@ -57,12 +57,12 @@ public class PageData {
         System.out.println("Loading saved users from history...");
         SaveData.deserializeAndLoadSavedHistory();
         Map<String, List<DailyHistoryComponent>> history = SaveData.getHistory();
-        Map<String, UserDataComponent> userData = SaveData.getUserData();
+        Map<String, UserData> userData = SaveData.getUserData();
     
         for (String username : history.keySet()) {
             if (!users.containsKey(username)) {
                 List<DailyHistoryComponent> dailyHistory = history.get(username);
-                UserDataComponent userDataComponent = userData.get(username);
+                UserData userDataComponent = userData.get(username);
                 if (!dailyHistory.isEmpty()) {
                     DailyHistoryComponent latestHistory = dailyHistory.get(dailyHistory.size() - 1);  // Most recent entry
     

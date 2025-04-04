@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.rit.swen262.history.SaveData;
+import edu.rit.swen262.history.UserData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
-import edu.rit.swen262.user.components.UserDataComponent;
 
 public class CreateUserCommand extends UserCommand {
     private PageData pageData;
@@ -53,7 +53,7 @@ public class CreateUserCommand extends UserCommand {
             SaveData.addDailyHistory(dailyHistory);
             
             // Update the user data
-            UserDataComponent userDataComponent = new UserDataComponent(username, password, birthdate, height);
+            UserData userDataComponent = new UserData(username, password, birthdate, height);
             SaveData.addUserData(userDataComponent);
 
             System.out.println("\nUser created successfully: " + username);

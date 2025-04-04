@@ -1,9 +1,9 @@
-package edu.rit.swen262.user.components;
+package edu.rit.swen262.history;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserDataComponent implements Serializable {
+public class UserData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String username;
@@ -11,7 +11,7 @@ public class UserDataComponent implements Serializable {
 	private Date birthdate;
 	private double height;
 
-	public UserDataComponent(String username, String password, Date birthdate, double height) {
+	public UserData(String username, String password, Date birthdate, double height) {
 		this.username = username;
 		this.password = password;
 		this.birthdate = birthdate;

@@ -14,23 +14,22 @@ import java.util.Map;
 
 import edu.rit.swen262.food.PantryRecord;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
-import edu.rit.swen262.user.components.UserDataComponent;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
 public final class SaveData {
     private static Map<String, List<DailyHistoryComponent>> history = new HashMap<>();
-    private static Map<String, UserDataComponent> userData = new HashMap<>();
+    private static Map<String, UserData> userData = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
 
     public static final String saveDataFileName = "SaveData";
 
     public static Map<String, List<DailyHistoryComponent>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
-    public static Map<String, UserDataComponent> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
+    public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
 
     public static void setHistory(Map<String, List<DailyHistoryComponent>> historyMap) {SaveData.history = historyMap;}
 
-    public static void addUserData(UserDataComponent userDataService) {
+    public static void addUserData(UserData userDataService) {
         String username = userDataService.getUsername();
         SaveData.userData.put(username, userDataService);
         serializeHistoryToSave();
@@ -123,7 +122,7 @@ public final class SaveData {
             FileInputStream fileInput = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileInput);
             Map<String, List<DailyHistoryComponent>> tempHistory = (Map<String, List<DailyHistoryComponent>>) in.readObject();
-            Map<String, UserDataComponent> tempUserData = (Map<String, UserDataComponent>) in.readObject();
+            Map<String, UserData> tempUserData = (Map<String, UserData>) in.readObject();
             PantryRecord tempPantryRecord = (PantryRecord) in.readObject();
             in.close();
             fileInput.close();

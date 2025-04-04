@@ -42,7 +42,7 @@ public class SelectUserCommand extends UserCommand {
             System.out.println("Error: User '" + username + "' not found.");
             return;
         }
-        if (!password.equals(user.getUserDataComponent().getPassword())) {
+        if (!password.equals(user.getPassword())) {
             System.out.println("Error: Invalid Password");
             return;
         }
