@@ -12,21 +12,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.rit.swen262.food.PantryRecord;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
 public final class SaveData {
+    public static final String saveDataFileName = "SaveData";
     private static Map<String, List<DailyHistoryComponent>> history = new HashMap<>();
     private static Map<String, UserData> userData = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
+    private static List<TeamData> teamData = new ArrayList<>();
 
-    public static final String saveDataFileName = "SaveData";
+    
 
     public static Map<String, List<DailyHistoryComponent>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
     public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
-
     public static void setHistory(Map<String, List<DailyHistoryComponent>> historyMap) {SaveData.history = historyMap;}
 
     public static void addUserData(UserData userDataService) {

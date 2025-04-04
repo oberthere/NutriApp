@@ -1,7 +1,11 @@
-package edu.rit.swen262.food;
+package edu.rit.swen262.history;
 
 import java.io.Serializable;
 import java.util.Map;
+
+import edu.rit.swen262.food.Ingredient;
+import edu.rit.swen262.food.PantryStock;
+import edu.rit.swen262.food.Recipe;
 
 public class PantryRecord implements Serializable {
   private static final long serialVersionUID = 1L;

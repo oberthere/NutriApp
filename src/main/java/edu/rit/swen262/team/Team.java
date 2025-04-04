@@ -12,28 +12,32 @@ import edu.rit.swen262.user.User;
 
 public class Team implements ChallengeCreator {
     private List<User> members;
-    private List<Entry<User, String>> logs;
+    private List<Entry<User, String>> notificationLogs;
     private Challenge challenge;
 
     public Team() {
-        logs = new ArrayList<>();
+        notificationLogs = new ArrayList<>();
     }
 
     public List<User> getMembers() {return this.members;}
-    public List<Entry<User, String>> getLogs() {return this.logs;}
     public Challenge getChallenge() {return this.challenge;}
+    public List<Entry<User, String>> getNotificationLogs() {return this.notificationLogs;}
     
-    public List<Entry<User, String>> getLogs(int index) {
-        if (index >= 0 && index < logs.size()) {
-            return List.of(logs.get(index));
+    public List<Entry<User, String>> getNotificationLogsFromIndex(int index) {
+        if (index >= 0 && index < notificationLogs.size()) {
+
+            List<Entry<User,String>> returnls = new ArrayList<>();
+
+            for (int i = index; i < notificationLogs.size(); i++) {
+                returnls.add(notificationLogs.get(index));
+            }
+            return returnls;
         }
-        else {
-            return List.of();
-        }
+        else {return List.of();}
     }
 
-    public void addToLogs(User user, String log) {
-        logs.add(new AbstractMap.SimpleEntry<>(user, log));
+    public void addToNotificationLogs(User user, String log) {
+        notificationLogs.add(new AbstractMap.SimpleEntry<>(user, log));
     }
 
     public void setChallengeCreator(ChallengeCreator challengeCreator) {
