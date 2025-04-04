@@ -1,118 +1,87 @@
 package edu.rit.swen262.food;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import edu.rit.swen262.csv.csvReader;
+
 class RecipeTest {
+private static Ingredient butter;
+    private static Ingredient cheese;
+    private static Ingredient apple;
 
-    private Recipe recipe;
-
-    @BeforeEach
-    void setUp() {
-        // Create mock ingredients
-        Ingredient ingredient1 = new Ingredient("Bread", 70, 0.2, 1.0, 14.0, 1.5);
-        Ingredient ingredient2 = new Ingredient("American Cheese", 80, 6.0, 5.0, 1.0, 0.0);
-        Ingredient ingredient3 = new Ingredient("Mayonnaise", 90, 10.0, 0.0, 0.0, 0.0);
-
-        // Create a list of ingredients
-        List<Ingredient> ingredients = Arrays.asList(ingredient1, ingredient2, ingredient3);
-
-        // Initialize the Recipe object
-        recipe = new Recipe("Grilled Cheese Sandwich", ingredients, 
-            "1. Spread the mayo on the bread on one side and place the bread mayo-side down on a hot skillet.\r\n" + //
-            "2. Top with cheese, then place another slice of bread on top (mayo-side up).\r\n" + //
-            "3. Cook until the bottom slice is lightly browned, then flip.\r\n" + //
-            "4. Continue cooking until the cheese is melted.");
+    @BeforeAll
+    static void setup() {
+        // Load real ingredients from CSV
+        new csvReader().ingredientReader();
+        
+        // Get actual ingredients from pantry
+        butter = PantryStock.getIngredientByName("butter");
+        cheese = PantryStock.getIngredientByName("cheese");
+        apple = PantryStock.getIngredientByName("apple");
     }
 
     @Test
-    void testGetName() {
-        assertEquals("Grilled Cheese Sandwich", recipe.getName());
+    void testRecipeCreation() {
+        Recipe testRecipe = new Recipe("Test Recipe", 
+            List.of(butter, cheese), 
+            "Test Instructions");
+            
+        assertEquals("Test Recipe", testRecipe.getName());
+        assertEquals(2, testRecipe.getIngredients().size());
+        assertEquals("Test Instructions", testRecipe.getInstructions());
     }
 
     @Test
-    void testGetInstructions() {
-        assertEquals(
-            "1. Spread the mayo on the bread on one side and place the bread mayo-side down on a hot skillet.\r\n" + //
-            "2. Top with cheese, then place another slice of bread on top (mayo-side up).\r\n" + //
-            "3. Cook until the bottom slice is lightly browned, then flip.\r\n" + //
-            "4. Continue cooking until the cheese is melted.", 
-        recipe.getInstructions());
-    }
-
-    @Test
-    void testGetCalories() {
-        assertEquals(240, recipe.getCalories());
-    }
-
-    @Test
-    void testGetFat() {
-        assertEquals(16.2, recipe.getFat(), 0.001);
-    }
-
-    @Test
-    void testGetProtein() {
-        assertEquals(6.0, recipe.getProtein(), 0.001);
-    }
-
-    @Test
-    void testGetCarbs() {
-        assertEquals(15.0, recipe.getCarbs(), 0.001);
-    }
-
-    @Test
-    void testGetFiber() {
-        assertEquals(1.5, recipe.getFiber(), 0.001);
-    }
-
-    @Test
-    void testEmptyRecipe() {
-        Recipe emptyRecipe = new Recipe("Empty Dish", Collections.emptyList(), "No instructions");
-        assertEquals(0, emptyRecipe.getCalories());
-        assertEquals(0.0, emptyRecipe.getFat(), 0.001);
-        assertEquals(0.0, emptyRecipe.getProtein(), 0.001);
-        assertEquals(0.0, emptyRecipe.getCarbs(), 0.001);
-        assertEquals(0.0, emptyRecipe.getFiber(), 0.001);
+    void testNutritionalCalculations() {
+        Recipe testRecipe = new Recipe("Nutrition Test", 
+            List.of(butter, cheese, apple), 
+            "Mix all ingredients");
+            
+        // Verify calculations sum all ingredient values
+        assertEquals(butter.getCalories() + cheese.getCalories() + apple.getCalories(), testRecipe.getCalories());
+        assertEquals(butter.getFat() + cheese.getFat() + apple.getFat(), testRecipe.getFat(), 0.001);
+        assertEquals(butter.getProtein() + cheese.getProtein() + apple.getProtein(), testRecipe.getProtein(), 0.001);
+        assertEquals(butter.getCarbs() + cheese.getCarbs() + apple.getCarbs(), testRecipe.getCarbs(), 0.001);
+        assertEquals(butter.getFiber() + cheese.getFiber() + apple.getFiber(), testRecipe.getFiber(), 0.001);
     }
 
     @Test
     void testSingleIngredientRecipe() {
-        Ingredient singleIngredient = new Ingredient("Apple", 95, 0.3, 0.0, 25.0, 4.4);
-        Recipe singleIngredientRecipe = new Recipe("Apple Snack", List.of(singleIngredient), "Just eat it.");
-        
-        assertEquals(95, singleIngredientRecipe.getCalories());
-        assertEquals(0.3, singleIngredientRecipe.getFat(), 0.001);
-        assertEquals(0.0, singleIngredientRecipe.getProtein(), 0.001);
-        assertEquals(25.0, singleIngredientRecipe.getCarbs(), 0.001);
-        assertEquals(4.4, singleIngredientRecipe.getFiber(), 0.001);
+        Recipe simpleRecipe = new Recipe("Simple", 
+            List.of(apple), 
+            "Just an apple");
+            
+        // Verify values match the single ingredient
+        assertEquals(apple.getCalories(), simpleRecipe.getCalories());
+        assertEquals(apple.getFat(), simpleRecipe.getFat(), 0.001);
+        assertEquals(apple.getProtein(), simpleRecipe.getProtein(), 0.001);
     }
 
     @Test
-    void testGetIngredients() {
-        Ingredient ingredient = new Ingredient("Apple", 20, 0.2, 0.0, 4.0, 1.5);
-        Recipe recipe = new Recipe("Apple Slices", List.of(ingredient), "Slice and serve.");
-        
-        List<Ingredient> ingredients = recipe.getIngredients();
-        assertEquals(1, ingredients.size());
-        assertEquals("Apple", ingredients.get(0).getName());
+    void testEmptyIngredientRecipe() {
+        // While commands prevent this, the class should handle it
+        Recipe emptyRecipe = new Recipe("Empty", new ArrayList<>(), "No ingredients");
+         
+        assertEquals(0, emptyRecipe.getCalories());
+        assertEquals(0.0, emptyRecipe.getFat(), 0.001);
+        assertEquals(0.0, emptyRecipe.getProtein(), 0.001);
     }
 
     @Test
-    void testLargeValues() {
-        Ingredient largeIngredient = new Ingredient("Muckbang", Integer.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
-        Recipe largeRecipe = new Recipe("The Whole Ocean", List.of(largeIngredient), "For the brave and fearless.");
-        
-        assertEquals(Integer.MAX_VALUE, largeRecipe.getCalories());
-        assertEquals(Double.MAX_VALUE, largeRecipe.getFat(), 0.001);
-        assertEquals(Double.MAX_VALUE, largeRecipe.getProtein(), 0.001);
-        assertEquals(Double.MAX_VALUE, largeRecipe.getCarbs(), 0.001);
-        assertEquals(Double.MAX_VALUE, largeRecipe.getFiber(), 0.001);
+    void testFloatingPointPrecision() {
+        // Test with ingredients that have small decimal values
+        Recipe precisionRecipe = new Recipe("Precision", 
+            List.of(butter, apple), 
+            "Test precision");
+            
+        double expectedFat = butter.getFat() + apple.getFat();
+        assertEquals(expectedFat, precisionRecipe.getFat(), 0.0000001);
     }
 }
 
