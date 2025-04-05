@@ -1,7 +1,5 @@
 package edu.rit.swen262.ui.pages;
 
-import org.apache.commons.lang3.ObjectUtils.Null;
-
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
 import edu.rit.swen262.ui.commands.SendTeamInviteCommand;

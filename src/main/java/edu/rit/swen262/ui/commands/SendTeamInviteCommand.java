@@ -1,9 +1,7 @@
 package edu.rit.swen262.ui.commands;
 
-import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
-import edu.rit.swen262.ui.pages.TeamPage;
 
 public class SendTeamInviteCommand extends UserCommand {
     private PageRunner pageRunner;
