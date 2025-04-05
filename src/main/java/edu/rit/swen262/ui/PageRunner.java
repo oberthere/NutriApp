@@ -113,7 +113,7 @@ public class PageRunner {
         csvReader reader = new csvReader();
         reader.ingredientReader();
         // reader.test();
-        SaveData.deserializeAndLoadSavedHistory();
+        SaveData.deserializeFromSave();
         pageData.loadUsersFromHistory();
     }
 
