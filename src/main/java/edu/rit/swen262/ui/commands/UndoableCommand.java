@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public abstract class UndoableCommand<T extends Object> extends UserCommand {
 
-  private Stack<T> commandDataStack;
+  private Stack<T> commandDataStack = new Stack<>();
 
   protected boolean isCommandDataEmpty() {
     return commandDataStack.isEmpty();
