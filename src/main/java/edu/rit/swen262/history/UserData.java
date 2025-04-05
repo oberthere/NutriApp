@@ -13,6 +13,7 @@ public class UserData implements Serializable {
 	private String username;
 	private String password;
 	private Set<TeamInvite> teamInvites;
+	private int teamNotificationIndex;
 	private Date birthdate;
 	private double height;
 

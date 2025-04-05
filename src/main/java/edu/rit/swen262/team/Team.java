@@ -6,6 +6,7 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.team.challenge.*;
@@ -19,7 +20,7 @@ public class Team implements ChallengeCreator {
 
     public Team(String teamName) {
         this.teamName = teamName;
-        notificationLogs = new ArrayList<>();
+        notificationLogs = new Stack<>();
     }
 
     public String getTeamName() {return this.teamName;}

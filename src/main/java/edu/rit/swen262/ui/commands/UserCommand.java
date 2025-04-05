@@ -8,6 +8,7 @@ public abstract class UserCommand {
     public String getName() {return this.nameString;}
     public String getHelp() {return this.helpString;}
     public boolean isActive() {return this.active;}
+    public void setActive(boolean bool) {this.active = bool;}
     public void performAction(String[] commandArgs) throws Exception {throw new UnsupportedOperationException("Method not implemented");}
 
     @Override

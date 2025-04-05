@@ -4,6 +4,7 @@ import java.util.Date;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.history.UserData;
+import edu.rit.swen262.team.Team;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 import edu.rit.swen262.user.components.GoalComponent;
 import edu.rit.swen262.user.components.ShoppingListComponent;
@@ -17,6 +18,8 @@ public class User {
     private GoalComponent goalComponent;
     private ShoppingListComponent shoppingListComponent;
     private DailyHistoryComponent dailyHistoryComponent;
+    private Team team;
+    private int teamNotificationIndex;
 
     /**
      * Constructor for when there are no previous record of the user
@@ -50,6 +53,7 @@ public class User {
     public GoalComponent getGoalComponent() {return this.goalComponent;}
     public ShoppingListComponent getShoppingListComponent() {return this.shoppingListComponent;}
     public DailyHistoryComponent getDailyHistoryComponent() {return this.dailyHistoryComponent;}
+    public Team getTeam() {return this.team;}
     public UserData createUserData() {return new UserData(username, password, birthdate, height);}
 
     public void setWeight(double weight) {this.weight = weight;}

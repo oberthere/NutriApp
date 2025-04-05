@@ -39,6 +39,7 @@ public class PageData {
     public PageRunner getPageRunner() {return this.pageRunner;}
 
     public void addUser(String name, User user) {this.users.put(name, user);}
+    public void addTeam(String name, Team team) {this.teams.put(name, team);}
     public void removeUser(String name) {this.users.remove(name);}
 
     /**
