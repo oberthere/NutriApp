@@ -37,4 +37,15 @@ public class UserData implements Serializable {
 	public String getPassword() {return this.password;}
 	public Date getBirthdate() {return this.birthdate;}
 	public double getHeight() {return this.height;}
+
+	public void updateUserData(UserData userData) {
+		if (this.username.equals(userData.getUsername())) {
+			if (!this.password.equals(userData.getPassword())) {
+				this.password = userData.getPassword();
+			}
+			if (this.height != userData.getHeight()) {
+				this.height = userData.getHeight();
+			}
+		}
+	}
 }
