@@ -17,7 +17,7 @@ public class PageRunner {
     private Page mainPage;
     private Page currentPage;
     private List<UserCommand> globalCommands = new ArrayList<>();
-    private Stack<UndoableCommand> undoableCommandHistory = new Stack<>();
+    private Stack<UndoableCommand<Object>> undoableCommandHistory = new Stack<>();
     private Scanner scanner;
 
     public PageRunner() {
@@ -37,7 +37,7 @@ public class PageRunner {
     public void setPage(Page page) {this.currentPage = page;}
     public void closeScanner() {scanner.close();this.scanner = null;}
 
-    public UndoableCommand popLastUndoableCommand() {
+    public UndoableCommand<Object> popLastUndoableCommand() {
         if (!undoableCommandHistory.isEmpty()) {
             return undoableCommandHistory.pop();
         }
@@ -49,6 +49,9 @@ public class PageRunner {
         for (UserCommand command : globalCommands) {
             System.out.println("  - " + command.getHelp());
         }
+        if (!undoableCommandHistory.isEmpty()) {
+            System.out.println("  - Undo - " + undoableCommandHistory.peek().getName());
+        }
     }
 
     private void registerGlobalCommands() {
@@ -56,6 +59,7 @@ public class PageRunner {
         globalCommands.add(new ExitCommand(this));
     }
 
+    @SuppressWarnings("unchecked")
     private void executeCommand(String input) {
         String[] commandArgs = input.split(" ");
 
@@ -69,6 +73,9 @@ public class PageRunner {
         for (UserCommand command : currentPage.getCommands()) {
             if (command.getName().equalsIgnoreCase(commandArgs[0])) {
                 command.performAction(commandArgs);
+                if (command instanceof UndoableCommand) {
+                    undoableCommandHistory.push((UndoableCommand<Object>) command);
+                }
                 return;
             }
         }

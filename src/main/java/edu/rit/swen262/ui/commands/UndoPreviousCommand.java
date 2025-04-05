@@ -13,7 +13,7 @@ public class UndoPreviousCommand extends UserCommand {
 
   @Override
   public void performAction(String[] commandArgs) {
-    UndoableCommand lastRanCommand = pageRunner.popLastUndoableCommand();
+    UndoableCommand<Object> lastRanCommand = pageRunner.popLastUndoableCommand();
     lastRanCommand.undo();
     // TODO Save to history?
   }

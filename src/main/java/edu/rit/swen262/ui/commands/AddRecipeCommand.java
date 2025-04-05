@@ -7,7 +7,8 @@ import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 
-public class AddRecipeCommand extends UndoableCommand {
+public class AddRecipeCommand extends UndoableCommand<Recipe> {
+
     public AddRecipeCommand() {
         super.nameString = "AddRecipe";
         super.helpString = "AddRecipe [Name] [Instruction] [IngredientID] [IngredientID] ...";
@@ -67,7 +68,21 @@ public class AddRecipeCommand extends UndoableCommand {
         }
 
         // add the recipe to PantryStock
-        PantryStock.addRecipe(new Recipe(parsedArgs.get(1), ingredients, parsedArgs.get(2)));
+        Recipe createdRecipe = new Recipe(parsedArgs.get(1), ingredients, parsedArgs.get(2));
+        PantryStock.addRecipe(createdRecipe);
+        super.addNextCommandDataToStack(createdRecipe);
         System.out.println("Successfully added Recipe \"" + parsedArgs.get(1) + "\"");
+    }
+
+
+    @Override
+    public void undo() {
+      if (super.isCommandDataEmpty()) {
+        System.out.println("Error: No recipe to undo.");
+        return;
+      }
+      Recipe lastRecipeAdded = super.popLastCommandData();
+      PantryStock.removeRecipe(lastRecipeAdded);
+      System.out.println("Successfully undone `Add Recipe \"" + lastRecipeAdded.getName() + "\"");
     }
 }

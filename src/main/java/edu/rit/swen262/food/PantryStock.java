@@ -70,6 +70,11 @@ public final class PantryStock {
         PantryStock.recipeByID.put(recipe.getID(), recipe);
         PantryStock.recipeRecord.put(recipe.getName(), recipe);
     }
+    
+    public static void removeRecipe(Recipe recipe) {
+      PantryStock.recipeByID.remove(recipe.getID());
+      PantryStock.recipeRecord.remove(recipe.getName());
+    }
 
     public static Map<Integer, Recipe> getRecipeIDMap() {
         return Collections.unmodifiableMap(PantryStock.recipeByID);
