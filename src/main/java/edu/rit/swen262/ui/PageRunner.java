@@ -75,6 +75,7 @@ public class PageRunner {
 
         // Check local commands
         for (UserCommand command : currentPage.getCommands()) {
+            if (command.isActive() == false) {continue;}
             if (command.getName().equalsIgnoreCase(commandArgs[0])) {
                 command.performAction(commandArgs);
                 if (command instanceof UndoableCommand) {
