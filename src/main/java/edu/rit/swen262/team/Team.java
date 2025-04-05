@@ -40,6 +40,15 @@ public class Team implements ChallengeCreator {
         notificationLogs.add(new AbstractMap.SimpleEntry<>(user, log));
     }
 
+    public void acceptMember(User user) {
+        this.members.add(user);
+    }
+
+    public void sendInvite(String username) {
+        TeamInvite invite = new TeamInvite(this);
+        
+    }
+
     public void setChallengeCreator(ChallengeCreator challengeCreator) {
         // TODO
     }

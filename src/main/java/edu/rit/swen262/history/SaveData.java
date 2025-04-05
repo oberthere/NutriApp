@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.rit.swen262.team.TeamInvite;
+import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
@@ -19,21 +21,35 @@ import edu.rit.swen262.workout.Workout;
 public final class SaveData {
     public static final String saveDataFileName = "SaveData";
     private static Map<String, List<DailyHistoryComponent>> history = new HashMap<>();
-    private static Map<String, UserData> userData = new HashMap<>();
+    private static Map<String, UserData> userDataRecord = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
     private static List<TeamData> teamData = new ArrayList<>();
 
     
-
+    //#region DailyHistory
     public static Map<String, List<DailyHistoryComponent>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
-    public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userData);}
+    public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userDataRecord);}
     public static void setHistory(Map<String, List<DailyHistoryComponent>> historyMap) {SaveData.history = historyMap;}
+    //#endregion
 
+    //#region Users
     public static void addUserData(UserData userDataService) {
         String username = userDataService.getUsername();
-        SaveData.userData.put(username, userDataService);
+        SaveData.userDataRecord.put(username, userDataService);
         serializeHistoryToSave();
     }
+
+    public static void addTeamInviteToUser(TeamInvite invite, String username) {
+        UserData userData = userDataRecord.get(username);
+        if (userData == null) {
+            System.out.println("SaveData: Unable to find user named " + username);
+            return;
+        }
+
+        userData.addTeamInvite(invite);
+        serializeHistoryToSave();
+    }
+    //#endregion
 
     /*
      * The DailyHistory added to the history
@@ -96,7 +112,7 @@ public final class SaveData {
             FileOutputStream file = new FileOutputStream("src/main/resources/data/" + saveDataFileName);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(history);
-            out.writeObject(userData);
+            out.writeObject(userDataRecord);
             out.writeObject(pantryRecord);
             out.close();
             file.close();
@@ -122,13 +138,13 @@ public final class SaveData {
             FileInputStream fileInput = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileInput);
             Map<String, List<DailyHistoryComponent>> tempHistory = (Map<String, List<DailyHistoryComponent>>) in.readObject();
-            Map<String, UserData> tempUserData = (Map<String, UserData>) in.readObject();
+            Map<String, UserData> tempUserDataRecord = (Map<String, UserData>) in.readObject();
             PantryRecord tempPantryRecord = (PantryRecord) in.readObject();
             in.close();
             fileInput.close();
 
             setHistory(tempHistory);
-            userData = tempUserData;
+            userDataRecord = tempUserDataRecord;
             pantryRecord = tempPantryRecord;
             // Reloads pantry data
             pantryRecord.readToPantryStock();
