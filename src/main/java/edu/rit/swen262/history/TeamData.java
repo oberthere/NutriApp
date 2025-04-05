@@ -10,16 +10,13 @@ import edu.rit.swen262.team.challenge.Challenge;
 import edu.rit.swen262.user.User;
 
 public class TeamData implements Serializable {
-    private static int currentId = 0;
-
-    private int id;
+    private String teamName;
     private List<String> members;
     private List<Entry<User, String>> notificationLogs;
     private Challenge challenge;
     
     public TeamData(Team team) {
-        TeamData.currentId++;
-        this.id = TeamData.currentId;
+        this.teamName = team.getTeamName();
         this.challenge = team.getChallenge();
         this.notificationLogs = team.getNotificationLogs();
 

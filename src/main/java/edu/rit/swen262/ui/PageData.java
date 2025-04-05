@@ -8,12 +8,14 @@ import java.util.Map;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.history.UserData;
+import edu.rit.swen262.team.Team;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 import edu.rit.swen262.user.components.GoalComponent;
 
 public class PageData {
     private Map<String, User> users;
+    private Map<String, Team> teams;
     private static Date currentDate = new Date();
     private User currentUser;
     private PageRunner pageRunner;

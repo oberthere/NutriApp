@@ -12,14 +12,17 @@ import edu.rit.swen262.team.challenge.*;
 import edu.rit.swen262.user.User;
 
 public class Team implements ChallengeCreator {
+    private String teamName;
     private List<User> members;
     private List<Entry<User, String>> notificationLogs;
     private Challenge challenge;
 
-    public Team() {
+    public Team(String teamName) {
+        this.teamName = teamName;
         notificationLogs = new ArrayList<>();
     }
 
+    public String getTeamName() {return this.teamName;}
     public List<User> getMembers() {return this.members;}
     public Challenge getChallenge() {return this.challenge;}
     public List<Entry<User, String>> getNotificationLogs() {return this.notificationLogs;}
