@@ -96,6 +96,12 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
         this.eatenMeals.add(meal);
         this.netCalories += meal.getCalories();
     }
+    
+    public void removeEatenMeal(Meal meal) {
+        this.eatenMeals.remove(meal);
+        this.preparedMeals.add(meal);
+        this.netCalories -= meal.getCalories();
+    }
 
     /**
      * Suggests a workout based on excess calories.

@@ -75,6 +75,6 @@ public class AddMealCommand extends UndoableCommand<Meal> {
     }
     Meal meal = super.popLastCommandData();
     dailyHistory.removeMeal(meal);
-    System.out.println("Successfully undone cretion of Meal " + meal.getName());
+    System.out.println("Successfully undone creation of Meal " + meal.getName());
   }
 }
