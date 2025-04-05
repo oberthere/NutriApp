@@ -35,6 +35,7 @@ public class PageData {
     public User getCurrentUser() {return this.currentUser;}
 
     public static Date getCurrentDate() {return PageData.currentDate;}
+    public static void setCurrentDate(Date date) { PageData.currentDate = date;}
     public void setCurrentUser(User user) {this.currentUser = user;}
     public PageRunner getPageRunner() {return this.pageRunner;}
 
