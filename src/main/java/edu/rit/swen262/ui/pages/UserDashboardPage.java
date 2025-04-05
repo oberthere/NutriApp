@@ -1,6 +1,7 @@
 package edu.rit.swen262.ui.pages;
 
 import edu.rit.swen262.ui.PageData;
+import edu.rit.swen262.ui.commands.ChangePassword;
 import edu.rit.swen262.ui.commands.GoCommand;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.components.GoalComponent;
@@ -12,6 +13,7 @@ public class UserDashboardPage extends Page {
         this.pageName = "User Dashboard"; // Assign page name
         this.userCommands = new ArrayList<>();
         this.userCommands.add(new GoCommand(pageData.getPageRunner()));
+        this.userCommands.add(new ChangePassword(pageData));
     }
 
     @Override
