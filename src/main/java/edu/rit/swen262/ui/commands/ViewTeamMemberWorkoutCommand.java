@@ -37,8 +37,8 @@ public class ViewTeamMemberWorkoutCommand extends UserCommand {
 
         TeamData teamData = new TeamData(pageRunner.getPageData().getCurrentUser().getTeam());
         System.out.println("Team Workouts:");
-        for (Map.Entry<User, String> entry : teamData.getNotificationLogs()) {
-            System.out.println("  - " + entry.getKey().getName() + ": " + entry.getValue());
+        for (Map.Entry<String, String> entry : teamData.getNotificationLogs()) {
+            System.out.println("  - " + entry.getKey() + ": " + entry.getValue());
         }
     }
 }

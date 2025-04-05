@@ -26,7 +26,7 @@ public class AddTeamCommand extends UserCommand {
         }
 
         String teamName = commandArgs[1];
-        Team newTeam = new Team(teamName);
+        Team newTeam = new Team(pageRunner.getPageData(), teamName);
         pageRunner.getPageData().addTeam(teamName, newTeam);
         SaveData.serializeHistoryToSave();
     }

@@ -9,19 +9,29 @@ import java.util.List;
 import java.util.Stack;
 
 import edu.rit.swen262.history.SaveData;
+import edu.rit.swen262.history.TeamData;
 import edu.rit.swen262.team.challenge.*;
+import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 
 public class Team implements ChallengeCreator {
+    private PageData pageData;
     private String teamName;
     private List<User> members;
     private List<Entry<User, String>> notificationLogs;
     private Challenge challenge;
 
-    public Team(String teamName) {
+    public Team(PageData pageData, String teamName) {
+        this.pageData = pageData;
         this.teamName = teamName;
         members = new ArrayList<User>();
-        notificationLogs = new Stack<>();
+        notificationLogs = new ArrayList<>();
+    }
+
+    public Team(PageData pageData, TeamData teamData) {
+        this.pageData = pageData;
+        this.teamName = teamData.getTeamName();
+        
     }
 
     public String getTeamName() {return this.teamName;}
