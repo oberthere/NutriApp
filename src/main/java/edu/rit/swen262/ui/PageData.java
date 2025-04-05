@@ -23,6 +23,7 @@ public class PageData {
     public PageData(PageRunner pageRunner) {
         this.pageRunner = pageRunner;
         this.users = new HashMap<>();
+        this.teams = new HashMap<>();
         loadUsersFromHistory(); // Load saved user data
     }
     
@@ -40,7 +41,11 @@ public class PageData {
     public PageRunner getPageRunner() {return this.pageRunner;}
 
     public void addUser(String name, User user) {this.users.put(name, user);}
-    public void addTeam(String name, Team team) {this.teams.put(name, team);}
+    public void addTeam(String name, Team team) {
+        this.teams.put(name, team);
+        team.acceptMember(currentUser);
+        currentUser.setTeam(team);
+    }
     public void removeUser(String name) {this.users.remove(name);}
 
     /**

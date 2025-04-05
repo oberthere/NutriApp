@@ -152,6 +152,7 @@ public class PageRunner {
         Page historyPage = new HistoryPage(pageData);
         Page workoutPage = new WorkoutPage(pageData);
         Page shoppingListPage = new ShoppingListPage(pageData);
+        Page teamPage = new TeamPage(pageData);
 
         // Set up page hierarchy
         mainPage.setChildrenPage(List.of(userSetupPage, userDashboardPage, userGuestPage));
@@ -161,11 +162,12 @@ public class PageRunner {
 
         userSetupPage.setChildrenPage(List.of(userDashboardPage));
         
-        userDashboardPage.setChildrenPage(List.of(foodPage, historyPage, workoutPage, shoppingListPage));
+        userDashboardPage.setChildrenPage(List.of(foodPage, historyPage, workoutPage, shoppingListPage, teamPage));
         foodPage.setParentPage(userDashboardPage);
         historyPage.setParentPage(userDashboardPage);
         workoutPage.setParentPage(userDashboardPage);
         shoppingListPage.setParentPage(userDashboardPage);
+        teamPage.setParentPage(userDashboardPage);
 
         return mainPage;
     }

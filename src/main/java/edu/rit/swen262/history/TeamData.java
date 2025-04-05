@@ -3,7 +3,6 @@ package edu.rit.swen262.history;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import java.util.Map.Entry;
 
 import edu.rit.swen262.team.Team;
@@ -27,5 +26,13 @@ public class TeamData implements Serializable {
         }
         this.members = memberNames;
     }
+
+    public String getTeamName() {return this.teamName;}
+
+    public List<String> getMembers() {return this.members;}
+
+    public List<Entry<User, String>> getNotificationLogs() {return this.notificationLogs;}
+
+    public Challenge getChallenge() {return this.challenge;}
 
 }

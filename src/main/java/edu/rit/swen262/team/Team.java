@@ -20,6 +20,7 @@ public class Team implements ChallengeCreator {
 
     public Team(String teamName) {
         this.teamName = teamName;
+        members = new ArrayList<User>();
         notificationLogs = new Stack<>();
     }
 
