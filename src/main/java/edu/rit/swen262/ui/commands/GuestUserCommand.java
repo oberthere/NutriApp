@@ -19,7 +19,7 @@ public class GuestUserCommand extends UserCommand {
      * @param commandArgs SelectUser [Username]
      */
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         Page currentPage = pageRunner.getCurrentPage();
         List<Page> childrenPages = currentPage.getChildrenPage();
 

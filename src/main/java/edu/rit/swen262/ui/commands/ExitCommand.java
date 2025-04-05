@@ -16,10 +16,9 @@ public class ExitCommand extends UserCommand{
     }
 
     @Override 
-    public void performAction(String[] commandArgs){
+    public void performAction(String[] commandArgs) throws Exception{
         if (commandArgs.length != 1) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         System.out.println("Saving date...");

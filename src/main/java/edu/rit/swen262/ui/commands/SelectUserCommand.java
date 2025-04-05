@@ -23,14 +23,12 @@ public class SelectUserCommand extends UserCommand {
      * @param commandArgs SelectUser [Username] [Password]
      */
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         // Ensure proper length
         if (commandArgs.length < 3) {
-            System.out.println("Error: Please provide a username and password. Usage: Select [Username] [Password]");
-            return;
+            throw new Exception("Error: Please provide a username and password. Usage: Select [Username] [Password]");
         } else if (commandArgs.length != 3) {
-            System.out.println("Error: Too many arguments. Usage: Select [Username] [Password]");
-            return;
+            throw new Exception("Error: Too many arguments. Usage: Select [Username] [Password]");
         }
 
         String username = commandArgs[1];
@@ -39,12 +37,10 @@ public class SelectUserCommand extends UserCommand {
 
         // If a username does not exist, return error
         if (user == null) {
-            System.out.println("Error: User '" + username + "' not found.");
-            return;
+            throw new Exception("Error: User '" + username + "' not found.");
         }
         if (!password.equals(user.getPassword())) {
-            System.out.println("Error: Invalid Password");
-            return;
+            throw new Exception("Error: Invalid Password");
         }
 
         pageData.setCurrentUser(user);

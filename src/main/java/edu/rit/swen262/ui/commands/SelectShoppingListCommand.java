@@ -21,11 +21,10 @@ public class SelectShoppingListCommand extends UserCommand {
      * @param commandArgs Select Shopping List [Low Ingredient] | Recipe [Recipe Name]
      */
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         // Ensure proper length
         if (commandArgs.length < 2 || commandArgs.length > 3) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         pageData.getCurrentUser().setShoppingListComponent(new ShoppingListComponent());
@@ -38,16 +37,14 @@ public class SelectShoppingListCommand extends UserCommand {
         } else if (commandArgs.length == 3 && commandArgs[1].equals("Recipe")) {
             Recipe recipe = PantryStock.getRecipeRecord().get(commandArgs[2]);
             if (recipe == null) {
-                System.out.println("Error: Recipe name not found. Usage: " + getHelp());
-                return;
+                throw new Exception("Error: Recipe name not found. Usage: " + getHelp());
             }
             shoppingListComponent.setCriteria(new ShopCriteriaLowRecipeStrategy());
             shoppingListComponent.generateShoppingList(recipe);
             
             System.out.println("Succesfully selected the Shopping List for " + recipe.getName());
         } else {
-            System.out.println("Error: Invalid ShoppingList Selection: Check your arguments and try again. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid ShoppingList Selection: Check your arguments and try again. Usage: " + getHelp());
         }
         pageData.getCurrentUser().setShoppingListComponent(shoppingListComponent);
     }

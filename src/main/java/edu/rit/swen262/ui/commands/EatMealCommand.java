@@ -15,10 +15,9 @@ public class EatMealCommand extends UndoableCommand {
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length != 2) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
         try {
             DailyHistoryComponent dailyHistory = pageData.getCurrentUser().getDailyHistoryComponent();
@@ -29,7 +28,7 @@ public class EatMealCommand extends UndoableCommand {
                     return;
                 }
             }
-            System.out.println("No Meal of that name. Try again with: " + getHelp());
+            throw new Exception("No Meal of that name. Try again with: " + getHelp());
         } catch (NetCaloriesOverflowException e) {
             e.printStackTrace();
         }

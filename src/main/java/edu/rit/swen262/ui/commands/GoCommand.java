@@ -30,10 +30,9 @@ public class GoCommand extends UserCommand {
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length != 2) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         String pageName = commandArgs[1];
@@ -51,7 +50,7 @@ public class GoCommand extends UserCommand {
 
         // added this to display that the page was not found instead of printing nothing
         if (!pageFound) {
-            System.out.println("Error: Invalid Page Name. Usage: " + getHelp());
+            throw new Exception("Error: Invalid Page Name. Usage: " + getHelp());
         }
     }
 }

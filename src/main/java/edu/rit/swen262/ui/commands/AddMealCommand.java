@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.food.MealType;
 import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
@@ -13,7 +14,7 @@ import edu.rit.swen262.other.exception.LowStockException;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 
-public class AddMealCommand extends UndoableCommand {
+public class AddMealCommand extends UndoableCommand<Meal> {
     private PageData pageData;
 
     public AddMealCommand(PageData pageData) {
@@ -42,10 +43,9 @@ public class AddMealCommand extends UndoableCommand {
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length < 4) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
         
         try {
@@ -58,10 +58,10 @@ public class AddMealCommand extends UndoableCommand {
                 dailyHistory.prepareMeal(name, recipes, mealType);
                 System.out.println("Successfully added Meal " + commandArgs[1]);
             } catch (LowStockException e) {
-                System.out.println("Low Stock Exception. Go to ShoppingList to see the low ingredients");
+                throw new Exception("Low Stock Exception. Go to ShoppingList to see the low ingredients");
             }
         } catch (InvalidMealCreation e) {
-            System.out.println("Invalid Meal Creation: Check your arguments and try again. " + getHelp());
+            throw new Exception("Invalid Meal Creation: Check your arguments and try again. " + getHelp());
         }
     }
 }

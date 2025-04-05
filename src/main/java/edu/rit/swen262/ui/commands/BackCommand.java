@@ -13,10 +13,9 @@ public class BackCommand extends UserCommand{
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length != 1) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         Page currentPage = pageRunner.getCurrentPage();
@@ -26,7 +25,7 @@ public class BackCommand extends UserCommand{
             System.out.println("\nGoing back to " + parentPage.getPageName());
             pageRunner.setPage(parentPage);
         } else {
-            System.out.println("Error: No previous page to go back to.");
+            throw new Exception("Error: No previous page to go back to.");
         }
     }
 }

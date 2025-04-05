@@ -6,7 +6,7 @@ public abstract class UserCommand {
 
     public String getName() {return this.nameString;}
     public String getHelp() {return this.helpString;}
-    public void performAction(String[] commandArgs) {throw new UnsupportedOperationException("Method not implemented");}
+    public void performAction(String[] commandArgs) throws Exception {throw new UnsupportedOperationException("Method not implemented");}
 
     @Override
     public String toString() {

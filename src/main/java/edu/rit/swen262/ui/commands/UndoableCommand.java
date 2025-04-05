@@ -22,7 +22,7 @@ public abstract class UndoableCommand<T extends Object> extends UserCommand {
     commandDataStack.push(data);
   }
 
-  public void undo() {
+  public void undo() throws Exception {
     throw new UnsupportedOperationException("Method not implemented");
   }
 }

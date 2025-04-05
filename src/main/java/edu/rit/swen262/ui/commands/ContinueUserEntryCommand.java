@@ -15,12 +15,11 @@ public class ContinueUserEntryCommand extends UserCommand {
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
 
         // ensure length is valid
         if (commandArgs.length < 2) {
-            System.out.println("Error: Missing argument. Usage: ContinueUserEntry [meal/workout/history]");
-            return;
+            throw new Exception("Error: Missing argument. Usage: ContinueUserEntry [meal/workout/history]");
         }
 
         String choice = commandArgs[1].toLowerCase();
@@ -38,6 +37,6 @@ public class ContinueUserEntryCommand extends UserCommand {
             }
         }
         
-        System.out.println("Error: Invalid choice or corresponding page not found.");
+        throw new Exception("Error: Invalid choice or corresponding page not found.");
     }
 }

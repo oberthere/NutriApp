@@ -25,10 +25,9 @@ public class AddWorkoutCommand extends UserCommand {
      * @param commandArgs AddWorkout [workoutName] [durationMin] [intensity]
      */
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length != 4) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         String workoutName = commandArgs[1];
@@ -39,13 +38,11 @@ public class AddWorkoutCommand extends UserCommand {
         try {
             durationMin = Integer.parseInt(commandArgs[2]);
         } catch (NumberFormatException e) {
-            System.out.println("Error: Duration must be an integer.");
-            return;
+            throw new Exception("Error: Duration must be an integer.");
         }
     
         if (durationMin <= 0) {
-            System.out.println("Error: Duration must be a positive integer.");
-            return;
+            throw new Exception("Error: Duration must be a positive integer.");
         }
 
         // uses the getIntensityStrategy helper method to get the IntensityStrategy
