@@ -54,7 +54,7 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
     public List<Workout> getWorkouts() {return workouts;}
     public int getNetCalories() {return netCalories;}
 
-    public void prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
+    public Meal prepareMeal(String mealName, List<Recipe> recipes, MealType mealType) throws LowStockException {
         List<Ingredient> lowStockIngredients = new ArrayList<>();
         Map<Ingredient, Integer> record = PantryStock.getAllIngredients();
 
@@ -75,6 +75,11 @@ public class DailyHistoryComponent implements Serializable { // Now serializable
 
         Meal newMeal = new Meal(mealName, recipes, mealType);
         this.preparedMeals.add(newMeal);
+        return newMeal;
+    }
+    
+    public void removeMeal(Meal meal) {
+      this.preparedMeals.remove(meal);
     }
 
     public void eatMeal(Meal meal) throws NetCaloriesOverflowException {

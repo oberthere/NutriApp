@@ -55,8 +55,9 @@ public class AddMealCommand extends UndoableCommand<Meal> {
             
             try {
                 DailyHistoryComponent dailyHistory = pageData.getCurrentUser().getDailyHistoryComponent();
-                dailyHistory.prepareMeal(name, recipes, mealType);
-                System.out.println("Successfully added Meal " + commandArgs[1]);
+                Meal newMeal = dailyHistory.prepareMeal(name, recipes, mealType);
+                super.addNextCommandDataToStack(newMeal);
+                System.out.println("Successfully added Meal " + newMeal.getName());
             } catch (LowStockException e) {
                 throw new Exception("Low Stock Exception. Go to ShoppingList to see the low ingredients");
             }
@@ -64,4 +65,16 @@ public class AddMealCommand extends UndoableCommand<Meal> {
             throw new Exception("Invalid Meal Creation: Check your arguments and try again. " + getHelp());
         }
     }
+    
+  @Override
+  public void undo() throws Exception {
+    DailyHistoryComponent dailyHistory = pageData.getCurrentUser().getDailyHistoryComponent();
+    
+    if (super.isCommandDataEmpty()) {
+      throw new Exception("No created meal to undo");
+    }
+    Meal meal = super.popLastCommandData();
+    dailyHistory.removeMeal(meal);
+    System.out.println("Successfully undone cretion of Meal " + meal.getName());
+  }
 }
