@@ -57,7 +57,7 @@ public class PageData {
      */
     public void loadUsersFromHistory() {
         System.out.println("Loading saved users from history...");
-        SaveData.deserializeAndLoadSavedHistory();
+        SaveData.deserializeFromSave();
         Map<String, List<DailyHistoryComponent>> history = SaveData.getHistory();
         Map<String, UserData> userData = SaveData.getUserData();
     

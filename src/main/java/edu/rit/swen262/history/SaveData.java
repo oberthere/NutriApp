@@ -23,14 +23,12 @@ public final class SaveData {
     private static Map<String, List<DailyHistoryComponent>> history = new HashMap<>();
     private static Map<String, UserData> userDataRecord = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
-    private static Map<String, TeamData> teamData = new HashMap<>();
+    private static Map<String, TeamData> teamDataRecord = new HashMap<>();
 
     
     //#region DailyHistory
     public static Map<String, List<DailyHistoryComponent>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
-    public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userDataRecord);}
-    public static void setHistory(Map<String, List<DailyHistoryComponent>> historyMap) {SaveData.history = historyMap;}
-    //#endregion
+    public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userDataRecord);}    //#endregion
 
     //#region Users
     public static void addUserData(UserData userDataService) {
@@ -114,18 +112,19 @@ public final class SaveData {
             out.writeObject(history);
             out.writeObject(userDataRecord);
             out.writeObject(pantryRecord);
+            out.writeObject(teamDataRecord);
             out.close();
             file.close();
 
-            System.out.println("Personal History has been successfully saved to file.");
+            System.out.println("Data has been successfully saved to file.");
         } catch (IOException e) {
-            System.out.println("Unsuccessful attempt in saving Personal History.");
+            System.out.println("Unsuccessful attempt in saving Data.");
             e.printStackTrace();
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static void deserializeAndLoadSavedHistory() {
+    public static void deserializeFromSave() {
         try {
             File file = new File("src/main/resources/data/" + saveDataFileName);
 
@@ -140,10 +139,12 @@ public final class SaveData {
             Map<String, List<DailyHistoryComponent>> tempHistory = (Map<String, List<DailyHistoryComponent>>) in.readObject();
             Map<String, UserData> tempUserDataRecord = (Map<String, UserData>) in.readObject();
             PantryRecord tempPantryRecord = (PantryRecord) in.readObject();
+            Map<String, TeamData> tempTeamDataRecord = (Map<String, TeamData>) in.readObject();
+            
             in.close();
             fileInput.close();
 
-            setHistory(tempHistory);
+            history = tempHistory;
             userDataRecord = tempUserDataRecord;
             pantryRecord = tempPantryRecord;
             // Reloads pantry data
