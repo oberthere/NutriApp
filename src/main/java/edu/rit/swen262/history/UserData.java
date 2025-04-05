@@ -8,7 +8,7 @@ import java.util.Set;
 import edu.rit.swen262.team.TeamInvite;
 
 public class UserData implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private String username;
 	private String password;
