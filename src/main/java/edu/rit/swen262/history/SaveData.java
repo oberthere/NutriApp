@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.rit.swen262.team.Team;
 import edu.rit.swen262.team.TeamInvite;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
@@ -51,6 +52,11 @@ public final class SaveData {
     }
     //#endregion
 
+    //#region Team
+    public static void addTeam(Team team) {
+        // SaveData.teamDataRecord.put(teamData.getTeamName(), teamData)
+    }
+    //#endregion
     /*
      * The DailyHistory added to the history
      */
