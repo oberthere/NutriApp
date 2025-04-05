@@ -25,10 +25,9 @@ public class CreateUserCommand extends UserCommand {
      * @param commandArgs CreateUser [Username, Password, Height, Weight, MM/dd/yyyy Birthday]
      */
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length < 6) {
-            System.out.println("Error: Invalid number of arguments. Usage: CreateUser [Username] [Password] [Height in inches] [Weight in pounds] [Birthday in MM/dd/yyyy]");
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: CreateUser [Username] [Password] [Height in inches] [Weight in pounds] [Birthday in MM/dd/yyyy]");
         }
 
         try {
@@ -36,8 +35,7 @@ public class CreateUserCommand extends UserCommand {
             String username = commandArgs[1];
 
             if (pageData.getUser(username) != null) {
-                System.out.println("Error: User '" + username + "' already exists. Choose a different name.");
-                return;
+                throw new Exception("Error: User '" + username + "' already exists. Choose a different name.");
             }
 
             String password = commandArgs[2];
@@ -58,12 +56,9 @@ public class CreateUserCommand extends UserCommand {
 
             System.out.println("\nUser created successfully: " + username);
         } catch (NumberFormatException e) {
-            System.out.println("Error: Height and weight must be numeric values.");
+            throw new Exception("Error: Height and weight must be numeric values.");
         } catch (ParseException e) {
-            System.out.println("Error: Invalid date format. Please use MM/dd/yyyy.");
+            throw new Exception("Error: Invalid date format. Please use MM/dd/yyyy.");
         }
     }
-
-    @Override 
-    public String toString() {return super.toString();}
 }

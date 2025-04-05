@@ -36,6 +36,10 @@ public class PageRunner {
 
     public void setPage(Page page) {this.currentPage = page;}
     public void closeScanner() {scanner.close();this.scanner = null;}
+    
+    public boolean isCommandHistoryEmpty() {
+        return undoableCommandHistory.isEmpty();
+    }
 
     public UndoableCommand<Object> popLastUndoableCommand() {
         if (!undoableCommandHistory.isEmpty()) {
@@ -60,7 +64,7 @@ public class PageRunner {
     }
 
     @SuppressWarnings("unchecked")
-    private void executeCommand(String input) {
+    private void executeCommand(String input) throws Exception {
         String[] commandArgs = input.split(" ");
 
         // Validate input
@@ -71,6 +75,7 @@ public class PageRunner {
 
         // Check local commands
         for (UserCommand command : currentPage.getCommands()) {
+            if (command.isActive() == false) {continue;}
             if (command.getName().equalsIgnoreCase(commandArgs[0])) {
                 command.performAction(commandArgs);
                 if (command instanceof UndoableCommand) {
@@ -86,6 +91,13 @@ public class PageRunner {
                 command.performAction(commandArgs);
                 return;
             }
+        }
+        
+        // Check undo command
+        UndoPreviousCommand undoCommand = new UndoPreviousCommand(this);
+        if (undoCommand.getName().equalsIgnoreCase(commandArgs[0])) {
+            undoCommand.performAction(commandArgs);
+            return;
         }
 
         System.out.println("Invalid command. Try again.");
@@ -113,13 +125,16 @@ public class PageRunner {
 
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
-
-            if (input.equalsIgnoreCase("Exit")) {
+            
+            try {
+                if (input.equalsIgnoreCase("Exit")) {
+                    executeCommand(input);
+                    break;
+                }
                 executeCommand(input);
-                break;
+            } catch (Exception exception) {
+                System.out.println(exception.getMessage());
             }
-
-            executeCommand(input);
 
             System.out.print("\nPress Enter to continue...");
             getScannerInput();

@@ -15,10 +15,9 @@ public class AddRecipeCommand extends UndoableCommand<Recipe> {
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length < 4) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         // build the args with spaces inside quotes
@@ -44,14 +43,12 @@ public class AddRecipeCommand extends UndoableCommand<Recipe> {
         }
 
         if (inQuotes) {
-            System.out.println("Error: Mismatched quotes in arguments.");
-            return;
+            throw new Exception("Error: Mismatched quotes in arguments.");
         }
 
         // make sure there is enough args after parsing
         if (parsedArgs.size() < 4) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         // parse the ingredient IDs
@@ -62,8 +59,7 @@ public class AddRecipeCommand extends UndoableCommand<Recipe> {
                 Ingredient ingredient = PantryStock.getIngredientByID(id);
                 ingredients.add(ingredient);
             } catch (NumberFormatException e) {
-                System.out.println("Error: Invalid ingredient ID: " + parsedArgs.get(i));
-                return;
+                throw new Exception("Error: Invalid ingredient ID: " + parsedArgs.get(i));
             }
         }
 
@@ -76,10 +72,9 @@ public class AddRecipeCommand extends UndoableCommand<Recipe> {
 
 
     @Override
-    public void undo() {
+    public void undo() throws Exception {
       if (super.isCommandDataEmpty()) {
-        System.out.println("Error: No recipe to undo.");
-        return;
+        throw new Exception("Error: No recipe to undo.");
       }
       Recipe lastRecipeAdded = super.popLastCommandData();
       PantryStock.removeRecipe(lastRecipeAdded);

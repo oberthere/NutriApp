@@ -74,10 +74,9 @@ public class GetIngredientsCommand extends UserCommand {
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length < 2 || commandArgs.length > 3) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         if (commandArgs.length < 3) {
@@ -93,7 +92,7 @@ public class GetIngredientsCommand extends UserCommand {
                 stock = PantryStock.getIngredientCountByName(commandArgs[1].toLowerCase());
             }
             if (search == null || stock == 0) {
-                System.out.println("Error: That ingredient could not be found. Try again: " + getHelp());
+                throw new Exception("Error: That ingredient could not be found. Try again: " + getHelp());
             } else {System.out.println("\t- " + search + " [Stock: " + stock + "]");}
         } else {
             updateIngredientList(10);
@@ -103,17 +102,14 @@ public class GetIngredientsCommand extends UserCommand {
             try {
                 pageNumber = Integer.parseInt(commandArgs[2]);
             } catch (NumberFormatException e) {
-                System.out.println("Error: Page must be a number. Usage: " + getHelp());
-                return;
+                throw new Exception("Error: Page must be a number. Usage: " + getHelp());
             }
             
             // checks that pageNumber is within the valid range and if its a positive number
             if (pageNumber >= ingredientList.size()) {
-                System.out.println("Error: Page number is too large. Usage: " + getHelp());
-                return;
+                throw new Exception("Error: Page number is too large. Usage: " + getHelp());
             } else if (pageNumber < 0) {
-                System.out.println("Error: Page number must a positive number. Usage: " + getHelp());
-                return;
+                throw new Exception("Error: Page number must a positive number. Usage: " + getHelp());
             }
             
             printIngredientPage(pageNumber);

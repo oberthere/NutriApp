@@ -3,20 +3,19 @@ package edu.rit.swen262.ui.commands;
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageRunner;
 
-public class ExitCommand extends UserCommand{
-    private PageRunner pageRunner;
+public class CreateTeamInviteCommand extends UserCommand {
+        private PageRunner pageRunner;
     
     /** 
     * ExitCommand handles the exit functionality as a standalone command.
     */
-    public ExitCommand(PageRunner pageRunner) {
-        this.nameString = "exit";
-        this.helpString = "Exit";
-        this.pageRunner = pageRunner;
+    public CreateTeamInviteCommand() {
+        this.nameString = "CreateInvite";
+        this.helpString = "CreateInvite ";
     }
 
     @Override 
-    public void performAction(String[] commandArgs) throws Exception{
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length != 1) {
             throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }

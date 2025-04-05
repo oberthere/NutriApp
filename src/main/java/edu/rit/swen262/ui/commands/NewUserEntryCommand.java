@@ -17,37 +17,32 @@ public class NewUserEntryCommand extends UndoableCommand {
     }
 
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         if (commandArgs.length != 4) {
-            System.out.println("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight in pounds] [targetWeight in pounds] [isPhysicalFitnessGoal]");
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: NewUserEntry [currentWeight in pounds] [targetWeight in pounds] [isPhysicalFitnessGoal]");
         }
 
         User user = pageData.getCurrentUser();
         if (user == null) {
-            System.out.println("Error: No user selected.");
-            return;
+            throw new Exception("Error: No user selected.");
         }
 
         try {
             // checks that the currentWeight is a positive num
             double currentWeight = Double.parseDouble(commandArgs[1]);
             if (currentWeight <= 0) {
-                System.out.println("Error: Current weight must be a positive number.");
-                return;
+                throw new Exception("Error: Current weight must be a positive number.");
             }
 
             // checks that the targetWeight is a positive num
             double targetWeight = Double.parseDouble(commandArgs[2]);
             if (targetWeight <= 0) {
-                System.out.println("Error: Target weight must be a positive number.");
-                return;
+                throw new Exception("Error: Target weight must be a positive number.");
             }
 
             // checks that the isPhysicalFitnessGoal is a boolean and then sets it
             if (!commandArgs[3].equalsIgnoreCase("true") && !commandArgs[3].equalsIgnoreCase("false")) {
-                System.out.println("Error: Invalid boolean value for 'isPhysicalFitnessGoal'. Please enter 'true' or 'false'.");
-                return;
+                throw new Exception("Error: Invalid boolean value for 'isPhysicalFitnessGoal'. Please enter 'true' or 'false'.");
             }
         
             boolean isPhysicalFitnessGoal = commandArgs[3].equalsIgnoreCase("true");
@@ -69,7 +64,7 @@ public class NewUserEntryCommand extends UndoableCommand {
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid input format.");
+            throw new Exception("Error: Invalid input format.");
         }
     }
 }

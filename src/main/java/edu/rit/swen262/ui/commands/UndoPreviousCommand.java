@@ -12,7 +12,10 @@ public class UndoPreviousCommand extends UserCommand {
   }
 
   @Override
-  public void performAction(String[] commandArgs) {
+  public void performAction(String[] commandArgs) throws Exception {
+    if (pageRunner.isCommandHistoryEmpty()) {
+      throw new Exception("No commands to undo.");
+    }
     UndoableCommand<Object> lastRanCommand = pageRunner.popLastUndoableCommand();
     lastRanCommand.undo();
     // TODO Save to history?

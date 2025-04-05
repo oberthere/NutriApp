@@ -14,11 +14,10 @@ public class RestockIngredientCommand extends UndoableCommand {
      * @param commandArgs Restock [IngredientID] [Amount to add]
      */
     @Override
-    public void performAction(String[] commandArgs) {
+    public void performAction(String[] commandArgs) throws Exception {
         // Ensure proper length
         if (commandArgs.length != 3) {
-            System.out.println("Error: Invalid number of arguments. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
         // check that ingredient ID is a number and a valid ID 
@@ -26,12 +25,10 @@ public class RestockIngredientCommand extends UndoableCommand {
         try {
             ingredient = PantryStock.getIngredientByID(Integer.parseInt(commandArgs[1]));
             if (ingredient == null) {
-                System.out.println("Error: Invalid ingredient ID. Usage: " + getHelp());
-                return;
+                throw new Exception("Error: Invalid ingredient ID. Usage: " + getHelp());
             }
         } catch (NumberFormatException e) {
-            System.out.println("Error: Ingredient ID must be an number. Usage: " + getHelp());
-            return;
+            throw new Exception("Error: Ingredient ID must be an number. Usage: " + getHelp());
         }
 
         // check that the amount is a positive number 
@@ -39,12 +36,10 @@ public class RestockIngredientCommand extends UndoableCommand {
         try {
             amount = Integer.parseInt(commandArgs[2]);
             if (amount <= 0) {
-                System.out.println("Error: Amount must be a positive number. Usage: " + getHelp());
-                return;
+                throw new Exception("Error: Amount must be a positive number. Usage: " + getHelp());
             }
         } catch (NumberFormatException e) {
-            System.out.println("Error: Amount must be a number. Usage:" + getHelp());
-            return;
+            throw new Exception("Error: Amount must be a number. Usage: " + getHelp());
         }
 
         // update the ingredient stock

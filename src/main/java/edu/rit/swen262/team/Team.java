@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.team.challenge.*;
 import edu.rit.swen262.user.User;
 
@@ -46,7 +47,7 @@ public class Team implements ChallengeCreator {
 
     public void sendInvite(String username) {
         TeamInvite invite = new TeamInvite(this);
-        
+        SaveData.addTeamInviteToUser(invite, username);
     }
 
     public void setChallengeCreator(ChallengeCreator challengeCreator) {
