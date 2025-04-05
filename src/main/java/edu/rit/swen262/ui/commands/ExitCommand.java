@@ -1,7 +1,9 @@
 package edu.rit.swen262.ui.commands;
 
 import edu.rit.swen262.history.SaveData;
+import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
+import edu.rit.swen262.user.User;
 
 public class ExitCommand extends UserCommand{
     private PageRunner pageRunner;
@@ -19,6 +21,10 @@ public class ExitCommand extends UserCommand{
     public void performAction(String[] commandArgs) throws Exception{
         if (commandArgs.length != 1) {
             throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
+        }
+
+        for (User user : pageRunner.getPageData().getAllUsers().values()) {
+            SaveData.addUserData(user.createUserData());
         }
 
         System.out.println("Saving date...");

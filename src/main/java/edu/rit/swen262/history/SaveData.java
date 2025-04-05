@@ -28,7 +28,8 @@ public final class SaveData {
     
     //#region DailyHistory
     public static Map<String, List<DailyHistoryComponent>> getHistory() { return Collections.unmodifiableMap(SaveData.history);}
-    public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userDataRecord);}    //#endregion
+    public static Map<String, UserData> getUserData() { return Collections.unmodifiableMap(SaveData.userDataRecord);}    
+    //#endregion
 
     //#region Users
     public static void addUserData(UserData userDataService) {
