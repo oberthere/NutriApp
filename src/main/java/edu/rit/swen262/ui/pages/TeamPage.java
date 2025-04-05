@@ -2,6 +2,7 @@ package edu.rit.swen262.ui.pages;
 
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
+import edu.rit.swen262.ui.commands.LeaveTeamCommand;
 import edu.rit.swen262.ui.commands.SendTeamInviteCommand;
 import edu.rit.swen262.ui.commands.UserCommand;
 import edu.rit.swen262.ui.commands.ViewTeamMemberWorkoutCommand;
@@ -10,7 +11,7 @@ public class TeamPage extends Page {
     private UserCommand addTeamCommand;
     private UserCommand sendTeamInviteCommand;
     private UserCommand viewMemberWorkout;
-    private UserCommand createChallengeCommand;
+    // private UserCommand createChallengeCommand;
     private UserCommand leaveTeamCommand;
 
     public TeamPage(PageData pageData) {
@@ -22,6 +23,10 @@ public class TeamPage extends Page {
         super.userCommands.add(sendTeamInviteCommand);
         this.viewMemberWorkout = new ViewTeamMemberWorkoutCommand(pageData);
         super.userCommands.add(viewMemberWorkout);
+        // this.createChallengeCommand = new createChallengeCommand();
+        // super.userCommands.add(createChallengeCommand);
+        this.leaveTeamCommand = new LeaveTeamCommand();
+        super.userCommands.add(leaveTeamCommand);
     }
 
     @Override
@@ -43,7 +48,7 @@ public class TeamPage extends Page {
         sendTeamInviteCommand.setActive(true);
         viewMemberWorkout.setActive(true);
         // createChallengeCommand.setActive(true);
-        // leaveTeamCommand.setActive(true);
+        leaveTeamCommand.setActive(true);
     }
 
     private void hasNoTeamUpdate() {
@@ -51,7 +56,7 @@ public class TeamPage extends Page {
         sendTeamInviteCommand.setActive(false);
         viewMemberWorkout.setActive(false);
         // createChallengeCommand.setActive(false);
-        // leaveTeamCommand.setActive(false);
+        leaveTeamCommand.setActive(false);
     }
 
 
