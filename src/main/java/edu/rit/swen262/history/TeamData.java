@@ -28,4 +28,22 @@ public class TeamData implements Serializable {
         this.members = memberNames;
     }
 
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public List<String> getMembers() {
+        return members;
+    }
+
+    public List<Entry<User, String>> getNotificationLogs() {
+        return notificationLogs;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    
+
 }

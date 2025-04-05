@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.history.SaveData;
+import edu.rit.swen262.history.TeamData;
 import edu.rit.swen262.history.UserData;
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.user.User;
@@ -87,5 +88,13 @@ public class PageData {
             }
         }
         System.out.println("Users loaded from history: " + users.keySet());
+    }
+
+    public void loadTeam() {
+        System.out.println("Loading team...");
+        Map<String, TeamData> teamDataRecord = SaveData.getTeamData();
+        for (TeamData teamData : teamDataRecord.values()) {
+            
+        }
     }
 }
