@@ -1,9 +1,10 @@
 package edu.rit.swen262.ui.commands;
 
 import edu.rit.swen262.food.Ingredient;
+import edu.rit.swen262.food.IngredientRestock;
 import edu.rit.swen262.food.PantryStock;
 
-public class RestockIngredientCommand extends UndoableCommand {
+public class RestockIngredientCommand extends UndoableCommand<IngredientRestock> {
     public RestockIngredientCommand() {
         super.nameString = "Restock";
         super.helpString = "Restock [IngredientID] [Amount to add]";
@@ -44,6 +45,17 @@ public class RestockIngredientCommand extends UndoableCommand {
 
         // update the ingredient stock
         PantryStock.updateIngredients(ingredient, amount);
+        super.addNextCommandDataToStack(new IngredientRestock(ingredient, amount));
         System.out.println("Sucessfully added " + amount + " stock to " + ingredient.getName());
+    }
+    
+    @Override
+    public void undo() throws Exception {
+        if (super.getCommandDataStack().isEmpty()) {
+            throw new Exception("Error: No command data to undo.");
+        }
+        IngredientRestock restock = super.popLastCommandData();
+        PantryStock.updateIngredients(restock.getIngredient(), -restock.getAmount());
+        System.out.println("Sucessfully undone restocking of " + restock.getAmount() + " stock from " + restock.getIngredient().getName());
     }
 }

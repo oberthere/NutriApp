@@ -5,7 +5,7 @@ import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
 import edu.rit.swen262.user.User;
 
-public class NewUserEntryCommand extends UndoableCommand {
+public class NewUserEntryCommand extends UndoableCommand<Object> {
     private PageData pageData;
     private PageRunner pageRunner;
 
@@ -66,5 +66,11 @@ public class NewUserEntryCommand extends UndoableCommand {
         } catch (NumberFormatException e) {
             throw new Exception("Error: Invalid input format.");
         }
+    }
+    
+    @Override
+    public void undo() throws Exception {
+      User user = pageData.getCurrentUser();
+      user.undoStartDay();
     }
 }

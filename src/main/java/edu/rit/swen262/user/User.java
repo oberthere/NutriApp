@@ -74,6 +74,11 @@ public class User {
         this.dailyHistoryComponent = new DailyHistoryComponent(username, new Date(), weight);
     }
     
+    public void undoStartDay() {
+      this.goalComponent = null;
+      this.dailyHistoryComponent = null;
+    }
+    
     public void continueDay() {
 
     }
