@@ -4,6 +4,7 @@ import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.Meal;
 import edu.rit.swen262.food.MealType;
 import edu.rit.swen262.food.Recipe;
+import edu.rit.swen262.user.components.DailyHistoryComponent;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -13,53 +14,48 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class DailyHistoryServiceTest {
-    private DailyHistoryService dailyHistoryService;
+public class DailyHistoryComponentTest {
+    private DailyHistoryComponent dailyHistoryComponent;
 
     @BeforeEach
     public void setUp() {
-        dailyHistoryService = new DailyHistoryService("TestUser", new Date(), 70, 2000);
+        dailyHistoryComponent = new DailyHistoryComponent("TestUser", new Date(), 70);
     }
 
     @Test
     public void testGetUserID() {
-        assertEquals("TestUser", dailyHistoryService.getUserID());
+        assertEquals("TestUser", dailyHistoryComponent.getUserID());
     }
 
     @Test
     public void testGetDate() {
-        assertEquals(new Date(), dailyHistoryService.getDate());
+        assertEquals(new Date(), dailyHistoryComponent.getDate());
     }
 
     @Test
     public void testGetWeight() {
-        assertEquals(70, dailyHistoryService.getWeight());
-    }
-
-    @Test
-    public void testGetTargetCalories() {
-        assertEquals(2000, dailyHistoryService.getTargetCalories());
+        assertEquals(70, dailyHistoryComponent.getWeight());
     }
 
     // next 4 should all be empty
     @Test
     public void testGetPreparedMeals() {
-        assertEquals(0, dailyHistoryService.getPreparedMeals().size());
+        assertEquals(0, dailyHistoryComponent.getPreparedMeals().size());
     }
 
     @Test
     public void testGetEatenMeals() {
-        assertEquals(0, dailyHistoryService.getEatenMeals().size());
+        assertEquals(0, dailyHistoryComponent.getEatenMeals().size());
     }
 
     @Test
     public void testGetWorkouts() {
-        assertEquals(0, dailyHistoryService.getWorkouts().size());
+        assertEquals(0, dailyHistoryComponent.getWorkouts().size());
     }
 
     @Test
     public void testGetNetCalories() {
-        assertEquals(0, dailyHistoryService.getNetCalories());
+        assertEquals(0, dailyHistoryComponent.getNetCalories());
     }
 
     // evil tests

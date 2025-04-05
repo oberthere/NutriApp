@@ -53,6 +53,7 @@ public class User {
     public UserData createUserData() {return new UserData(username, password, birthdate, height);}
 
     public void setWeight(double weight) {this.weight = weight;}
+    public void setPassword(String password) {this.password = password;}
     public void setGoalComponent(GoalComponent goalComponent) {this.goalComponent = goalComponent; }
     public void setShoppingListComponent(ShoppingListComponent shoppingListComponent) {this.shoppingListComponent = shoppingListComponent;}
     public void setDailyHistoryComponent(DailyHistoryComponent dailyHistoryComponent) {this.dailyHistoryComponent = dailyHistoryComponent;}
