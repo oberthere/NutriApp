@@ -23,7 +23,7 @@ public final class SaveData {
     private static Map<String, List<DailyHistoryComponent>> history = new HashMap<>();
     private static Map<String, UserData> userDataRecord = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
-    private static List<TeamData> teamData = new ArrayList<>();
+    private static Map<String, TeamData> teamData = new HashMap<>();
 
     
     //#region DailyHistory
