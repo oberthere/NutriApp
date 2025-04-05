@@ -5,7 +5,7 @@ import edu.rit.swen262.other.exception.NetCaloriesOverflowException;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 
-public class EatMealCommand extends UndoableCommand {
+public class EatMealCommand extends UndoableCommand<Meal> {
     private PageData pageData;
 
     public EatMealCommand(PageData pageData) {
@@ -32,5 +32,16 @@ public class EatMealCommand extends UndoableCommand {
         } catch (NetCaloriesOverflowException e) {
             e.printStackTrace();
         }
+    }
+    
+    @Override
+    public void undo() throws Exception {
+        if (super.isCommandDataEmpty()) {
+            throw new Exception("No meal to undo");
+        }
+        Meal meal = super.popLastCommandData();
+        DailyHistoryComponent dailyHistory = pageData.getCurrentUser().getDailyHistoryComponent();
+        dailyHistory.removeEatenMeal(meal);
+        System.out.println("Successfully undone eating of Meal " + meal.getName());
     }
 }
