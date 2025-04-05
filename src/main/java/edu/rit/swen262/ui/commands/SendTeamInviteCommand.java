@@ -1,6 +1,7 @@
 package edu.rit.swen262.ui.commands;
 
 import edu.rit.swen262.history.SaveData;
+import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.TeamPage;
 
@@ -10,9 +11,10 @@ public class SendTeamInviteCommand extends UserCommand {
     /** 
     * ExitCommand handles the exit functionality as a standalone command.
     */
-    public SendTeamInviteCommand() {
+    public SendTeamInviteCommand(PageData pageData) {
         this.nameString = "SendInvite";
         this.helpString = "SendInvite [Username]";
+        pageRunner = pageData.getPageRunner();
     }
 
     @Override 

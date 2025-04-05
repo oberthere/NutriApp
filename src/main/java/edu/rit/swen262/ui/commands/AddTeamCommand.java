@@ -2,6 +2,7 @@ package edu.rit.swen262.ui.commands;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.team.Team;
+import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.TeamPage;
 
@@ -12,9 +13,10 @@ public class AddTeamCommand extends UserCommand {
     /** 
     * ExitCommand handles the exit functionality as a standalone command.
     */
-    public AddTeamCommand() {
+    public AddTeamCommand(PageData pageData) {
         this.nameString = "AddTeam";
         this.helpString = "AddTeam [TeamName]";
+        this.pageRunner = pageData.getPageRunner();
     }
 
     @Override 

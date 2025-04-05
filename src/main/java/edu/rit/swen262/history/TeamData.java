@@ -3,7 +3,6 @@ package edu.rit.swen262.history;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import java.util.Map.Entry;
 
 import edu.rit.swen262.team.Team;

@@ -61,6 +61,7 @@ public class User {
     public void setGoalComponent(GoalComponent goalComponent) {this.goalComponent = goalComponent; }
     public void setShoppingListComponent(ShoppingListComponent shoppingListComponent) {this.shoppingListComponent = shoppingListComponent;}
     public void setDailyHistoryComponent(DailyHistoryComponent dailyHistoryComponent) {this.dailyHistoryComponent = dailyHistoryComponent;}
+    public void setTeam(Team team) {this.team = team;}
 
     public Date getLastUpdated() {return this.dailyHistoryComponent.getDate();}
 
