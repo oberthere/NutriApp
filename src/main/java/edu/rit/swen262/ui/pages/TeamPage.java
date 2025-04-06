@@ -49,6 +49,12 @@ public class TeamPage extends Page {
             for (User user : team.getMembers()) {
                 System.out.println("\t- " + user.getName());
             }
+
+            if (team.getChallenge() != null) {
+                System.out.println("\tTeam Challenge: " + 
+                team.getChallenge().getName() + " " + team.getChallenge().getEndDate() + " " + team.getChallenge().getInstructions());
+            }
+
         } else {
             System.out.println();
             System.out.println("Team Invites:");
