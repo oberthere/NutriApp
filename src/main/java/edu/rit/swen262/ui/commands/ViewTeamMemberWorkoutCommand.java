@@ -38,7 +38,7 @@ public class ViewTeamMemberWorkoutCommand extends UserCommand {
         Team team = user.getTeam();
         System.out.println("Team Workouts:");
         for (Map.Entry<User, String> entry : team.getNotificationLogs()) {
-            System.out.println("  - " + entry.getKey() + ": " + entry.getValue());
+            System.out.println("  - " + entry.getKey().getName() + ": " + entry.getValue());
         }
 
         user.resetTeamNotificationIndex();
