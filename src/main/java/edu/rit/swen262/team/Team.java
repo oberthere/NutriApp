@@ -35,6 +35,7 @@ public class Team implements Serializable {
         List<Entry<String, String>> tempNotiLog = teamData.getNotificationLogs();
         for (String username : teamData.getMembers()) {
             User user = pageData.getUser(username);
+            System.out.println(user.getName() + " Have been found in team " + teamName);
             this.members.add(user);
         }
 

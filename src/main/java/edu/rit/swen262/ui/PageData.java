@@ -104,6 +104,10 @@ public class PageData {
         for (TeamData teamData : teamDataRecord.values()) {
             Team team = new Team(pageRunner.getPageData(), teamData);
             this.teams.put(team.getTeamName(), team);
+
+            for (String userName : teamData.getMembers()) {
+                getUser(userName).setTeam(team);
+            }
         }
 
         System.out.println("Loaded Team: " + this.teams.keySet());

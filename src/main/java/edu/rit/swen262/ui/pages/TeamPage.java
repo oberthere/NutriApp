@@ -1,5 +1,6 @@
 package edu.rit.swen262.ui.pages;
 
+import edu.rit.swen262.team.Team;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
 import edu.rit.swen262.ui.commands.CreateChallengeCommand;
@@ -7,6 +8,7 @@ import edu.rit.swen262.ui.commands.LeaveTeamCommand;
 import edu.rit.swen262.ui.commands.SendTeamInviteCommand;
 import edu.rit.swen262.ui.commands.UserCommand;
 import edu.rit.swen262.ui.commands.ViewTeamMemberWorkoutCommand;
+import edu.rit.swen262.user.User;
 
 public class TeamPage extends Page {
     private UserCommand addTeamCommand;
@@ -36,6 +38,14 @@ public class TeamPage extends Page {
     public void printContent() {
         // TODO Auto-generated method stub
         super.printContent();
+        if (pageData.getCurrentUser().getTeam() != null) {
+            System.out.println("Team Info: ");
+            Team team = pageData.getCurrentUser().getTeam();
+            for (User user : team.getMembers()) {
+                System.out.println("\t-" + user.getName());
+            }
+        }
+
     }
     
 
