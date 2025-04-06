@@ -115,6 +115,7 @@ public class PageRunner {
         // reader.test();
         SaveData.deserializeFromSave();
         pageData.loadUsersFromHistory();
+        pageData.loadTeam();
     }
 
     public void runPage() {

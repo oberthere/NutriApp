@@ -30,7 +30,25 @@ public class Team {
 
     public Team(PageData pageData, TeamData teamData) {
         this.pageData = pageData;
+        this.members = new ArrayList<>();
         this.teamName = teamData.getTeamName();
+        this.notificationLogs = new ArrayList<>();
+        this.challenge = teamData.getChallenge();
+        
+        List<Entry<String, String>> tempNotiLog = teamData.getNotificationLogs();
+        for (String username : teamData.getMembers()) {
+            User user = pageData.getUser(username);
+            this.members.add(user);
+        }
+
+        for (Entry<String,String> entry : tempNotiLog) {
+            String username = entry.getKey();
+            User user = pageData.getUser(username);
+            Entry<User, String> notifEntry = new AbstractMap.SimpleEntry<User, String>(user, entry.getValue());
+            this.notificationLogs.add(notifEntry);
+        }
+
+        
         
     }
 

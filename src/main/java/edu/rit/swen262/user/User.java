@@ -54,6 +54,7 @@ public class User {
     public ShoppingListComponent getShoppingListComponent() {return this.shoppingListComponent;}
     public DailyHistoryComponent getDailyHistoryComponent() {return this.dailyHistoryComponent;}
     public Team getTeam() {return this.team;}
+    public int getTeamNotificationIndex() {return this.teamNotificationIndex;}
     public UserData createUserData() {return new UserData(username, password, birthdate, height);}
 
     public void setWeight(double weight) {this.weight = weight;}
@@ -62,6 +63,8 @@ public class User {
     public void setShoppingListComponent(ShoppingListComponent shoppingListComponent) {this.shoppingListComponent = shoppingListComponent;}
     public void setDailyHistoryComponent(DailyHistoryComponent dailyHistoryComponent) {this.dailyHistoryComponent = dailyHistoryComponent;}
     public void setTeam(Team team) {this.team = team;}
+    public void incrementTeamNotificationIndex() {this.teamNotificationIndex++;}
+    public void resetTeamNotificationIndex() {this.teamNotificationIndex = 0;}
 
     public Date getLastUpdated() {return this.dailyHistoryComponent.getDate();}
 

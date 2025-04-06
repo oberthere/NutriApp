@@ -3,8 +3,10 @@ package edu.rit.swen262.ui.commands;
 import java.util.Map;
 
 import edu.rit.swen262.history.TeamData;
+import edu.rit.swen262.team.Team;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
+import edu.rit.swen262.user.User;
 
 public class ViewTeamMemberWorkoutCommand extends UserCommand {
     private PageRunner pageRunner;
@@ -32,10 +34,13 @@ public class ViewTeamMemberWorkoutCommand extends UserCommand {
             throw new Exception("Error: Invalid number of arguments. Usage: " + getHelp());
         }
 
-        TeamData teamData = new TeamData(pageRunner.getPageData().getCurrentUser().getTeam());
+        User user = pageRunner.getPageData().getCurrentUser();
+        Team team = user.getTeam();
         System.out.println("Team Workouts:");
-        for (Map.Entry<String, String> entry : teamData.getNotificationLogs()) {
+        for (Map.Entry<User, String> entry : team.getNotificationLogs()) {
             System.out.println("  - " + entry.getKey() + ": " + entry.getValue());
         }
+
+        user.resetTeamNotificationIndex();
     }
 }

@@ -45,6 +45,10 @@ public class UserDashboardPage extends Page {
             System.out.println("\tTarget Weight: " + goalComponent.getTargetWeight() + " pounds");
         }
 
+        if (currentUser.getTeam() != null) {
+            System.out.println("\nTeam Notifications: " + currentUser.getTeamNotificationIndex());
+        }
+
         System.out.println();
     }
 }

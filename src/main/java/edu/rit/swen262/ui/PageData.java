@@ -35,6 +35,7 @@ public class PageData {
     public Map<String, User> getAllUsers() {return this.users;}
     public User getUser(String name) {return this.users.get(name);}
     public User getCurrentUser() {return this.currentUser;}
+    public Team getTeam(String name) {return this.teams.get(name);}
 
     public static Date getCurrentDate() {return PageData.currentDate;}
     public static void setCurrentDate(Date date) { PageData.currentDate = date;}
@@ -99,7 +100,8 @@ public class PageData {
         System.out.println("Loading team...");
         Map<String, TeamData> teamDataRecord = SaveData.getTeamData();
         for (TeamData teamData : teamDataRecord.values()) {
-            
+            Team team = new Team(pageRunner.getPageData(), teamData);
+            this.teams.put(team.getTeamName(), team);
         }
     }
 }
