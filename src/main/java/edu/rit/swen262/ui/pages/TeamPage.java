@@ -25,7 +25,7 @@ public class TeamPage extends Page {
         super.userCommands.add(viewMemberWorkout);
         // this.createChallengeCommand = new createChallengeCommand();
         // super.userCommands.add(createChallengeCommand);
-        this.leaveTeamCommand = new LeaveTeamCommand();
+        this.leaveTeamCommand = new LeaveTeamCommand(pageData);
         super.userCommands.add(leaveTeamCommand);
     }
 
