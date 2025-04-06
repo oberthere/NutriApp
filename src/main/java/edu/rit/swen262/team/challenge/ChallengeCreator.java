@@ -4,4 +4,6 @@ import java.util.Date;
 
 public interface ChallengeCreator {
     public Challenge createChallenge(Date endDate);
+
+    
 }

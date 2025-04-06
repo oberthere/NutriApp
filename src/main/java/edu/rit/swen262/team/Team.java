@@ -89,11 +89,8 @@ public class Team implements Serializable {
         this.challengeCreator = challengeCreator;
     }
 
-    public void makeChallenge(Challenge challenge) {
-        if (challengeCreator == null){
-            challenge = this.challengeCreator.createChallenge(challenge.getEndDate());
-        } else {
-            challengeCreator.createChallenge(challenge.getEndDate());
-        }
+    public void makeChallenge(Date endDate) {
+        
+        this.challengeCreator.createChallenge(endDate);
     }
 }
