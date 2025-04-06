@@ -1,7 +1,7 @@
 package edu.rit.swen262.team;
 
 import java.util.Map.Entry;
-
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +13,7 @@ import edu.rit.swen262.team.challenge.*;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 
-public class Team {
+public class Team implements Serializable {
     private PageData pageData;
     private String teamName;
     private List<User> members;
