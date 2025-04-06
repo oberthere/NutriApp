@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.team.challenge.PushUpChallengeCreator;
 import edu.rit.swen262.ui.PageData;
@@ -50,10 +51,14 @@ public class CreateChallengeCommand extends UserCommand {
 
             team.makeChallenge(endDate);
 
+            pageData.addTeam(nameString, team);
+            SaveData.serializeHistoryToSave();
+
             System.out.println("\nChallenge created successfully: " + challengeName);
         } catch (ParseException e) {
             throw new Exception("Error: Invalid date format. Please use MM/dd/yyyy.");
         }
+
     }
 
     @Override
