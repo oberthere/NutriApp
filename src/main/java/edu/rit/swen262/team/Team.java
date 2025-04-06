@@ -20,12 +20,10 @@ public class Team implements Serializable {
     private Challenge challenge;
     private ChallengeCreator challengeCreator;
 
-    public Team(PageData pageData, String teamName) {
+    public Team(String teamName) {
         this.teamName = teamName;
         members = new ArrayList<User>();
         notificationLogs = new ArrayList<>();
-
-        pageData.addTeam(teamName, this);
     }
 
     public Team(PageData pageData, TeamData teamData) {
