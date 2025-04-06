@@ -1,5 +1,6 @@
 package edu.rit.swen262.ui.commands;
 
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.team.TeamInvite;
 import edu.rit.swen262.ui.PageData;
@@ -25,13 +26,15 @@ public class JoinTeamCommand extends UserCommand {
         User user = pageRunner.getPageData().getCurrentUser();
         Team team = pageRunner.getPageData().getTeam(teamName);
 
-        if (team != null) {
+        if (team == null) {
             throw new Exception("Error: Team '" + teamName + "' does not exists. Try a different name.");
         }
 
         for (TeamInvite invite : user.getTeamInvite()) {
             if (invite.getTeamName().equals(teamName)) {
                 pageRunner.getPageData().getTeam(teamName).acceptMember(user);
+                System.out.println("Joined Team " + teamName);
+                return;
             }
         }
     }
