@@ -54,7 +54,7 @@ public class CreateChallengeCommand extends UserCommand {
 
             Challenge challenge = new Challenge(challengeName, endDate, instructions);
             Team team = currentUser.getTeam();
-            team.addChallenge(challenge); // Assumes this method exists
+            team.makeChallenge(challenge);
 
             System.out.println("\nChallenge created successfully: " + challengeName);
         } catch (ParseException e) {

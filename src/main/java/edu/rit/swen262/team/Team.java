@@ -13,12 +13,13 @@ import edu.rit.swen262.team.challenge.*;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 
-public class Team implements ChallengeCreator {
+public class Team {
     private PageData pageData;
     private String teamName;
     private List<User> members;
     private List<Entry<User, String>> notificationLogs;
     private Challenge challenge;
+    private ChallengeCreator challengeCreator;
 
     public Team(PageData pageData, String teamName) {
         this.pageData = pageData;
@@ -69,16 +70,14 @@ public class Team implements ChallengeCreator {
     }
 
     public void setChallengeCreator(ChallengeCreator challengeCreator) {
-        // TODO
+        this.challengeCreator = challengeCreator;
     }
 
-    @Override
-    public Challenge createChallenge(Date endDate) {
-        // TODO
-        return new Challenge(null, endDate, null);
-    }
-
-    public void makeChallenge() {
-        // TODO
+    public void makeChallenge(Challenge challenge) {
+        if (challengeCreator == null){
+            challenge = this.challengeCreator.createChallenge(challenge.getEndDate());
+        } else {
+            challengeCreator.createChallenge(challenge.getEndDate());
+        }
     }
 }
