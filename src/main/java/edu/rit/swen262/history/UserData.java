@@ -3,7 +3,6 @@ package edu.rit.swen262.history;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import edu.rit.swen262.team.TeamInvite;
@@ -40,6 +39,7 @@ public class UserData implements Serializable {
 	public Date getBirthdate() {return this.birthdate;}
 	public double getHeight() {return this.height;}
 	public Set<TeamInvite> getTeamInvites() {return this.teamInvites;}
+	public int getTeamNotificationIndex() {return this.teamNotificationIndex;}
 
 	public void updateUserData(UserData userData) {
 		if (this.username.equals(userData.getUsername())) {
