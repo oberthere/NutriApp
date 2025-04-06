@@ -1,11 +1,13 @@
 package edu.rit.swen262.team.challenge;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.rit.swen262.user.User;
 
-public class Challenge {
+public class Challenge implements Serializable{
     private String name;
     private Date endDate;
     private String instructions;
@@ -15,7 +17,7 @@ public class Challenge {
         this.name = name;
         this.endDate = endDate;
         this.instructions = instructions;
-        // this.recordedTime = new ;
+        this.recordedTime = new HashMap<>();
     }
 
     public String getName() {return this.name;}
