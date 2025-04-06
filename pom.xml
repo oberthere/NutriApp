@@ -143,6 +143,9 @@
                     <forkCount>2</forkCount>
                     <reuseForks>true</reuseForks>
                     <argLine>${surefireArgLine}</argLine>
+                    <systemPropertyVariables>
+                        <nutriapp.savefile>TestSaveData</nutriapp.savefile>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
