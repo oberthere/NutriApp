@@ -47,6 +47,8 @@ public class PageData {
         this.teams.put(name, team);
         team.acceptMember(currentUser);
         currentUser.setTeam(team);
+
+        SaveData.addTeam(team);
     }
     public void removeUser(String name) {this.users.remove(name);}
 

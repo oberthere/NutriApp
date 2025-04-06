@@ -54,7 +54,8 @@ public final class SaveData {
 
     //#region Team
     public static void addTeam(Team team) {
-        // SaveData.teamDataRecord.put(teamData.getTeamName(), teamData)
+        TeamData teamData = new TeamData(team);
+        SaveData.teamDataRecord.put(teamData.getTeamName(), teamData);
     }
     //#endregion
     /*
@@ -125,6 +126,7 @@ public final class SaveData {
             file.close();
 
             System.out.println("Data has been successfully saved to file.");
+            System.out.println(teamDataRecord.values() + " Have been saved");
         } catch (IOException e) {
             System.out.println("Unsuccessful attempt in saving Data.");
             e.printStackTrace();
@@ -160,6 +162,7 @@ public final class SaveData {
             pantryRecord.readToPantryStock();
             
             System.out.println("Personal History successfully loaded from file.");
+            System.out.println(tempTeamDataRecord.values() + " Have been loaded");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Unsuccessful attempt in loading Personal History.");
             e.printStackTrace();
