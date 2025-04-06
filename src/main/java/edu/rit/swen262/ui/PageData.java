@@ -80,7 +80,7 @@ public class PageData {
                     DailyHistoryComponent latestHistory = dailyHistory.get(dailyHistory.size() - 1);  // Most recent entry
     
                     // Create user and assign latest history
-                    User user = new User(username, userDataComponent.getPassword(),userDataComponent.getHeight(), latestHistory.getWeight(), userDataComponent.getBirthdate());
+                    User user = new User(username, userDataComponent.getPassword(),userDataComponent.getHeight(), latestHistory.getWeight(), userDataComponent.getBirthdate(), userDataComponent.getTeamInvites());
                     user.setDailyHistoryComponent(latestHistory);
     
                     // Ensure GoalComponent is initialized properly

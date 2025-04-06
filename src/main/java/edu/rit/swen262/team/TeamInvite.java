@@ -6,13 +6,11 @@ import edu.rit.swen262.user.User;
 
 public class TeamInvite implements Serializable {
     private static final long serialVersionUID = 3L;  
-    private Team team;
+    private String teamName;
 
     public TeamInvite(Team team) {
-        this.team = team;
+        this.teamName = team.getTeamName();
     }
 
-    public void JoinTeam(User user) {
-        team.acceptMember(user);
-    }
+    public String getTeamName() {return this.teamName;}
 }

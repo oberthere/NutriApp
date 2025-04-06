@@ -1,10 +1,15 @@
 package edu.rit.swen262.user;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.history.UserData;
 import edu.rit.swen262.team.Team;
+import edu.rit.swen262.team.TeamInvite;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 import edu.rit.swen262.user.components.GoalComponent;
 import edu.rit.swen262.user.components.ShoppingListComponent;
@@ -19,6 +24,7 @@ public class User {
     private ShoppingListComponent shoppingListComponent;
     private DailyHistoryComponent dailyHistoryComponent;
     private Team team;
+    private Set<TeamInvite> teamInvites;
     private int teamNotificationIndex;
 
     /**
@@ -28,12 +34,22 @@ public class User {
      * @param weight
      * @param birthdate
      */
+    public User(String username, String password, double height, double weight, Date birthdate, Set<TeamInvite> teamInvites) {
+        this.username = username;
+        this.weight = weight;
+        this.password = password;
+        this.birthdate = birthdate;
+        this.height = height;
+        this.teamInvites = teamInvites;
+    }
+
     public User(String username, String password, double height, double weight, Date birthdate) {
         this.username = username;
         this.weight = weight;
         this.password = password;
         this.birthdate = birthdate;
         this.height = height;
+        this.teamInvites = new HashSet<>();
     }
 
     public User(String username, String password, double height, double weight, Date birthdate, DailyHistoryComponent dailyHistoryComponent) {
@@ -43,6 +59,7 @@ public class User {
         this.password = password;
         this.birthdate = birthdate;
         this.height = height;
+        this.teamInvites = new HashSet<>();
     }
 
     public String getName() {return this.username;}
@@ -50,6 +67,7 @@ public class User {
     public double getWeight() {return this.weight;}
     public String getPassword() {return this.password;}
     public Date getBirthdate() {return this.birthdate;}
+    public Set<TeamInvite> getTeamInvite() {return this.teamInvites;}
     public GoalComponent getGoalComponent() {return this.goalComponent;}
     public ShoppingListComponent getShoppingListComponent() {return this.shoppingListComponent;}
     public DailyHistoryComponent getDailyHistoryComponent() {return this.dailyHistoryComponent;}

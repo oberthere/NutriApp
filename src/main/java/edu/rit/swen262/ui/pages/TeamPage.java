@@ -1,6 +1,7 @@
 package edu.rit.swen262.ui.pages;
 
 import edu.rit.swen262.team.Team;
+import edu.rit.swen262.team.TeamInvite;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
 import edu.rit.swen262.ui.commands.CreateChallengeCommand;
@@ -42,9 +43,18 @@ public class TeamPage extends Page {
             System.out.println("Team Info: ");
             Team team = pageData.getCurrentUser().getTeam();
             for (User user : team.getMembers()) {
-                System.out.println("\t-" + user.getName());
+                System.out.println("\t- " + user.getName());
             }
         }
+
+        System.out.println();
+        System.out.println("Team Invites:");
+        User user = pageData.getCurrentUser();
+        for (TeamInvite teamInvite : user.getTeamInvite()) {
+            System.out.println("\t- From: " + teamInvite.getTeamName());
+        }
+
+        
 
     }
     
