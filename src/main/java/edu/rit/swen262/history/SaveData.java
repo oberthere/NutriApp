@@ -19,7 +19,8 @@ import edu.rit.swen262.workout.IntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 
 public final class SaveData {
-    public static final String saveDataFileName = "SaveData";
+    // public static final String saveDataFileName = "SaveData";
+    public static final String saveDataFileName = System.getProperty("nutriapp.savefile", "SaveData");
     private static Map<String, List<DailyHistoryComponent>> history = new HashMap<>();
     private static Map<String, UserData> userDataRecord = new HashMap<>();
     private static PantryRecord pantryRecord = new PantryRecord();
