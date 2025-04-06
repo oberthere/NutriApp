@@ -25,6 +25,11 @@ public class AddTeamCommand extends UserCommand {
         }
 
         String teamName = commandArgs[1];
+
+        if (pageRunner.getPageData().getTeam(teamName) != null) {
+            throw new Exception("Error: Team '" + teamName + "' already exists. Choose a different name.");
+        }
+
         Team newTeam = new Team(pageRunner.getPageData(), teamName);
         pageRunner.getPageData().addTeam(teamName, newTeam);
         SaveData.serializeHistoryToSave();
