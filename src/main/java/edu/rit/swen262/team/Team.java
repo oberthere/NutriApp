@@ -59,6 +59,10 @@ public class Team implements ChallengeCreator {
         this.members.add(user);
     }
 
+    public void removeMember(User user) {
+        this.members.remove(user);
+    }
+
     public void sendInvite(String username) {
         TeamInvite invite = new TeamInvite(this);
         SaveData.addTeamInviteToUser(invite, username);
