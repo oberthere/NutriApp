@@ -2,6 +2,7 @@ package edu.rit.swen262.ui.pages;
 
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
+import edu.rit.swen262.ui.commands.CreateChallengeCommand;
 import edu.rit.swen262.ui.commands.LeaveTeamCommand;
 import edu.rit.swen262.ui.commands.SendTeamInviteCommand;
 import edu.rit.swen262.ui.commands.UserCommand;
@@ -11,7 +12,7 @@ public class TeamPage extends Page {
     private UserCommand addTeamCommand;
     private UserCommand sendTeamInviteCommand;
     private UserCommand viewMemberWorkout;
-    // private UserCommand createChallengeCommand;
+    private UserCommand createChallengeCommand;
     private UserCommand leaveTeamCommand;
 
     public TeamPage(PageData pageData) {
@@ -19,6 +20,8 @@ public class TeamPage extends Page {
         this.pageName = "Team Page";
         this.addTeamCommand = new AddTeamCommand(pageData);
         super.userCommands.add(addTeamCommand);
+        this.createChallengeCommand = new CreateChallengeCommand(pageData);
+        super.userCommands.add(createChallengeCommand);
         this.sendTeamInviteCommand = new SendTeamInviteCommand(pageData);
         super.userCommands.add(sendTeamInviteCommand);
         this.viewMemberWorkout = new ViewTeamMemberWorkoutCommand(pageData);
