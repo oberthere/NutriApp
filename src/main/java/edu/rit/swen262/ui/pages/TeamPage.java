@@ -50,7 +50,7 @@ public class TeamPage extends Page {
         addTeamCommand.setActive(false);
         sendTeamInviteCommand.setActive(true);
         viewMemberWorkout.setActive(true);
-        // createChallengeCommand.setActive(true);
+        createChallengeCommand.setActive(true);
         leaveTeamCommand.setActive(true);
     }
 
@@ -58,7 +58,7 @@ public class TeamPage extends Page {
         addTeamCommand.setActive(true);
         sendTeamInviteCommand.setActive(false);
         viewMemberWorkout.setActive(false);
-        // createChallengeCommand.setActive(false);
+        createChallengeCommand.setActive(false);
         leaveTeamCommand.setActive(false);
     }
 
