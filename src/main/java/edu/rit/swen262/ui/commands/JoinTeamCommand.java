@@ -36,6 +36,7 @@ public class JoinTeamCommand extends UserCommand {
                 user.getTeamInvite().remove(invite);
                 user.setTeam(team);
                 System.out.println("Joined Team " + teamName);
+                SaveData.addTeam(team);
                 return;
             }
         }
