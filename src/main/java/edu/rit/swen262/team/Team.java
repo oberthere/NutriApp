@@ -14,7 +14,6 @@ import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 
 public class Team implements Serializable {
-    private PageData pageData;
     private String teamName;
     private List<User> members;
     private List<Entry<User, String>> notificationLogs;
@@ -22,14 +21,14 @@ public class Team implements Serializable {
     private ChallengeCreator challengeCreator;
 
     public Team(PageData pageData, String teamName) {
-        this.pageData = pageData;
         this.teamName = teamName;
         members = new ArrayList<User>();
         notificationLogs = new ArrayList<>();
+
+        pageData.addTeam(teamName, this);
     }
 
     public Team(PageData pageData, TeamData teamData) {
-        this.pageData = pageData;
         this.members = new ArrayList<>();
         this.teamName = teamData.getTeamName();
         this.notificationLogs = new ArrayList<>();
