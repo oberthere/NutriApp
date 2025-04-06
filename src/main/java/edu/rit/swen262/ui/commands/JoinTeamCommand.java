@@ -33,7 +33,10 @@ public class JoinTeamCommand extends UserCommand {
         for (TeamInvite invite : user.getTeamInvite()) {
             if (invite.getTeamName().equals(teamName)) {
                 pageRunner.getPageData().getTeam(teamName).acceptMember(user);
+                user.getTeamInvite().remove(invite);
+                user.setTeam(team);
                 System.out.println("Joined Team " + teamName);
+                SaveData.addTeam(team);
                 return;
             }
         }
