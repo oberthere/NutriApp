@@ -5,6 +5,7 @@ import edu.rit.swen262.team.TeamInvite;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
 import edu.rit.swen262.ui.commands.CreateChallengeCommand;
+import edu.rit.swen262.ui.commands.JoinTeamCommand;
 import edu.rit.swen262.ui.commands.LeaveTeamCommand;
 import edu.rit.swen262.ui.commands.SendTeamInviteCommand;
 import edu.rit.swen262.ui.commands.UserCommand;
@@ -16,6 +17,7 @@ public class TeamPage extends Page {
     private UserCommand sendTeamInviteCommand;
     private UserCommand viewMemberWorkout;
     private UserCommand createChallengeCommand;
+    private UserCommand joinTeamCommand;
     private UserCommand leaveTeamCommand;
 
     public TeamPage(PageData pageData) {
@@ -29,8 +31,8 @@ public class TeamPage extends Page {
         super.userCommands.add(sendTeamInviteCommand);
         this.viewMemberWorkout = new ViewTeamMemberWorkoutCommand(pageData);
         super.userCommands.add(viewMemberWorkout);
-        // this.createChallengeCommand = new createChallengeCommand();
-        // super.userCommands.add(createChallengeCommand);
+        this.joinTeamCommand = new JoinTeamCommand(pageData);
+        super.userCommands.add(joinTeamCommand);
         this.leaveTeamCommand = new LeaveTeamCommand(pageData);
         super.userCommands.add(leaveTeamCommand);
     }
@@ -42,16 +44,22 @@ public class TeamPage extends Page {
         if (pageData.getCurrentUser().getTeam() != null) {
             System.out.println("Team Info: ");
             Team team = pageData.getCurrentUser().getTeam();
+            System.out.println("Team Name: " + team.getTeamName());
+            System.out.println("   Team Members:");
             for (User user : team.getMembers()) {
                 System.out.println("\t- " + user.getName());
             }
-        }
-
-        System.out.println();
-        System.out.println("Team Invites:");
-        User user = pageData.getCurrentUser();
-        for (TeamInvite teamInvite : user.getTeamInvite()) {
-            System.out.println("\t- From: " + teamInvite.getTeamName());
+        } else {
+            System.out.println();
+            System.out.println("Team Invites:");
+            User user = pageData.getCurrentUser();
+            if (user.getTeamInvite().size() == 0) {
+                System.out.println("\tNone");
+            } else {
+                for (TeamInvite teamInvite : user.getTeamInvite()) {
+                    System.out.println("\t- From: " + teamInvite.getTeamName());
+                }
+            }
         }
 
         
@@ -71,6 +79,7 @@ public class TeamPage extends Page {
         sendTeamInviteCommand.setActive(true);
         viewMemberWorkout.setActive(true);
         createChallengeCommand.setActive(true);
+        joinTeamCommand.setActive(false);
         leaveTeamCommand.setActive(true);
     }
 
@@ -79,6 +88,7 @@ public class TeamPage extends Page {
         sendTeamInviteCommand.setActive(false);
         viewMemberWorkout.setActive(false);
         createChallengeCommand.setActive(false);
+        joinTeamCommand.setActive(true);
         leaveTeamCommand.setActive(false);
     }
 
