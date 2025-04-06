@@ -14,6 +14,7 @@ import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 
 public class Team implements Serializable {
+    private PageData pageData;
     private String teamName;
     private List<User> members;
     private List<Entry<User, String>> notificationLogs;
