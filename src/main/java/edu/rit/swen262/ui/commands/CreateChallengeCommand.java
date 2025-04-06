@@ -5,8 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import edu.rit.swen262.team.challenge.Challenge;
 import edu.rit.swen262.team.Team;
+import edu.rit.swen262.team.challenge.PushUpChallengeCreator;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.user.User;
 
@@ -15,7 +15,7 @@ public class CreateChallengeCommand extends UserCommand {
 
     public CreateChallengeCommand(PageData pageData) {
         super.nameString = "CreateChallenge";
-        super.helpString = "CreateChallenge [Name] [MM/dd/yyyy EndDate] [Instructions (use underscores instead_of_spaces)]";
+        super.helpString = "CreateChallenge [Pushup | Biking] [MM/dd/yyyy EndDate]";
         this.pageData = pageData;
     }
 
@@ -25,7 +25,7 @@ public class CreateChallengeCommand extends UserCommand {
      */
     @Override
     public void performAction(String[] commandArgs) throws Exception {
-        if (commandArgs.length < 4) {
+        if (commandArgs.length < 3) {
             throw new Exception("Error: Invalid number of arguments. Usage: " + helpString);
         }
 
@@ -40,25 +40,25 @@ public class CreateChallengeCommand extends UserCommand {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             Date endDate = df.parse(commandArgs[2]);
 
-            // Join remaining args as instructions (allows for spaces if underscores used)
-            StringBuilder instructionBuilder = new StringBuilder();
-            for (int i = 3; i < commandArgs.length; i++) {
-                instructionBuilder.append(commandArgs[i]);
-                if (i != commandArgs.length - 1) {
-                    instructionBuilder.append(" ");
-                }
+        
+
+            Team team = currentUser.getTeam();
+           
+            if (challengeName.equalsIgnoreCase("PushUps") || challengeName.equalsIgnoreCase("PushUp" )){
+                team.setChallengeCreator(new PushUpChallengeCreator());
             }
 
-            String rawInstructions = instructionBuilder.toString();
-            String instructions = rawInstructions.replace("_", " ");
-
-            Challenge challenge = new Challenge(challengeName, endDate, instructions);
-            Team team = currentUser.getTeam();
-            team.makeChallenge(challenge);
+            team.makeChallenge(endDate);
 
             System.out.println("\nChallenge created successfully: " + challengeName);
         } catch (ParseException e) {
             throw new Exception("Error: Invalid date format. Please use MM/dd/yyyy.");
         }
+    }
+
+    @Override
+    public String getHelp() {
+        
+        return super.getHelp();
     }
 }
