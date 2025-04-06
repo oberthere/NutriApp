@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.rit.swen262.user.User;
+import edu.rit.swen262.user.components.DailyHistoryComponent;
 
 public class MaintainWeightTest { 
     private User user;
@@ -22,7 +23,7 @@ public class MaintainWeightTest {
         targetWeight = 200.0;
         
         // Create user with initial physical stats
-        user = new User("TestUser", "Password", 72.0, currentWeight, new Date()); 
+        user = new User("TestUser", "Password", 72.0, currentWeight, new Date(), new DailyHistoryComponent("TestUser", new Date(), currentWeight)); 
 
         user.startNewDay(currentWeight, targetWeight, false);
     }
