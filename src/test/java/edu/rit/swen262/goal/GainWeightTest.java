@@ -1,11 +1,13 @@
 package edu.rit.swen262.goal;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.util.Date;
 
 import edu.rit.swen262.user.User;
@@ -49,5 +51,16 @@ public class GainWeightTest {
     @Test
     void testToString() {
         assertEquals("Gain Weight", user.getGoalComponent().getCurrentGoal().toString());
+    }
+    
+    @AfterAll
+    public static void cleanUpTestData() {
+        String filename = System.getProperty("nutriapp.savefile", "SaveData");
+        File file = new File("src/main/resources/data/" + filename);
+        if (file.exists() && file.delete()) {
+            System.out.println("Test save file '" + filename + "' deleted after test.");
+        } else {
+            System.out.println("Could not delete test save file '" + filename + "'");
+        }
     }
 }

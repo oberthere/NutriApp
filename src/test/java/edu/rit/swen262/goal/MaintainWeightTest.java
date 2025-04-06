@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
+import java.io.File;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.rit.swen262.user.User;
-import edu.rit.swen262.user.components.DailyHistoryComponent;
 
 public class MaintainWeightTest { 
     private User user;
@@ -23,8 +24,7 @@ public class MaintainWeightTest {
         targetWeight = 200.0;
         
         // Create user with initial physical stats
-        user = new User("TestUser", "Password", 72.0, currentWeight, new Date(), new DailyHistoryComponent("TestUser", new Date(), currentWeight)); 
-
+        user = new User("TestUser", "Password", 72.0, currentWeight, new Date()); 
         user.startNewDay(currentWeight, targetWeight, false);
     }
 
@@ -53,5 +53,16 @@ public class MaintainWeightTest {
     @Test
     void testToString() {
         assertEquals("Maintain Weight", user.getGoalComponent().getCurrentGoal().toString());
+    }
+
+    @AfterAll
+    public static void cleanUpTestData() {
+        String filename = System.getProperty("nutriapp.savefile", "SaveData");
+        File file = new File("src/main/resources/data/" + filename);
+        if (file.exists() && file.delete()) {
+            System.out.println("Test save file '" + filename + "' deleted after test.");
+        } else {
+            System.out.println("Could not delete test save file '" + filename + "'");
+        }
     }
 }
