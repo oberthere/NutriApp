@@ -100,7 +100,8 @@ public class PageData {
         System.out.println("Loading team...");
         Map<String, TeamData> teamDataRecord = SaveData.getTeamData();
         for (TeamData teamData : teamDataRecord.values()) {
-            
+            Team team = new Team(pageRunner.getPageData(), teamData);
+            this.teams.put(team.getTeamName(), team);
         }
     }
 }

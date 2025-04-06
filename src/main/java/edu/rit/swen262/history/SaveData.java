@@ -155,6 +155,7 @@ public final class SaveData {
             history = tempHistory;
             userDataRecord = tempUserDataRecord;
             pantryRecord = tempPantryRecord;
+            teamDataRecord = tempTeamDataRecord;
             // Reloads pantry data
             pantryRecord.readToPantryStock();
             
