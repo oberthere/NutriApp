@@ -20,14 +20,13 @@ import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 
 public class PantryRecordTest {
-    private String testFile;
+    private static final String testFile = "TestSaveData_" + UUID.randomUUID();;
     Ingredient butter;
     Ingredient cheese;
     Recipe grilledCheese;
 
     @BeforeEach
     void setUp() {
-        String testFile = "TestSaveData_" + UUID.randomUUID();
         System.setProperty("nutriapp.savefile", testFile);
 
         // Load ingredients from CSV
@@ -75,7 +74,7 @@ public class PantryRecordTest {
     }
 
     @AfterAll
-    void cleanUpTestData() {
+    public static void cleanUpTestData() {
         File file = new File("src/main/resources/data/" + testFile);
         if (file.exists() && file.delete()) {
             System.out.println("Deleted test file: " + testFile);
