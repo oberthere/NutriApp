@@ -57,12 +57,12 @@ public class AddWorkoutCommand extends UserCommand {
         dailyHistory.addWorkout(newWorkout);
 
         Team team = pageData.getCurrentUser().getTeam();
-        for (User user : team.getMembers()) {
-            user.incrementTeamNotificationIndex();
-        }
         if (team != null) {
+            for (User user : team.getMembers()) {
+                user.incrementTeamNotificationIndex();
+            }
             team.addToNotificationLogs(pageData.getCurrentUser(), workoutName);
-        team.getChallenge().addToRecord(pageData.getCurrentUser().getName(), durationMin);
+            team.getChallenge().addToRecord(pageData.getCurrentUser().getName(), durationMin);
         }
         System.out.println(workoutName + " Workout Added Successfully.");
     }
