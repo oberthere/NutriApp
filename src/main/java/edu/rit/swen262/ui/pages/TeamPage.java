@@ -47,7 +47,6 @@ public class TeamPage extends Page {
         // TODO Auto-generated method stub
         super.printContent();
         if (pageData.getCurrentUser().getTeam() != null) {
-            System.out.println("Team Info: ");
             Team team = pageData.getCurrentUser().getTeam();
             System.out.println("Team Name: " + team.getTeamName());
             System.out.println("   Team Members:");
@@ -55,6 +54,8 @@ public class TeamPage extends Page {
             for (User user : team.getMembers()) {
                 System.out.println("\t- " + user.getName());
             }
+
+            System.out.println();
 
             if (team.getChallenge() != null) {
                 System.out.println("Team Challenge: " + 
@@ -75,6 +76,7 @@ public class TeamPage extends Page {
                 for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
                     System.out.println("\t- " + entry.getKey() + " : " + entry.getValue());
                 }
+                System.out.println();
             }
     
         } else {
