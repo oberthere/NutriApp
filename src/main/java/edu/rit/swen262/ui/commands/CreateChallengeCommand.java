@@ -51,7 +51,7 @@ public class CreateChallengeCommand extends UserCommand {
 
             team.makeChallenge(endDate);
 
-            pageData.addTeam(nameString, team);
+            pageData.updateTeam(nameString, team);
             SaveData.serializeHistoryToSave();
 
             System.out.println("\nChallenge created successfully: " + challengeName);

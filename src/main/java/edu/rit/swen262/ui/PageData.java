@@ -44,12 +44,15 @@ public class PageData {
 
     public void addUser(String name, User user) {this.users.put(name, user);}
     public void addTeam(String name, Team team) {
-        this.teams.put(name, team);
         team.acceptMember(currentUser);
+        updateTeam(name, team);
+    }
+    public void updateTeam(String name, Team team) {
+        this.teams.put(name, team);
         currentUser.setTeam(team);
-
         SaveData.addTeam(team);
     }
+
     public void removeUser(String name) {this.users.remove(name);}
 
     /**
