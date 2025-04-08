@@ -63,7 +63,6 @@ public class TeamPage extends Page {
                 team.getChallenge().getName() + " " + team.getChallenge().getEndDate() + " " + team.getChallenge().getInstructions());
 
                 Map<String, Integer> members = team.getChallenge().getRecord();
-                System.out.println(members);
                 List<Map.Entry<String, Integer>> entryList = new ArrayList<>(members.entrySet());
                 entryList.sort(Map.Entry.comparingByValue());
                 Map<String, Integer> sortedMap = new LinkedHashMap<>();
