@@ -61,6 +61,7 @@ public class AddWorkoutCommand extends UserCommand {
             user.incrementTeamNotificationIndex();
         }
         team.addToNotificationLogs(pageData.getCurrentUser(), workoutName);
+        team.getChallenge().addToRecord(pageData.getCurrentUser(), durationMin);
 
         System.out.println(workoutName + " Workout Added Successfully.");
     }

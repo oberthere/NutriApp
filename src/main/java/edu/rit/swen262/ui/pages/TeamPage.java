@@ -1,10 +1,14 @@
 package edu.rit.swen262.ui.pages;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.team.TeamInvite;
+import edu.rit.swen262.team.challenge.Challenge;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
 import edu.rit.swen262.ui.commands.CreateChallengeCommand;
@@ -55,19 +59,24 @@ public class TeamPage extends Page {
             }
 
             if (team.getChallenge() != null) {
-                System.out.println("\tTeam Challenge: " + 
+                System.out.println("Team Challenge: " + 
                 team.getChallenge().getName() + " " + team.getChallenge().getEndDate() + " " + team.getChallenge().getInstructions());
             }
             
-            List<User> members = team.getMembers();
-            members.sort(Comparator.comparing(User::getLastUpdated));
-            for (User user : members) {
-                
-                System.out.println("Rank: ");
-                System.out.println(user.getName());
-                
+            Map<User, Integer> members = team.getChallenge().getRecord();
+            List<Map.Entry<User, Integer>> entryList = new ArrayList<>(members.entrySet());
+            entryList.sort(Map.Entry.comparingByValue());
+            Map<User, Integer> sortedMap = new LinkedHashMap<>();
+            
+            for (Map.Entry<User, Integer> entry : entryList){
+                sortedMap.put(entry.getKey(), entry.getValue());
             }
 
+            System.out.println("Rank: ");
+            for (Map.Entry<User, Integer> entry : sortedMap.entrySet()) {
+                System.out.println(entry.getKey() + " -> " + entry.getValue());
+            }
+    
         } else {
             System.out.println();
             System.out.println("Team Invites:");

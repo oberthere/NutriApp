@@ -81,7 +81,6 @@ public class User {
     public void setTeam(Team team) {this.team = team;}
     public void incrementTeamNotificationIndex() {this.teamNotificationIndex++;}
     public void resetTeamNotificationIndex() {this.teamNotificationIndex = 0;}
-
     public Date getLastUpdated() {return this.dailyHistoryComponent.getDate();}
 
     public void startNewDay(double weight, double targetWeight, boolean isPhysicalFitnessGoal) {
