@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,12 +20,16 @@ import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 
 public class PantryRecordTest {
+    private String testFile;
     Ingredient butter;
     Ingredient cheese;
     Recipe grilledCheese;
 
     @BeforeEach
     void setUp() {
+        String testFile = "TestSaveData_" + UUID.randomUUID();
+        System.setProperty("nutriapp.savefile", testFile);
+
         // Load ingredients from CSV
         new csvReader().ingredientReader();
 
@@ -70,13 +75,12 @@ public class PantryRecordTest {
     }
 
     @AfterAll
-    public static void cleanUpTestData() {
-        String filename = System.getProperty("nutriapp.savefile", "SaveData");
-        File file = new File("src/main/resources/data/" + filename);
+    void cleanUpTestData() {
+        File file = new File("src/main/resources/data/" + testFile);
         if (file.exists() && file.delete()) {
-            System.out.println("Test save file '" + filename + "' deleted after test.");
+            System.out.println("Deleted test file: " + testFile);
         } else {
-            System.out.println("Could not delete test save file '" + filename + "'");
+            System.out.println("Could not delete test save file '" + testFile + "'");
         }
     }
 }
