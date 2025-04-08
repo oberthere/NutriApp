@@ -24,11 +24,10 @@ import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 
 public class SaveDataTest {
-    private String testFile;
+    private static final String testFile = "TestSaveData_" + UUID.randomUUID();;
 
     @BeforeAll
-    void setUp() {
-        String testFile = "TestSaveData_" + UUID.randomUUID();
+    public static void setUp() {
         System.setProperty("nutriapp.savefile", testFile);
         SaveData.deserializeFromSave(); // Start clean
         PantryStock.updateIngredientRecord(new HashMap<>());
@@ -75,7 +74,7 @@ public class SaveDataTest {
         List<DailyHistoryComponent> restored = SaveData.getDailyHistory("TestUser");
         
         assertNotNull(restored);
-        assertEquals(6, restored.size());
+        assertEquals(3, restored.size());
 
         DailyHistoryComponent entry = restored.get(0);
         assertEquals("TestUser", entry.getUserID());
@@ -109,7 +108,7 @@ public class SaveDataTest {
     }
 
     @AfterAll
-    void cleanUpTestData() {
+    public static void cleanUpTestData() {
         File file = new File("src/main/resources/data/" + testFile);
         if (file.exists() && file.delete()) {
             System.out.println("Deleted test file: " + testFile);
