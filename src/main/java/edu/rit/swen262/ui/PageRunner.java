@@ -30,6 +30,7 @@ public class PageRunner {
         registerGlobalCommands();
     }
 
+    public Page getMainPage() {return this.mainPage;}
     public PageData getPageData() {return this.pageData;}
     public Page getCurrentPage() {return this.currentPage;}
     public String getScannerInput(){return scanner.nextLine().trim();}
@@ -61,6 +62,7 @@ public class PageRunner {
     private void registerGlobalCommands() {
         globalCommands.add(new BackCommand(this));
         globalCommands.add(new ExitCommand(this));
+        globalCommands.add(new GoHomeCommand(this));
     }
 
     @SuppressWarnings("unchecked")
