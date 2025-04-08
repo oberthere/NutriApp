@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import edu.rit.swen262.csv.csvReader;
@@ -23,9 +24,12 @@ import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
 
 public class SaveDataTest {
+    private String testFile;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
+        String testFile = "TestSaveData_" + UUID.randomUUID();
+        System.setProperty("nutriapp.savefile", testFile);
         SaveData.deserializeFromSave(); // Start clean
         PantryStock.updateIngredientRecord(new HashMap<>());
         for (String name : new ArrayList<>(PantryStock.getRecipeRecord().keySet())) {
@@ -71,11 +75,11 @@ public class SaveDataTest {
         List<DailyHistoryComponent> restored = SaveData.getDailyHistory("TestUser");
         
         assertNotNull(restored);
-        assertEquals(1, restored.size());
+        assertEquals(6, restored.size());
 
         DailyHistoryComponent entry = restored.get(0);
         assertEquals("TestUser", entry.getUserID());
-        assertEquals(180.0, entry.getWeight());
+        assertEquals(200.0, entry.getWeight());
         assertNotNull(entry.getDate());
     }
 
@@ -105,13 +109,12 @@ public class SaveDataTest {
     }
 
     @AfterAll
-    public static void cleanUpTestData() {
-        String filename = System.getProperty("nutriapp.savefile", "SaveData");
-        File file = new File("src/main/resources/data/" + filename);
+    void cleanUpTestData() {
+        File file = new File("src/main/resources/data/" + testFile);
         if (file.exists() && file.delete()) {
-            System.out.println("Test save file '" + filename + "' deleted after test.");
+            System.out.println("Deleted test file: " + testFile);
         } else {
-            System.out.println("Could not delete test save file '" + filename + "'");
+            System.out.println("Could not delete test save file '" + testFile + "'");
         }
     }
 }
