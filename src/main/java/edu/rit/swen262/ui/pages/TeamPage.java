@@ -61,20 +61,20 @@ public class TeamPage extends Page {
             if (team.getChallenge() != null) {
                 System.out.println("Team Challenge: " + 
                 team.getChallenge().getName() + " " + team.getChallenge().getEndDate() + " " + team.getChallenge().getInstructions());
-            }
-            
-            Map<User, Integer> members = team.getChallenge().getRecord();
-            List<Map.Entry<User, Integer>> entryList = new ArrayList<>(members.entrySet());
-            entryList.sort(Map.Entry.comparingByValue());
-            Map<User, Integer> sortedMap = new LinkedHashMap<>();
-            
-            for (Map.Entry<User, Integer> entry : entryList){
-                sortedMap.put(entry.getKey(), entry.getValue());
-            }
 
-            System.out.println("Rank: ");
-            for (Map.Entry<User, Integer> entry : sortedMap.entrySet()) {
-                System.out.println(entry.getKey() + " -> " + entry.getValue());
+                Map<String, Integer> members = team.getChallenge().getRecord();
+                List<Map.Entry<String, Integer>> entryList = new ArrayList<>(members.entrySet());
+                entryList.sort(Map.Entry.comparingByValue());
+                Map<String, Integer> sortedMap = new LinkedHashMap<>();
+            
+                for (Map.Entry<String, Integer> entry : entryList){
+                    sortedMap.put(entry.getKey(), entry.getValue());
+                }
+
+                System.out.println("\nRank: ");
+                for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
+                    System.out.println(entry.getKey() + " -> " + entry.getValue());
+                }
             }
     
         } else {

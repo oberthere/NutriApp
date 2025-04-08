@@ -11,7 +11,7 @@ public class Challenge implements Serializable{
     private String name;
     private Date endDate;
     private String instructions;
-    private Map<User, Integer> recordedTime;
+    private Map<String, Integer> recordedTime;
 
     public Challenge(String name, Date endDate, String instructions) {
         this.name = name;
@@ -23,11 +23,11 @@ public class Challenge implements Serializable{
     public String getName() {return this.name;}
     public Date getEndDate() {return this.endDate;}
     public String getInstructions() {return this.instructions;}
-    public Map<User, Integer> getRecord() {return this.recordedTime;}
+    public Map<String, Integer> getRecord() {return this.recordedTime;}
 
-    public void addToRecord(User user, int time) {
-        for (User member : recordedTime.keySet()) {
-            if (user == member) {
+    public void addToRecord(String username, int time) {
+        for (String member : recordedTime.keySet()) {
+            if (username == member) {
                 recordedTime.put(member, Integer.valueOf(time + recordedTime.get(member)));
             }
         }
