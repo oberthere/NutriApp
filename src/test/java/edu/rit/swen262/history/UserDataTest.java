@@ -21,9 +21,9 @@ public class UserDataTest {
 
     @BeforeEach
     void setUp() {
-        birthdate = new Date(); // Use fixed date for reproducibility
+        birthdate = new Date();
         user = new User("TestUser", "Pass", 180.0, 70.0, birthdate);
-        userData = user.createUserData(); // Generate UserData from User
+        userData = user.createUserData();
     }
 
     @Test
