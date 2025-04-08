@@ -26,10 +26,13 @@ public class Challenge implements Serializable{
     public Map<String, Integer> getRecord() {return this.recordedTime;}
 
     public void addToRecord(String username, int time) {
-        for (String member : recordedTime.keySet()) {
-            if (username == member) {
-                recordedTime.put(member, Integer.valueOf(time + recordedTime.get(member)));
-            }
+
+        if (recordedTime.containsKey(username)) {
+            recordedTime.put(username, Integer.valueOf(time + recordedTime.get(username)));
         }
+        else {
+            recordedTime.put(username, time);
+        }
+        
     }
 }

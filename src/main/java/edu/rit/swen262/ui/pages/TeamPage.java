@@ -63,6 +63,7 @@ public class TeamPage extends Page {
                 team.getChallenge().getName() + " " + team.getChallenge().getEndDate() + " " + team.getChallenge().getInstructions());
 
                 Map<String, Integer> members = team.getChallenge().getRecord();
+
                 List<Map.Entry<String, Integer>> entryList = new ArrayList<>(members.entrySet());
                 entryList.sort(Map.Entry.comparingByValue());
                 Map<String, Integer> sortedMap = new LinkedHashMap<>();
@@ -73,7 +74,7 @@ public class TeamPage extends Page {
 
                 System.out.println("\nRank: ");
                 for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
-                    System.out.println(entry.getKey() + " -> " + entry.getValue());
+                    System.out.println("\t- " + entry.getKey() + " : " + entry.getValue());
                 }
             }
     
