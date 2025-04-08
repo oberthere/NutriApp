@@ -1,5 +1,8 @@
 package edu.rit.swen262.ui.pages;
 
+import java.util.Comparator;
+import java.util.List;
+
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.team.TeamInvite;
 import edu.rit.swen262.ui.PageData;
@@ -46,6 +49,7 @@ public class TeamPage extends Page {
             Team team = pageData.getCurrentUser().getTeam();
             System.out.println("Team Name: " + team.getTeamName());
             System.out.println("   Team Members:");
+            
             for (User user : team.getMembers()) {
                 System.out.println("\t- " + user.getName());
             }
@@ -53,6 +57,15 @@ public class TeamPage extends Page {
             if (team.getChallenge() != null) {
                 System.out.println("\tTeam Challenge: " + 
                 team.getChallenge().getName() + " " + team.getChallenge().getEndDate() + " " + team.getChallenge().getInstructions());
+            }
+            
+            List<User> members = team.getMembers();
+            members.sort(Comparator.comparing(User::getLastUpdated));
+            for (User user : members) {
+                
+                System.out.println("Rank: ");
+                System.out.println(user.getName());
+                
             }
 
         } else {
