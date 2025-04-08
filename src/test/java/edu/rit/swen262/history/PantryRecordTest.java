@@ -29,6 +29,11 @@ public class PantryRecordTest {
     void setUp() {
         System.setProperty("nutriapp.savefile", testFile);
 
+        PantryStock.updateIngredientRecord(new HashMap<>());
+        new ArrayList<>(PantryStock.getRecipeRecord().keySet()).forEach(name ->
+            PantryStock.removeRecipe(PantryStock.getRecipeRecord().get(name))
+        );
+
         // Load ingredients from CSV
         new csvReader().ingredientReader();
 
