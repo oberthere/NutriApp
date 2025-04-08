@@ -108,8 +108,9 @@ public class PageData {
             for (String userName : teamData.getMembers()) {
                 getUser(userName).setTeam(team);
             }
+            System.out.println("\t- " + team.getTeamName());
         }
 
-        System.out.println("Loaded Team: " + this.teams.keySet());
+        
     }
 }
