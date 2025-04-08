@@ -13,20 +13,23 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import edu.rit.swen262.csv.csvReader;
 import edu.rit.swen262.food.Ingredient;
 import edu.rit.swen262.food.PantryStock;
 import edu.rit.swen262.food.Recipe;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PantryRecordTest {
-    private static final String testFile = "TestSaveData_" + UUID.randomUUID();;
+    String testFile;
     Ingredient butter;
     Ingredient cheese;
     Recipe grilledCheese;
 
     @BeforeEach
     void setUp() {
+        testFile = "TestSaveData_" + UUID.randomUUID();
         System.setProperty("nutriapp.savefile", testFile);
 
         PantryStock.updateIngredientRecord(new HashMap<>());
@@ -79,7 +82,7 @@ public class PantryRecordTest {
     }
 
     @AfterAll
-    public static void cleanUpTestData() {
+    void cleanUpTestData() {
         File file = new File("src/main/resources/data/" + testFile);
         if (file.exists() && file.delete()) {
             System.out.println("Deleted test file: " + testFile);
