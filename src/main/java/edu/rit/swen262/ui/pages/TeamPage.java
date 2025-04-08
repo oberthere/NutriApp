@@ -1,14 +1,12 @@
 package edu.rit.swen262.ui.pages;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.team.TeamInvite;
-import edu.rit.swen262.team.challenge.Challenge;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.commands.AddTeamCommand;
 import edu.rit.swen262.ui.commands.CreateChallengeCommand;

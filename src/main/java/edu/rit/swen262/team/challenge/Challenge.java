@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.rit.swen262.user.User;
-
 public class Challenge implements Serializable{
     private String name;
     private Date endDate;
