@@ -82,6 +82,7 @@ public class User {
     public void incrementTeamNotificationIndex() {this.teamNotificationIndex++;}
     public void resetTeamNotificationIndex() {this.teamNotificationIndex = 0;}
     public Date getLastUpdated() {return this.dailyHistoryComponent.getDate();}
+    public void addTeamInvite(TeamInvite invite) {this.teamInvites.add(invite);}
 
     public void startNewDay(double weight, double targetWeight, boolean isPhysicalFitnessGoal) {
         // Save previous day's data before resetting

@@ -1,5 +1,6 @@
 package edu.rit.swen262.ui.commands;
 
+import edu.rit.swen262.team.TeamInvite;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
 
@@ -23,5 +24,6 @@ public class SendTeamInviteCommand extends UserCommand {
 
         String userName = commandArgs[1];
         pageRunner.getPageData().getCurrentUser().getTeam().sendInvite(userName);
+        pageRunner.getPageData().getUser(userName).addTeamInvite(new TeamInvite(pageRunner.getPageData().getCurrentUser().getTeam()));
     }
 }

@@ -66,6 +66,7 @@ public class TeamPage extends Page {
 
                 List<Map.Entry<String, Integer>> entryList = new ArrayList<>(members.entrySet());
                 entryList.sort(Map.Entry.comparingByValue());
+                entryList = entryList.reversed();
                 Map<String, Integer> sortedMap = new LinkedHashMap<>();
             
                 for (Map.Entry<String, Integer> entry : entryList){
