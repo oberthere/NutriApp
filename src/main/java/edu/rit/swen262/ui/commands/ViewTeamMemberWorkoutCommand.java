@@ -2,7 +2,6 @@ package edu.rit.swen262.ui.commands;
 
 import java.util.Map;
 
-import edu.rit.swen262.history.TeamData;
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.ui.PageData;
 import edu.rit.swen262.ui.PageRunner;
@@ -24,7 +23,6 @@ public class ViewTeamMemberWorkoutCommand extends UserCommand {
 
     @Override
     public String getHelp() {
-        // TODO Auto-generated method stub
         return super.getHelp();
     }
 
@@ -38,7 +36,7 @@ public class ViewTeamMemberWorkoutCommand extends UserCommand {
         Team team = user.getTeam();
         System.out.println("Team Workouts:");
         for (Map.Entry<User, String> entry : team.getNotificationLogs()) {
-            System.out.println("  - " + entry.getKey() + ": " + entry.getValue());
+            System.out.println("  - " + entry.getKey().getName() + ": " + entry.getValue());
         }
 
         user.resetTeamNotificationIndex();

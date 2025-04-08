@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -65,5 +67,16 @@ public class PantryRecordTest {
         Recipe restored = PantryStock.getRecipeRecord().get("Grilled Cheese");
         assertEquals("Toast it.", restored.getInstructions());
         assertEquals(2, restored.getIngredients().size());
+    }
+
+    @AfterAll
+    public static void cleanUpTestData() {
+        String filename = System.getProperty("nutriapp.savefile", "SaveData");
+        File file = new File("src/main/resources/data/" + filename);
+        if (file.exists() && file.delete()) {
+            System.out.println("Test save file '" + filename + "' deleted after test.");
+        } else {
+            System.out.println("Could not delete test save file '" + filename + "'");
+        }
     }
 }
