@@ -1,5 +1,6 @@
 package edu.rit.swen262.ui.commands;
 
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.ui.PageRunner;
 import edu.rit.swen262.ui.pages.Page;
 
@@ -22,6 +23,7 @@ public class BackCommand extends UserCommand{
         Page parentPage = currentPage.getParentPage();
 
         if (parentPage != null) {
+            SaveData.serializeHistoryToSave();
             System.out.println("\nGoing back to " + parentPage.getPageName());
             pageRunner.setPage(parentPage);
         } else {

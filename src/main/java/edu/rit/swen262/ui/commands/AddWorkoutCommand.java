@@ -10,6 +10,7 @@ import edu.rit.swen262.workout.MediumIntensityStrategy;
 import edu.rit.swen262.workout.Workout;
 import edu.rit.swen262.user.User;
 import edu.rit.swen262.user.components.DailyHistoryComponent;
+import edu.rit.swen262.history.SaveData;
 import edu.rit.swen262.team.Team;
 import edu.rit.swen262.ui.PageData;
 
@@ -64,6 +65,8 @@ public class AddWorkoutCommand extends UserCommand {
             team.addToNotificationLogs(pageData.getCurrentUser(), workoutName);
             team.getChallenge().addToRecord(pageData.getCurrentUser().getName(), durationMin);
         }
+        
+        SaveData.serializeHistoryToSave();
         System.out.println(workoutName + " Workout Added Successfully.");
     }
 
